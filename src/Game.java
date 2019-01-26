@@ -29,8 +29,8 @@ public class Game extends Application{
 
 
     private Scene myScene;
-    private Circle myCirc;
     private Ball myBall;
+    private Brick myBrick;
 
     public void start (Stage stage) {
         // attach scene to the stage and display it
@@ -51,16 +51,30 @@ public class Game extends Application{
         var root = new Group();
         // create a place to see the shapes
         var scene = new Scene(root, width, height, background);
+
+        myBrick = new Brick(1);
+        myBrick.getView().setX(width - myBrick.getView().getBoundsInLocal().getWidth() / 2);
+        myBrick.getView().setY(height / 2 - myBrick.getView().getBoundsInLocal().getHeight() / 2);
+
         myBall = new Ball();
         myBall.getView().setX(width / 2 - myBall.getView().getBoundsInLocal().getWidth() / 2);
         myBall.getView().setY(height / 2 - myBall.getView().getBoundsInLocal().getHeight() / 2);
         root.getChildren().add(myBall.getView());
+        root.getChildren().add(myBrick.getView());
 
         return scene;
     }
 
+    private void checkBallBrickCollision(){
+        if (myBall.getView().getBoundsInParent().intersects(myBrick.getView().getBoundsInParent())){
+            myBrick.decreaseHealth();
+        }
+    }
+
+
     private void step (double elapsedTime) {
         myBall.move(elapsedTime);
+        checkBallBrickCollision();
     }
 
     public static void main(String[] args){
