@@ -51,20 +51,16 @@ public class Game extends Application{
         var root = new Group();
         // create a place to see the shapes
         var scene = new Scene(root, width, height, background);
-        /*
-        myCirc = new Circle(100);
-        myCirc.setFill(Color.DARKSALMON);
-        root.getChildren().add(myCirc);
-        */
-
         myBall = new Ball();
+        myBall.getView().setX(width / 2 - myBall.getView().getBoundsInLocal().getWidth() / 2);
+        myBall.getView().setY(height / 2 - myBall.getView().getBoundsInLocal().getHeight() / 2);
         root.getChildren().add(myBall.getView());
 
         return scene;
     }
 
     private void step (double elapsedTime) {
-        //myCirc.setRotate(elapsedTime);
+        myBall.move(elapsedTime);
     }
 
     public static void main(String[] args){
