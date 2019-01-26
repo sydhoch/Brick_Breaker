@@ -30,7 +30,8 @@ public class Game extends Application{
 
     private Scene myScene;
     private Ball myBall;
-    private Brick myBrick;
+    //private Brick myBrick;
+    private Brick[][] myBricks;
 
     public void start (Stage stage) {
         // attach scene to the stage and display it
@@ -52,22 +53,41 @@ public class Game extends Application{
         // create a place to see the shapes
         var scene = new Scene(root, width, height, background);
 
-        myBrick = new Brick(1);
-        myBrick.getView().setX(width - myBrick.getView().getBoundsInLocal().getWidth() / 2);
-        myBrick.getView().setY(height / 2 - myBrick.getView().getBoundsInLocal().getHeight() / 2);
-
         myBall = new Ball();
         myBall.getView().setX(width / 2 - myBall.getView().getBoundsInLocal().getWidth() / 2);
         myBall.getView().setY(height / 2 - myBall.getView().getBoundsInLocal().getHeight() / 2);
         root.getChildren().add(myBall.getView());
-        root.getChildren().add(myBrick.getView());
-
+       // root.getChildren().add(myBrick.getView());
+        myBricks = createBrickArray();
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                root.getChildren().add(myBricks[i][j].getView());
+            }
+        }
         return scene;
     }
 
+    private Brick[][] createBrickArray(){
+        myBricks = new Brick[10][10];
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+
+                Brick myBrick = new Brick(1);
+                //myBrick.placeBrick(width - myBrick.getView().getBoundsInLocal().getWidth() / 2, height / 2 - myBrick.getView().getBoundsInLocal().getHeight() / 2);
+                myBrick.placeBrick(i, j);
+                myBricks[i][j] = myBrick;
+            }
+        }
+        return myBricks;
+    }
+
     private void checkBallBrickCollision(){
-        if (myBall.getView().getBoundsInParent().intersects(myBrick.getView().getBoundsInParent())){
-            myBrick.decreaseHealth();
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (myBall.getView().getBoundsInParent().intersects(myBricks[i][j].getView().getBoundsInParent())) {
+                    myBricks[i][j].decreaseHealth();
+                }
+            }
         }
     }
 

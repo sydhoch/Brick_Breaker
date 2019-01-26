@@ -8,9 +8,10 @@ import java.awt.*;
  *
  * @author leahschwartz
  */
-public class Brick extends Rectangle {
+public class Brick {
 
     public static final String BRICK_IMAGE = "brick1.gif";
+   // public static final int BRICK_SPACE = 50;
     private ImageView myBrick;
     private int myHealth;
 
@@ -19,6 +20,11 @@ public class Brick extends Rectangle {
         myBrick = new ImageView(image);
         myHealth = health;
 
+    }
+
+    public void placeBrick(double xCoordinate, double yCoordinate){
+        myBrick.setX(xCoordinate * myBrick.getBoundsInParent().getWidth());
+        myBrick.setY(yCoordinate * myBrick.getBoundsInParent().getHeight());
     }
 
     /**
@@ -40,8 +46,6 @@ public class Brick extends Rectangle {
         myBrick.setVisible(false);
 
     }
-
-
 
     /**
      * Gets brick image
