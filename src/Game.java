@@ -30,6 +30,7 @@ public class Game extends Application{
 
     private Scene myScene;
     private Circle myCirc;
+    private Ball myBall;
 
     public void start (Stage stage) {
         // attach scene to the stage and display it
@@ -50,14 +51,20 @@ public class Game extends Application{
         var root = new Group();
         // create a place to see the shapes
         var scene = new Scene(root, width, height, background);
+        /*
         myCirc = new Circle(100);
         myCirc.setFill(Color.DARKSALMON);
         root.getChildren().add(myCirc);
+        */
+
+        myBall = new Ball();
+        root.getChildren().add(myBall.getView());
+
         return scene;
     }
 
     private void step (double elapsedTime) {
-        myCirc.setRotate(elapsedTime);
+        //myCirc.setRotate(elapsedTime);
     }
 
     public static void main(String[] args){
