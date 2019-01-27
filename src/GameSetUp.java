@@ -3,19 +3,25 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Paint;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javafx.scene.text.*;
 
 
 
 public class GameSetUp {
 
     private int size;
+    private Group root;
     private Scene myScene;
     private int numBrickCols;
     private int numBrickRows;
+    public int BricksRemaining;
+    private int lives=3; //chose to have 3 lives
+
 
     private ArrayList<ArrayList<Brick>> myBricks;
     private Ball myBall;
     private Paddle myPaddle;
+    private Player myPlayer;
    // private Label statusLabel;
 
 
@@ -26,7 +32,11 @@ public class GameSetUp {
      */
     public GameSetUp(String fileName, Paint background){
         fillBrickList(readBrickFile(fileName), numBrickCols, numBrickRows);
+        root = new Group();
         myScene = setGameStage(background);
+        PlayerSetUp();
+        // create one top level collection to organize the things in the scene
+
     }
 
     /**
@@ -44,7 +54,26 @@ public class GameSetUp {
     public void step (double elapsedTime) {
         myBall.move(elapsedTime);
         myBall.bounce(myScene.getWidth(),myScene.getHeight());
+        checkBallHitsPaddle();
         checkBallBrickCollision();
+        if(myBall.ballFell(myScene.getHeight())){
+             myPlayer.loseLife();
+             if(myPlayer.getLives()>0){
+                 ballInit();
+                 centerPaddle();
+             }
+             else{
+                 GameOver();
+             }
+        }
+    }
+
+    private void GameOver(){
+
+    }
+
+    private void PlayerSetUp(){
+        myPlayer = new Player(lives);
     }
 
     /**
@@ -97,20 +126,15 @@ public class GameSetUp {
         return size / numBrickCols;
     }
 
+    //////////////////////////////////////////////////////////////////////////
     private Scene setGameStage (Paint background) {
-        // create one top level collection to organize the things in the scene
-        var root = new Group();
         // create a place to see the shapes
         var scene = new Scene(root, size, size, background);
 
-        myBall = new Ball();
-        myBall.getView().setX(size / 2 - myBall.getView().getBoundsInLocal().getWidth() / 2);
-        myBall.getView().setY(size / 2 - myBall.getView().getBoundsInLocal().getHeight() / 2);
-        root.getChildren().add(myBall.getView());
+        ballInit();
 
         myPaddle = new Paddle();
-        myPaddle.getView().setX(size / 2 - myPaddle.getView().getBoundsInLocal().getWidth() / 2);
-        myPaddle.getView().setY(size - myPaddle.getView().getBoundsInLocal().getHeight());
+        centerPaddle();
         root.getChildren().add(myPaddle.getView());
 
         for (ArrayList<Brick> brickRow : myBricks){
@@ -124,6 +148,28 @@ public class GameSetUp {
         return scene;
     }
 
+    private void centerPaddle(){
+        myPaddle.getView().setX(size / 2 - myPaddle.getView().getBoundsInLocal().getWidth() / 2);
+        myPaddle.getView().setY(size - myPaddle.getView().getBoundsInLocal().getHeight());
+    }
+
+    private void ballInit(){
+        myBall = new Ball();
+        myBall.getView().setX(size / 2 - myBall.getView().getBoundsInLocal().getWidth() / 2);
+        myBall.getView().setY(size / 2 - myBall.getView().getBoundsInLocal().getHeight() / 2);
+        root.getChildren().add(myBall.getView());
+    }
+
+    private void setStatusDisplay(){
+        Text t = new Text();
+        t.setFont(new Font(20));
+        String livesleft = "Lives Left: "+myPlayer.getLives()+"\n";
+        String score= "Score: \n";
+        String level = "Level: 1";
+        t.setText(livesleft+score+level);
+    }
+    /////////////////////////////////////////////////////////////////////////////
+
 
     private void checkBallBrickCollision(){
         for (ArrayList<Brick> brickRow : myBricks){
@@ -132,6 +178,12 @@ public class GameSetUp {
                     myBrick.decreaseHealth();
                 }
             }
+        }
+    }
+
+    private void checkBallHitsPaddle(){
+        if(myBall.getView().getBoundsInLocal().intersects(myPaddle.getView().getBoundsInLocal())){
+            myBall.BounceOff();
         }
     }
 

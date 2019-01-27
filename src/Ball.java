@@ -14,9 +14,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class Ball {
-    public static final int BOUNCER_SPEED = 50;
-    private int myVelocityX=80;
-    private int myVelocityY=40;
+    private int myVelocityX=100;
+    private int myVelocityY=60;
     private ImageView myView;
     public static final String BOUNCER_IMAGE = "ball.gif";
 
@@ -24,6 +23,7 @@ public class Ball {
         var image = new Image(this.getClass().getClassLoader().getResourceAsStream(BOUNCER_IMAGE));
         myView = new ImageView(image);
     }
+
     /**
      * changes the Bouncer's x- and y-coordinate by its speed dampened by the given elapsedTime
      * @param elapsedTime
@@ -34,6 +34,11 @@ public class Ball {
         myView.setY(myView.getY() + myVelocityY * elapsedTime);
     }
 
+    /**
+     * makes the ball bounce off of the left right and top walls by switching the direction of X & Y velocities
+     * @param screenWidth width of screen
+     * @param screenHeight height of screen
+    */
     public void bounce(double screenWidth, double screenHeight){
         if(myView.getX()<0 || myView.getX()>(screenWidth-myView.getBoundsInLocal().getWidth())){
             myVelocityX*=-1;
@@ -42,8 +47,24 @@ public class Ball {
             myVelocityY*=-1;
         }
     }
+
+    /**
+     * reverse direction of ball
+     */
+    public void BounceOff(){
+            myVelocityX*=-1;
+            myVelocityY*=-1;
+    }
+
+    /**
+     * @returns ball's ImageView
+     */
     public ImageView getView(){
         return myView;
+    }
+
+    public boolean ballFell(double screenHeight){
+        return myView.getY()>(screenHeight);
     }
 
 }
