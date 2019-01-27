@@ -30,7 +30,7 @@ public class Game extends Application{
 
     private Scene myScene;
     private Ball myBall;
-    //private Brick myBrick;
+    private Paddle myPaddle;
     private Brick[][] myBricks;
 
     public void start (Stage stage) {
@@ -57,13 +57,21 @@ public class Game extends Application{
         myBall.getView().setX(width / 2 - myBall.getView().getBoundsInLocal().getWidth() / 2);
         myBall.getView().setY(height / 2 - myBall.getView().getBoundsInLocal().getHeight() / 2);
         root.getChildren().add(myBall.getView());
-       // root.getChildren().add(myBrick.getView());
+
+        myPaddle = new Paddle();
+        myPaddle.getView().setX(width / 2 - myPaddle.getView().getBoundsInLocal().getWidth() / 2);
+        myPaddle.getView().setY(height - myPaddle.getView().getBoundsInLocal().getHeight());
+        root.getChildren().add(myPaddle.getView());
+
         myBricks = createBrickArray();
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 root.getChildren().add(myBricks[i][j].getView());
             }
         }
+
+        scene.setOnKeyPressed(key -> myPaddle.handleSideKeyInput(key.getCode()));
+
         return scene;
     }
 

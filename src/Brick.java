@@ -11,7 +11,7 @@ import java.awt.*;
 public class Brick {
 
     public static final String BRICK_IMAGE = "brick1.gif";
-   // public static final int BRICK_SPACE = 50;
+    public static final int GAP_SIZE = 10;
     private ImageView myBrick;
     private int myHealth;
 
@@ -22,9 +22,9 @@ public class Brick {
 
     }
 
-    public void placeBrick(double xCoordinate, double yCoordinate){
-        myBrick.setX(xCoordinate * myBrick.getBoundsInParent().getWidth());
-        myBrick.setY(yCoordinate * myBrick.getBoundsInParent().getHeight());
+    public void placeBrick(double x, double y){
+        myBrick.setX(x * myBrick.getBoundsInParent().getWidth() + (x * GAP_SIZE));
+        myBrick.setY(y * myBrick.getBoundsInParent().getHeight() + (y * GAP_SIZE));
     }
 
     /**
