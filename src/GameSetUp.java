@@ -43,6 +43,7 @@ public class GameSetUp {
      */
     public void step (double elapsedTime) {
         myBall.move(elapsedTime);
+        myBall.bounce(myScene.getWidth(),myScene.getHeight());
         checkBallBrickCollision();
     }
 
