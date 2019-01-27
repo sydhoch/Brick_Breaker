@@ -4,6 +4,8 @@ import javafx.scene.paint.Paint;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+
 public class GameSetUp {
 
     private int size;
@@ -14,6 +16,8 @@ public class GameSetUp {
     private ArrayList<ArrayList<Brick>> myBricks;
     private Ball myBall;
     private Paddle myPaddle;
+   // private Label statusLabel;
+
 
     /**
      * Sets up a scene with paddle, ball, and blocks configured by a text file
@@ -22,7 +26,7 @@ public class GameSetUp {
      */
     public GameSetUp(String fileName, Paint background){
         fillBrickList(readBrickFile(fileName), numBrickCols, numBrickRows);
-        myScene = setGameStage(size, size, background);
+        myScene = setGameStage(background);
     }
 
     /**
@@ -92,20 +96,20 @@ public class GameSetUp {
         return size / numBrickCols;
     }
 
-    private Scene setGameStage (int width, int height, Paint background) {
+    private Scene setGameStage (Paint background) {
         // create one top level collection to organize the things in the scene
         var root = new Group();
         // create a place to see the shapes
-        var scene = new Scene(root, width, height, background);
+        var scene = new Scene(root, size, size, background);
 
         myBall = new Ball();
-        myBall.getView().setX(width / 2 - myBall.getView().getBoundsInLocal().getWidth() / 2);
-        myBall.getView().setY(height / 2 - myBall.getView().getBoundsInLocal().getHeight() / 2);
+        myBall.getView().setX(size / 2 - myBall.getView().getBoundsInLocal().getWidth() / 2);
+        myBall.getView().setY(size / 2 - myBall.getView().getBoundsInLocal().getHeight() / 2);
         root.getChildren().add(myBall.getView());
 
         myPaddle = new Paddle();
-        myPaddle.getView().setX(width / 2 - myPaddle.getView().getBoundsInLocal().getWidth() / 2);
-        myPaddle.getView().setY(height - myPaddle.getView().getBoundsInLocal().getHeight());
+        myPaddle.getView().setX(size / 2 - myPaddle.getView().getBoundsInLocal().getWidth() / 2);
+        myPaddle.getView().setY(size - myPaddle.getView().getBoundsInLocal().getHeight());
         root.getChildren().add(myPaddle.getView());
 
         for (ArrayList<Brick> brickRow : myBricks){
@@ -129,6 +133,8 @@ public class GameSetUp {
             }
         }
     }
+
+
 
 
 }

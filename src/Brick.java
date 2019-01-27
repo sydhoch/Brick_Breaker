@@ -1,7 +1,6 @@
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.awt.*;
 
 /**
  * Creates a simulated brick for ball to hit, deteriorate, and eventually destroy
