@@ -32,6 +32,9 @@ public class Paddle {
         }
     }
 
+
+
+
     /**
      * Gets paddle image
      * @return paddle image as ImageView

@@ -11,21 +11,17 @@ import java.awt.*;
 public class Brick {
 
     public static final String BRICK_IMAGE = "brick1.gif";
-    public static final int GAP_SIZE = 10;
     private ImageView myBrick;
     private int myHealth;
 
-    public Brick(int health){
+    public Brick(int width, int height, int health){
         var image = new Image(this.getClass().getClassLoader().getResourceAsStream(BRICK_IMAGE));
         myBrick = new ImageView(image);
         myHealth = health;
-
+        myBrick.setFitWidth(width);
+        myBrick.setFitHeight(height);
     }
 
-    public void placeBrick(double x, double y){
-        myBrick.setX(x * myBrick.getBoundsInParent().getWidth() + (x * GAP_SIZE));
-        myBrick.setY(y * myBrick.getBoundsInParent().getHeight() + (y * GAP_SIZE));
-    }
 
     /**
      * Decreases brick's health and calls for it to be destroyed once health is too low
@@ -44,7 +40,6 @@ public class Brick {
      */
     private void destroyBrick(){
         myBrick.setVisible(false);
-
     }
 
     /**

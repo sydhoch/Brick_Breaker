@@ -28,16 +28,14 @@ public class GameDriver extends Application{
       public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
       GameSetUp makeGame;
 
-      private Scene myScene;
 //    private Ball myBall;
 //    private Paddle myPaddle;
 //    private Brick[][] myBricks;
 
     public void start (Stage stage) {
         // attach scene to the stage and display it
-        makeGame = new GameSetUp();
-        myScene = makeGame.setGameStage(SIZE, SIZE, BACKGROUND);
-        stage.setScene(myScene);
+        makeGame = new GameSetUp("example.txt", BACKGROUND);
+        stage.setScene(makeGame.getScene());
         stage.setTitle(TITLE);
         stage.show();
         // attach "game loop" to timeline to play it
