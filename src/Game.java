@@ -61,6 +61,7 @@ public class Game extends Application{
 
     private void step (double elapsedTime) {
         myBall.move(elapsedTime);
+        myBall.bounce(myScene.getWidth(),myScene.getHeight());
     }
 
     public static void main(String[] args){

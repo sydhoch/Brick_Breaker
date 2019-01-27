@@ -14,15 +14,15 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class Ball {
-    public static final int BOUNCER_SPEED = 30;
-    private int myVelocityX=1;
-    private int myVelocityY=1;
-    private ImageView myBall;
+    public static final int BOUNCER_SPEED = 50;
+    private int myVelocityX=80;
+    private int myVelocityY=40;
+    private ImageView myView;
     public static final String BOUNCER_IMAGE = "ball.gif";
 
     Ball(){
         var image = new Image(this.getClass().getClassLoader().getResourceAsStream(BOUNCER_IMAGE));
-        myBall = new ImageView(image);
+        myView = new ImageView(image);
     }
     /**
      * changes the Bouncer's x- and y-coordinate by its speed dampened by the given elapsedTime
@@ -30,19 +30,20 @@ public class Ball {
      */
 
     public void move(double elapsedTime){
-        myBall.setX(myBall.getX() + BOUNCER_SPEED * elapsedTime);
+        myView.setX(myView.getX() + myVelocityX * elapsedTime);
+        myView.setY(myView.getY() + myVelocityY * elapsedTime);
     }
 
     public void bounce(double screenWidth, double screenHeight){
-        if(myBall.getX()<0 || myBall.getX()>screenWidth){
+        if(myView.getX()<0 || myView.getX()>(screenWidth-myView.getBoundsInLocal().getWidth())){
             myVelocityX*=-1;
         }
-        if(myBall.getY()<0 || myBall.getY()>screenHeight){
+        if(myView.getY()<0){
             myVelocityY*=-1;
         }
     }
     public ImageView getView(){
-        return myBall;
+        return myView;
     }
 
 }
