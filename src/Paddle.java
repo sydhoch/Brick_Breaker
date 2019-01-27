@@ -19,6 +19,10 @@ public class Paddle {
     }
 
 
+    /**
+     * Moves paddle when direction keys are pressed (only RIGHT and LEFT are handled)
+     * @param code key pressed by user
+     */
     public void handleSideKeyInput(KeyCode code){
         if (code == KeyCode.RIGHT) {
             myPaddle.setX(myPaddle.getX() + PADDLE_SPEED);
@@ -26,11 +30,7 @@ public class Paddle {
         else if (code == KeyCode.LEFT) {
             myPaddle.setX(myPaddle.getX() - PADDLE_SPEED);
         }
-
     }
-
-
-
 
     /**
      * Gets paddle image
