@@ -3,12 +3,12 @@ import javafx.scene.image.ImageView;
 
 public class Ball extends Item{
 
-    private int myVelocityX = 180;
-    private int myVelocityY = 60;
     public static final String BOUNCER_IMAGE = "ball.gif";
 
     Ball(){
         myImage = new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(BOUNCER_IMAGE)));
+        myXVelocity = 180;
+        myYVelocity = 60;
     }
 
     /**
@@ -17,8 +17,8 @@ public class Ball extends Item{
      */
 
     public void move(double elapsedTime){
-        myImage.setX(myImage.getX() + myVelocityX * elapsedTime);
-        myImage.setY(myImage.getY() + myVelocityY * elapsedTime);
+        myImage.setX(myImage.getX() + myXVelocity * elapsedTime);
+        myImage.setY(myImage.getY() + myYVelocity * elapsedTime);
     }
 
     /**
@@ -28,10 +28,10 @@ public class Ball extends Item{
     */
     public void bounce(double screenWidth, double screenHeight){
         if(myImage.getX() < 0 || myImage.getX()>(screenWidth- myImage.getBoundsInLocal().getWidth())){
-            myVelocityX *= -1;
+            myXVelocity *= -1;
         }
         if(myImage.getY() < 0){
-            myVelocityY *= -1;
+            myYVelocity *= -1;
         }
     }
 
@@ -40,11 +40,11 @@ public class Ball extends Item{
      */
     public void BounceOffPad(){
             //myVelocityX*=1;
-            myVelocityY*=-1;
+        myYVelocity *=-1;
     }
     public void BounceOff(){
-        myVelocityX *= -1;
-        myVelocityY *= -1;
+        myXVelocity *= -1;
+        myYVelocity *= -1;
     }
 
     public void placeForStart(int screenSize){
@@ -55,7 +55,7 @@ public class Ball extends Item{
     /**
      * @returns ball's ImageView
      */
-    public ImageView getMyImage(){
+    public ImageView getImage(){
         return myImage;
     }
 

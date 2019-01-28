@@ -2,40 +2,45 @@
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.util.*;
+
 import java.lang.*;
 
 
-public class Paddle {
+public class Paddle extends Item{
 
     public static final String PADDLE_IMAGE = "paddle.gif";
-    private ImageView myPaddle;
-    private static final int PADDLE_SPEED = 15;
 
 
     public Paddle(){
         var image = new Image(this.getClass().getClassLoader().getResourceAsStream(PADDLE_IMAGE));
-        myPaddle = new ImageView(image);
+        myImage = new ImageView(image);
+        myXVelocity = 1000;
 
     }
 
 
-    public void centerPaddle(int screenSize){
-        myPaddle.setX(screenSize / 2 - myPaddle.getBoundsInLocal().getWidth() / 2);
-        myPaddle.setY(screenSize - myPaddle.getBoundsInLocal().getHeight());
+    public void placeForStart(int screenSize){
+        myImage.setX(screenSize / 2 - myImage.getBoundsInLocal().getWidth() / 2);
+        myImage.setY(screenSize - myImage.getBoundsInLocal().getHeight());
     }
 
     /**
      * Moves paddle when direction keys are pressed (only RIGHT and LEFT are handled)
      * @param code key pressed by user
      */
-    public void handleSideKeyInput(KeyCode code, double screenWidth){
-        if (code == KeyCode.RIGHT && myPaddle.getBoundsInLocal().getMaxX() < screenWidth) {
-            myPaddle.setX(myPaddle.getX() + PADDLE_SPEED);
+    public void handleSideKeyInput(KeyCode code, double screenWidth, double elapsedTime){
+        if (code == KeyCode.RIGHT && myImage.getBoundsInLocal().getMaxX() < screenWidth) {
+            myXVelocity = Math.abs(myXVelocity);
+            move(elapsedTime);
         }
-        else if (code == KeyCode.LEFT && myPaddle.getBoundsInLocal().getMinX() > 0) {
-                myPaddle.setX(myPaddle.getX() - PADDLE_SPEED);
+        else if (code == KeyCode.LEFT && myImage.getBoundsInLocal().getMinX() > 0) {
+            myXVelocity = Math.abs(myXVelocity) * -1;
+            move(elapsedTime);
         }
+    }
+
+    public void move(double elapsedTime){
+        myImage.setX(myImage.getX() + myXVelocity * elapsedTime);
     }
 
 
@@ -45,7 +50,7 @@ public class Paddle {
      * Gets paddle image
      * @return paddle image as ImageView
      */
-    public ImageView getView(){
-        return myPaddle;
+    public ImageView getImage(){
+        return myImage;
     }
 }

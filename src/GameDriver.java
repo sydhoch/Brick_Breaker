@@ -32,7 +32,7 @@ public class GameDriver extends Application{
 
     public void start (Stage stage) {
         // attach scene to the stage and display it
-        makeGame = new GameSetUp("example.txt", BACKGROUND);
+        makeGame = new GameSetUp("example.txt", BACKGROUND, SECOND_DELAY);
 
         stage.setScene(makeGame.getScene());
         stage.setTitle(TITLE);

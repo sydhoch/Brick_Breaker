@@ -3,13 +3,12 @@ import javafx.scene.image.ImageView;
 
 abstract public class Item {
     ImageView myImage;
-    String myImageName;
     int myYVelocity;
     int myXVelocity;
 
     abstract void placeForStart(int screenSize);
 
-    abstract ImageView getMyImage();
+    abstract ImageView getImage();
 
     abstract void move(double elapsedTime);
 
