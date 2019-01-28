@@ -10,7 +10,7 @@ public class Paddle {
 
     public static final String PADDLE_IMAGE = "paddle.gif";
     private ImageView myPaddle;
-    private static final int PADDLE_SPEED = 5;
+    private static final int PADDLE_SPEED = 15;
 
 
     public Paddle(){
@@ -20,16 +20,21 @@ public class Paddle {
     }
 
 
+    public void centerPaddle(int screenSize){
+        myPaddle.setX(screenSize / 2 - myPaddle.getBoundsInLocal().getWidth() / 2);
+        myPaddle.setY(screenSize - myPaddle.getBoundsInLocal().getHeight());
+    }
+
     /**
      * Moves paddle when direction keys are pressed (only RIGHT and LEFT are handled)
      * @param code key pressed by user
      */
-    public void handleSideKeyInput(KeyCode code){
-        if (code == KeyCode.RIGHT) {
+    public void handleSideKeyInput(KeyCode code, double screenWidth){
+        if (code == KeyCode.RIGHT && myPaddle.getBoundsInLocal().getMaxX() < screenWidth) {
             myPaddle.setX(myPaddle.getX() + PADDLE_SPEED);
         }
-        else if (code == KeyCode.LEFT) {
-            myPaddle.setX(myPaddle.getX() - PADDLE_SPEED);
+        else if (code == KeyCode.LEFT && myPaddle.getBoundsInLocal().getMinX() > 0) {
+                myPaddle.setX(myPaddle.getX() - PADDLE_SPEED);
         }
     }
 

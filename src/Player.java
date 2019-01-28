@@ -7,14 +7,14 @@ public class Player {
         livesLeft = numLives;
     }
 
-
-
     public int getLives(){
         return livesLeft;
     }
 
     public void loseLife(){
-        livesLeft--;
+        if (livesLeft > 0) {
+            livesLeft--;
+        }
     }
 
     public  void gainLife(){
