@@ -41,7 +41,8 @@ public class GameSetUp {
         root = new Group();
         PlayerSetUp();
         myScene = setGameStage(background);
-        bricksRemaining = myBricks.size();
+        countBricks();
+        System.out.println(bricksRemaining);
         // create one top level collection to organize the things in the scene
 
     }
@@ -78,9 +79,18 @@ public class GameSetUp {
         }
     }
 
+    private void countBricks(){
+        for (ArrayList<Brick> brickRow : myBricks){
+            for (Brick myBrick : brickRow) {
+                bricksRemaining++;
+            }
+        }
+    }
+
+
     private void GameOver(){
         if(i==0){
-            i=1;
+            i=1;G
             for (ArrayList<Brick> brickRow : myBricks){
                 for (Brick myBrick : brickRow) {
                     if(myBrick.getHealth()==0){
