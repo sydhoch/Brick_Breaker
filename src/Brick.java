@@ -30,8 +30,12 @@ public class Brick {
             myHealth--;
         }
         else{
+            myHealth=0;
             destroyBrick();
         }
+    }
+    public int getHealth(){
+        return myHealth;
     }
 
     /**

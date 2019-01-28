@@ -14,8 +14,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class Ball {
-    private int myVelocityX=100;
-    private int myVelocityY=60;
+    private int myVelocityX=90;
+    private int myVelocityY=30;
     private ImageView myView;
     public static final String BOUNCER_IMAGE = "ball.gif";
 
@@ -51,9 +51,13 @@ public class Ball {
     /**
      * reverse direction of ball
      */
-    public void BounceOff(){
-            myVelocityX*=-1;
+    public void BounceOffPad(){
+            //myVelocityX*=1;
             myVelocityY*=-1;
+    }
+    public void BounceOff(){
+        myVelocityX*=-1;
+        myVelocityY*=-1;
     }
 
     /**

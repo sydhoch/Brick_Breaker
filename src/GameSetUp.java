@@ -14,8 +14,9 @@ public class GameSetUp {
     private Scene myScene;
     private int numBrickCols;
     private int numBrickRows;
-    public int BricksRemaining;
+    private int BricksRemaining;
     private int lives=3; //chose to have 3 lives
+    private int i=0;
 
 
     private ArrayList<ArrayList<Brick>> myBricks;
@@ -35,6 +36,7 @@ public class GameSetUp {
         root = new Group();
         myScene = setGameStage(background);
         PlayerSetUp();
+        bricks();
         // create one top level collection to organize the things in the scene
 
     }
@@ -67,8 +69,37 @@ public class GameSetUp {
              }
         }
     }
-
+    private void bricks(){
+        for (ArrayList<Brick> brickRow : myBricks){
+            for (Brick myBrick : brickRow) {
+                BricksRemaining++;
+            }
+        }
+    }
     private void GameOver(){
+        Text t = new Text();
+        t.setFont(new Font(20));
+        String gameover="";
+        if(i==0){
+            i=1;
+            for (ArrayList<Brick> brickRow : myBricks){
+                for (Brick myBrick : brickRow) {
+                    if(myBrick.getHealth()==0){
+                        BricksRemaining--;
+                    }
+                }
+            }
+            if(BricksRemaining>0){
+                gameover = "You Lost :(";
+                System.out.println(BricksRemaining);
+            }
+            else{
+                gameover = "You Won!";
+                System.out.println(BricksRemaining);
+            }
+        }
+        t.setText(gameover);
+        //root.getChildren().add(t);
 
     }
 
@@ -174,16 +205,18 @@ public class GameSetUp {
     private void checkBallBrickCollision(){
         for (ArrayList<Brick> brickRow : myBricks){
             for (Brick myBrick : brickRow){
-                if (myBall.getView().getBoundsInParent().intersects(myBrick.getView().getBoundsInParent())) {
+                if (myBrick.getHealth()>0 && myBall.getView().getBoundsInParent().intersects(myBrick.getView().getBoundsInParent())) {
                     myBrick.decreaseHealth();
+                    myBall.BounceOff();
                 }
+
             }
         }
     }
 
     private void checkBallHitsPaddle(){
         if(myBall.getView().getBoundsInLocal().intersects(myPaddle.getView().getBoundsInLocal())){
-            myBall.BounceOff();
+            myBall.BounceOffPad();
         }
     }
 
