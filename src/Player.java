@@ -7,8 +7,6 @@ public class Player {
         livesLeft = numLives;
     }
 
-
-
     public int getLives(){
         return livesLeft;
     }

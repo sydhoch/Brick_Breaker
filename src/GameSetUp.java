@@ -19,7 +19,6 @@ public class GameSetUp {
     private int lives = 3; //chose to have 3 lives
     private int i = 0;
     private Text gameOverText;
-    private Text statusText;
     private int levelNum = 1;
 
 
@@ -28,7 +27,6 @@ public class GameSetUp {
     private Paddle myPaddle;
     private Player myPlayer;
     private Status myStatus;
-   // private Label statusLabel;
 
 
     /**
@@ -42,7 +40,6 @@ public class GameSetUp {
         PlayerSetUp();
         myScene = setGameStage(background);
         countBricks();
-        System.out.println(bricksRemaining);
         // create one top level collection to organize the things in the scene
 
     }
@@ -70,7 +67,7 @@ public class GameSetUp {
         if(myBall.ballFell(myScene.getHeight())){
              myPlayer.loseLife();
              if(myPlayer.getLives()>0){
-                 myBall.centerBall(size);
+                 myBall.placeForStart(size);
                  myPaddle.centerPaddle(size);
              }
              else{
@@ -90,7 +87,7 @@ public class GameSetUp {
 
     private void GameOver(){
         if(i==0){
-            i=1;G
+            i=1;
             for (ArrayList<Brick> brickRow : myBricks){
                 for (Brick myBrick : brickRow) {
                     if(myBrick.getHealth()==0){
@@ -202,8 +199,8 @@ public class GameSetUp {
 
 
         myBall = new Ball();
-        myBall.centerBall(size);
-        root.getChildren().add(myBall.getView());
+        myBall.placeForStart(size);
+        root.getChildren().add(myBall.getMyImage());
 
         myPaddle = new Paddle();
         myPaddle.centerPaddle(size);
@@ -215,11 +212,10 @@ public class GameSetUp {
             }
         }
 
-        scene.setOnKeyPressed(key -> myPaddle.handleSideKeyInput(key.getCode()));
+        scene.setOnKeyPressed(key -> myPaddle.handleSideKeyInput(key.getCode(), myScene.getWidth()));
 
         return scene;
     }
-
 
 
     /////////////////////////////////////////////////////////////////////////////
@@ -228,7 +224,7 @@ public class GameSetUp {
     private void checkBallBrickCollision(){
         for (ArrayList<Brick> brickRow : myBricks){
             for (Brick myBrick : brickRow){
-                if (myBrick.getHealth()>0 && myBall.getView().getBoundsInParent().intersects(myBrick.getView().getBoundsInParent())) {
+                if (myBrick.getHealth()>0 && myBall.getMyImage().getBoundsInParent().intersects(myBrick.getView().getBoundsInParent())) {
                     myBrick.decreaseHealth();
                     myBall.BounceOff();
                 }
@@ -238,12 +234,9 @@ public class GameSetUp {
     }
 
     private void checkBallHitsPaddle(){
-        if(myBall.getView().getBoundsInLocal().intersects(myPaddle.getView().getBoundsInLocal())){
+        if(myBall.getMyImage().getBoundsInLocal().intersects(myPaddle.getView().getBoundsInLocal())){
             myBall.BounceOffPad();
         }
     }
-
-
-
 
 }

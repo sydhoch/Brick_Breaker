@@ -1,15 +1,14 @@
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Ball {
-    private int myVelocityX=180;
-    private int myVelocityY=60;
-    private ImageView myBall;
+public class Ball extends Item{
+
+    private int myVelocityX = 180;
+    private int myVelocityY = 60;
     public static final String BOUNCER_IMAGE = "ball.gif";
 
     Ball(){
-        var image = new Image(this.getClass().getClassLoader().getResourceAsStream(BOUNCER_IMAGE));
-        myBall = new ImageView(image);
+        myImage = new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(BOUNCER_IMAGE)));
     }
 
     /**
@@ -18,8 +17,8 @@ public class Ball {
      */
 
     public void move(double elapsedTime){
-        myBall.setX(myBall.getX() + myVelocityX * elapsedTime);
-        myBall.setY(myBall.getY() + myVelocityY * elapsedTime);
+        myImage.setX(myImage.getX() + myVelocityX * elapsedTime);
+        myImage.setY(myImage.getY() + myVelocityY * elapsedTime);
     }
 
     /**
@@ -28,11 +27,11 @@ public class Ball {
      * @param screenHeight height of screen
     */
     public void bounce(double screenWidth, double screenHeight){
-        if(myBall.getX()<0 || myBall.getX()>(screenWidth- myBall.getBoundsInLocal().getWidth())){
-            myVelocityX*=-1;
+        if(myImage.getX() < 0 || myImage.getX()>(screenWidth- myImage.getBoundsInLocal().getWidth())){
+            myVelocityX *= -1;
         }
-        if(myBall.getY()<0){
-            myVelocityY*=-1;
+        if(myImage.getY() < 0){
+            myVelocityY *= -1;
         }
     }
 
@@ -44,24 +43,24 @@ public class Ball {
             myVelocityY*=-1;
     }
     public void BounceOff(){
-        myVelocityX*=-1;
-        myVelocityY*=-1;
+        myVelocityX *= -1;
+        myVelocityY *= -1;
     }
 
-    public void centerBall(int screenSize){
-        myBall.setX(screenSize / 2 - myBall.getBoundsInLocal().getWidth() / 2);
-        myBall.setY(screenSize / 2 - myBall.getBoundsInLocal().getHeight() / 2);
+    public void placeForStart(int screenSize){
+        myImage.setX(screenSize / 2 - myImage.getBoundsInLocal().getWidth() / 2);
+        myImage.setY(screenSize / 2 - myImage.getBoundsInLocal().getHeight() / 2);
     }
 
     /**
      * @returns ball's ImageView
      */
-    public ImageView getView(){
-        return myBall;
+    public ImageView getMyImage(){
+        return myImage;
     }
 
     public boolean ballFell(double screenHeight){
-        return myBall.getY()>(screenHeight);
+        return myImage.getY() > (screenHeight);
     }
 
 }
