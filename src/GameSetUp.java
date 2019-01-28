@@ -15,7 +15,7 @@ public class GameSetUp {
     private int numBrickCols;
     private int numBrickRows;
     private int BricksRemaining;
-    private int lives=3; //chose to have 3 lives
+    private int lives=1; //chose to have 3 lives
     private int i=0;
 
 
@@ -99,7 +99,7 @@ public class GameSetUp {
             }
         }
         t.setText(gameover);
-        //root.getChildren().add(t);
+        root.getChildren().add(t);
 
     }
 
