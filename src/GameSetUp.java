@@ -17,7 +17,7 @@ public class GameSetUp {
     private int numBrickRows;
 
     private int bricksRemaining;
-    private int lives = 3; //chose to have 3 lives
+    private int lives = 1; //chose to have 3 lives
     private int i = 0;
     private Text gameOverText;
     private int levelNum = 1;
@@ -167,8 +167,8 @@ public class GameSetUp {
     private void createGameOverText(){
         gameOverText = new Text();
         gameOverText = new Text();
-        gameOverText.setX(150);
-        gameOverText.setY(150);
+        gameOverText.setX(200);
+        gameOverText.setY(350);
     }
 
 //    private void createStatusText(){
