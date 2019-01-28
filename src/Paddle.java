@@ -3,6 +3,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.util.*;
+import java.lang.*;
 
 
 public class Paddle {
@@ -42,7 +43,4 @@ public class Paddle {
     public ImageView getView(){
         return myPaddle;
     }
-
-
-
 }
