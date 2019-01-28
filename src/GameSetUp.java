@@ -27,6 +27,7 @@ public class GameSetUp {
     private Ball myBall;
     private Paddle myPaddle;
     private Player myPlayer;
+    private Status myStatus;
    // private Label statusLabel;
 
 
@@ -53,12 +54,14 @@ public class GameSetUp {
         return myScene;
     }
 
+
+
     /**
      * Changes properties of objects on screen to make them seem animated
      * @param elapsedTime how often method is run
      */
     public void step (double elapsedTime) {
-        updateStatusText();
+        myStatus.updateStatusText(myPlayer.getLives(), levelNum, 0);
         myBall.move(elapsedTime);
         myBall.bounce(myScene.getWidth(), myScene.getHeight());
         checkBallHitsPaddle();
@@ -160,20 +163,20 @@ public class GameSetUp {
         gameOverText.setY(150);
     }
 
-    private void createStatusText(){
-        statusText = new Text();
-        statusText.setFill(Color.WHITE);
-        statusText.setX(size - (size / 4));
-        statusText.setY(size - (size / 6));
-        statusText.setFont(new Font(20));
-    }
+//    private void createStatusText(){
+//        statusText = new Text();
+//        statusText.setFill(Color.WHITE);
+//        statusText.setX(size - (size / 4));
+//        statusText.setY(size - (size / 6));
+//        statusText.setFont(new Font(20));
+//    }
 
-    private void updateStatusText(){
-        String livesleft = "Lives Left: "+myPlayer.getLives()+"\n";
-        String score= "Score: \n";
-        String level = "Level: " + levelNum;
-        statusText.setText(livesleft+score+level);
-    }
+//    private void updateStatusText(){
+//        String livesleft = "Lives Left: "+myPlayer.getLives()+"\n";
+//        String score= "Score: \n";
+//        String level = "Level: " + levelNum;
+//        statusText.setText(livesleft+score+level);
+//    }
 
     //////////////////////////////////////////////////////////////////////////
     private Scene setGameStage (Paint background) {
@@ -183,8 +186,9 @@ public class GameSetUp {
         createGameOverText();
         root.getChildren().add(gameOverText);
 
-        createStatusText();
-        root.getChildren().add(statusText);
+        //createStatusText();
+        myStatus = new Status(size);
+        root.getChildren().add(myStatus.getStatusText());
 
 
         myBall = new Ball();

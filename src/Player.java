@@ -14,7 +14,9 @@ public class Player {
     }
 
     public void loseLife(){
-        livesLeft--;
+        if (livesLeft > 0) {
+            livesLeft--;
+        }
     }
 
     public  void gainLife(){
