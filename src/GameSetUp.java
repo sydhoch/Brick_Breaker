@@ -1,5 +1,6 @@
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,9 +15,12 @@ public class GameSetUp {
     private Scene myScene;
     private int numBrickCols;
     private int numBrickRows;
-    private int BricksRemaining;
-    private int lives=3; //chose to have 3 lives
-    private int i=0;
+    private int bricksRemaining;
+    private int lives = 3; //chose to have 3 lives
+    private int i = 0;
+    private Text gameOverText;
+    private Text statusText;
+    private int levelNum = 1;
 
 
     private ArrayList<ArrayList<Brick>> myBricks;
@@ -34,9 +38,9 @@ public class GameSetUp {
     public GameSetUp(String fileName, Paint background){
         fillBrickList(readBrickFile(fileName), numBrickCols, numBrickRows);
         root = new Group();
-        myScene = setGameStage(background);
         PlayerSetUp();
-        bricks();
+        myScene = setGameStage(background);
+        bricksRemaining = myBricks.size();
         // create one top level collection to organize the things in the scene
 
     }
@@ -54,53 +58,45 @@ public class GameSetUp {
      * @param elapsedTime how often method is run
      */
     public void step (double elapsedTime) {
+        updateStatusText();
         myBall.move(elapsedTime);
-        myBall.bounce(myScene.getWidth(),myScene.getHeight());
+        myBall.bounce(myScene.getWidth(), myScene.getHeight());
         checkBallHitsPaddle();
         checkBallBrickCollision();
         if(myBall.ballFell(myScene.getHeight())){
              myPlayer.loseLife();
              if(myPlayer.getLives()>0){
-                 ballInit();
-                 centerPaddle();
+                 myBall.centerBall(size);
+                 myPaddle.centerPaddle(size);
              }
              else{
                  GameOver();
              }
         }
     }
-    private void bricks(){
-        for (ArrayList<Brick> brickRow : myBricks){
-            for (Brick myBrick : brickRow) {
-                BricksRemaining++;
-            }
-        }
-    }
+
     private void GameOver(){
-        Text t = new Text();
-        t.setFont(new Font(20));
-        String gameover="";
         if(i==0){
             i=1;
             for (ArrayList<Brick> brickRow : myBricks){
                 for (Brick myBrick : brickRow) {
                     if(myBrick.getHealth()==0){
-                        BricksRemaining--;
+                        System.out.println(bricksRemaining);
+                        bricksRemaining--;
                     }
                 }
             }
-            if(BricksRemaining>0){
-                gameover = "You Lost :(";
-                System.out.println(BricksRemaining);
+            if(bricksRemaining >0){
+                gameOverText.setText("You Lost :(");
+                System.out.println(bricksRemaining);
             }
             else{
-                gameover = "You Won!";
-                System.out.println(BricksRemaining);
+                gameOverText.setText("You Won!");
+                System.out.println(bricksRemaining);
             }
         }
-        t.setText(gameover);
-        //root.getChildren().add(t);
-
+        gameOverText.setFont(new Font(20));
+        gameOverText.setFill(Color.WHITE);
     }
 
     private void PlayerSetUp(){
@@ -130,8 +126,8 @@ public class GameSetUp {
     /**
      * Fills myBricks with Brick objects with health and placement as specified by brickConfigs
      * @param brickConfigs represents configuration of blocks onscreen
-     * @param numBrickCols number of columns of bricks
-     * @param numBrickRows number of rows of bricks
+     * @param numBrickCols number of columns of countBricks
+     * @param numBrickRows number of rows of countBricks
      */
     private void fillBrickList(int[][] brickConfigs, int numBrickCols, int numBrickRows) {
         myBricks = new ArrayList<>();
@@ -157,15 +153,46 @@ public class GameSetUp {
         return size / numBrickCols;
     }
 
+    private void createGameOverText(){
+        gameOverText = new Text();
+        gameOverText = new Text();
+        gameOverText.setX(150);
+        gameOverText.setY(150);
+    }
+
+    private void createStatusText(){
+        statusText = new Text();
+        statusText.setFill(Color.WHITE);
+        statusText.setX(size - (size / 4));
+        statusText.setY(size - (size / 6));
+        statusText.setFont(new Font(20));
+    }
+
+    private void updateStatusText(){
+        String livesleft = "Lives Left: "+myPlayer.getLives()+"\n";
+        String score= "Score: \n";
+        String level = "Level: " + levelNum;
+        statusText.setText(livesleft+score+level);
+    }
+
     //////////////////////////////////////////////////////////////////////////
     private Scene setGameStage (Paint background) {
         // create a place to see the shapes
         var scene = new Scene(root, size, size, background);
 
-        ballInit();
+        createGameOverText();
+        root.getChildren().add(gameOverText);
+
+        createStatusText();
+        root.getChildren().add(statusText);
+
+
+        myBall = new Ball();
+        myBall.centerBall(size);
+        root.getChildren().add(myBall.getView());
 
         myPaddle = new Paddle();
-        centerPaddle();
+        myPaddle.centerPaddle(size);
         root.getChildren().add(myPaddle.getView());
 
         for (ArrayList<Brick> brickRow : myBricks){
@@ -179,26 +206,8 @@ public class GameSetUp {
         return scene;
     }
 
-    private void centerPaddle(){
-        myPaddle.getView().setX(size / 2 - myPaddle.getView().getBoundsInLocal().getWidth() / 2);
-        myPaddle.getView().setY(size - myPaddle.getView().getBoundsInLocal().getHeight());
-    }
 
-    private void ballInit(){
-        myBall = new Ball();
-        myBall.getView().setX(size / 2 - myBall.getView().getBoundsInLocal().getWidth() / 2);
-        myBall.getView().setY(size / 2 - myBall.getView().getBoundsInLocal().getHeight() / 2);
-        root.getChildren().add(myBall.getView());
-    }
 
-    private void setStatusDisplay(){
-        Text t = new Text();
-        t.setFont(new Font(20));
-        String livesleft = "Lives Left: "+myPlayer.getLives()+"\n";
-        String score= "Score: \n";
-        String level = "Level: 1";
-        t.setText(livesleft+score+level);
-    }
     /////////////////////////////////////////////////////////////////////////////
 
 
