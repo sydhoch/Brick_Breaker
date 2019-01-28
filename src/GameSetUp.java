@@ -125,9 +125,13 @@ public class GameSetUp {
         size = scannie.nextInt();
         numBrickCols = scannie.nextInt();
         numBrickRows = scannie.nextInt();
-        int[][] brickConfigs = new int[numBrickCols][numBrickRows];
+        int[][] brickConfigs = new int[numBrickRows][numBrickCols];
         for (int i = 0; i < numBrickRows; i ++){
             for (int j = 0; j < numBrickCols; j ++){
+               // System.out.println(numBrickRows);
+                //System.out.println(numBrickCols);
+                System.out.println(i);
+                System.out.println(j);
                 brickConfigs[i][j] = scannie.nextInt();
             }
         }
@@ -147,8 +151,8 @@ public class GameSetUp {
             for (int j = 0; j < numBrickCols; j++) {
                 if (brickConfigs[i][j] > 0) {
                     Brick myBrick = new Brick(calcBrickWidth(numBrickCols), calcBrickHeight(numBrickRows), brickConfigs[i][j]);
-                    myBrick.getView().setX(i * calcBrickWidth(numBrickCols));
-                    myBrick.getView().setY(j * calcBrickHeight(numBrickRows));
+                    myBrick.getView().setX(j * calcBrickWidth(numBrickCols));
+                    myBrick.getView().setY(i * calcBrickHeight(numBrickRows));
                     brickRow.add(myBrick);
                 }
             }
