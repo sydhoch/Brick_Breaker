@@ -35,11 +35,11 @@ public class GameSetUp {
      * @param fileName name of block configuring file
      * @param background color of screen background
      */
-    public GameSetUp(String fileName, Paint background){
+    public GameSetUp(String fileName, Paint background, double elapsedTime){
         fillBrickList(readBrickFile(fileName), numBrickCols, numBrickRows);
         root = new Group();
         PlayerSetUp();
-        myScene = setGameStage(background);
+        myScene = setGameStage(background, elapsedTime);
         countBricks();
         // create one top level collection to organize the things in the scene
 
@@ -67,9 +67,9 @@ public class GameSetUp {
         checkBallBrickCollision();
         if(myBall.ballFell(myScene.getHeight())){
              myPlayer.loseLife();
-             if(myPlayer.getLives()>0){
+             if(myPlayer.getLives() > 0){
                  myBall.placeForStart(size);
-                 myPaddle.centerPaddle(size);
+                 myPaddle.placeForStart(size);
              }
              else{
                  GameOver();
@@ -187,7 +187,7 @@ public class GameSetUp {
 //    }
 
     //////////////////////////////////////////////////////////////////////////
-    private Scene setGameStage (Paint background) {
+    private Scene setGameStage (Paint background, double elapsedTime) {
         // create a place to see the shapes
         var scene = new Scene(root, size, size, background);
 
@@ -201,11 +201,11 @@ public class GameSetUp {
 
         myBall = new Ball();
         myBall.placeForStart(size);
-        root.getChildren().add(myBall.getMyImage());
+        root.getChildren().add(myBall.getImage());
 
         myPaddle = new Paddle();
-        myPaddle.centerPaddle(size);
-        root.getChildren().add(myPaddle.getView());
+        myPaddle.placeForStart(size);
+        root.getChildren().add(myPaddle.getImage());
 
         for (ArrayList<Brick> brickRow : myBricks){
             for (Brick myBrick : brickRow){
@@ -213,7 +213,7 @@ public class GameSetUp {
             }
         }
 
-        scene.setOnKeyPressed(key -> myPaddle.handleSideKeyInput(key.getCode(), myScene.getWidth()));
+        scene.setOnKeyPressed(key -> myPaddle.handleSideKeyInput(key.getCode(), myScene.getWidth(), elapsedTime));
 
         return scene;
     }
@@ -225,7 +225,7 @@ public class GameSetUp {
     private void checkBallBrickCollision(){
         for (ArrayList<Brick> brickRow : myBricks){
             for (Brick myBrick : brickRow){
-                if (myBrick.getHealth()>0 && myBall.getMyImage().getBoundsInParent().intersects(myBrick.getView().getBoundsInParent())) {
+                if (myBrick.getHealth()>0 && myBall.getImage().getBoundsInParent().intersects(myBrick.getView().getBoundsInParent())) {
                     myBrick.decreaseHealth();
                     myBall.BounceOff();
                 }
@@ -235,7 +235,7 @@ public class GameSetUp {
     }
 
     private void checkBallHitsPaddle(){
-        if(myBall.getMyImage().getBoundsInLocal().intersects(myPaddle.getView().getBoundsInLocal())){
+        if(myBall.getImage().getBoundsInLocal().intersects(myPaddle.getImage().getBoundsInLocal())){
             myBall.BounceOffPad();
         }
     }
