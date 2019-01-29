@@ -11,7 +11,9 @@ abstract public class Item {
         myImage.setY(y);
     }
 
-    abstract ImageView getImage();
+    public ImageView getImage(){
+        return myImage;
+    }
 
     public void move(double elapsedTime){
         myImage.setX(myImage.getX() + myXVelocity * elapsedTime);

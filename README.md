@@ -20,7 +20,7 @@ Hours Spent:
 
 ### Running the Program
 
-Main class:
+GamePlay class:
 
 Data files needed: 
 

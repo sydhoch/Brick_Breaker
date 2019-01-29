@@ -52,12 +52,7 @@ public class Ball extends Item{
 //        myImage.setY(screenSize / 2 - myImage.getBoundsInLocal().getHeight() / 2);
 //    }
 
-    /**
-     * @returns ball's ImageView
-     */
-    public ImageView getImage(){
-        return myImage;
-    }
+
 
     public boolean ballFell(double screenHeight){
         return myImage.getY() > (screenHeight);

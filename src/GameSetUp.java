@@ -1,7 +1,6 @@
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import java.util.ArrayList;
@@ -125,7 +124,7 @@ public class GameSetUp {
      * @return configuration of blocks onscreen represented by ints
      */
     private int[][] readBrickFile(String fileName){
-        Scanner scannie = new Scanner(Main.class.getClassLoader().getResourceAsStream(fileName));
+        Scanner scannie = new Scanner(GamePlay.class.getClassLoader().getResourceAsStream(fileName));
         size = scannie.nextInt();
         numBrickCols = scannie.nextInt();
         numBrickRows = scannie.nextInt();

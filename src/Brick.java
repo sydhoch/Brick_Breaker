@@ -44,13 +44,6 @@ public class Brick extends Item{
         myImage.setVisible(false);
     }
 
-    /**
-     * Gets brick image
-     * @return brick image as ImageView
-     */
-    public ImageView getImage(){
-        return myImage;
-    }
 
 
 

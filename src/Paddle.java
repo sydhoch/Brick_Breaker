@@ -46,13 +46,4 @@ public class Paddle extends Item{
     }
 
 
-
-
-    /**
-     * Gets paddle image
-     * @return paddle image as ImageView
-     */
-    public ImageView getImage(){
-        return myImage;
-    }
 }
