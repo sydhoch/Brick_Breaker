@@ -57,7 +57,7 @@ public class GameSetUp {
      * @param elapsedTime how often method is run
      */
     public void step (double elapsedTime) {
-        myStatus.updateStatusText(myPlayer.getLives(), levelNum, 0);
+        myStatus.updateStatusText(myPlayer.getLives(), levelNum, myPlayer.getScore());
         myBall.move(elapsedTime);
         myBall.bounce(myScene.getWidth(), myScene.getHeight());
         checkBallHitsPaddle();
@@ -205,11 +205,11 @@ public class GameSetUp {
     private void checkBallBrickCollision(){
         for (ArrayList<Brick> brickRow : myBricks){
             for (Brick myBrick : brickRow){
-                if (myBrick.getHealth()>0 && myBall.getImage().getBoundsInParent().intersects(myBrick.getImage().getBoundsInParent())) {
+                if (myBrick.getHealth() > 0 && myBall.getImage().getBoundsInParent().intersects(myBrick.getImage().getBoundsInParent())) {
                     myBrick.decreaseHealth();
                     myBall.BounceOff();
+                    myPlayer.increaseScore(1);
                 }
-
             }
         }
     }

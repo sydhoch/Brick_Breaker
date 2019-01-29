@@ -1,14 +1,20 @@
 public class Player {
 
     int livesLeft;
+    int score;
 
     public Player(int numLives){
-
         livesLeft = numLives;
+        score = 0;
     }
 
     public int getLives(){
         return livesLeft;
+    }
+
+
+    public int getScore() {
+        return score;
     }
 
     public void loseLife(){
@@ -17,8 +23,12 @@ public class Player {
         }
     }
 
-    public  void gainLife(){
+    public void gainLife(){
         livesLeft++;
+    }
+
+    public void increaseScore(int numPoints){
+        score += numPoints;
     }
 
 

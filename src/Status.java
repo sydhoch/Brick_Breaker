@@ -27,7 +27,7 @@ public class Status {
 
     public void updateStatusText(int currentLives, int currentLevel, int currentScore){
         String livesleft = "Lives Left: "+ currentLives +"\n";
-        String score= "Score: \n";
+        String score= "Score: " + currentScore + "\n";
         String level = "Level: " + currentLevel;
         statusText.setText(livesleft+score+level);
     }
