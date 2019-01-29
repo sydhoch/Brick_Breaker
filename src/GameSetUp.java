@@ -12,21 +12,44 @@ import javafx.scene.text.*;
 public class GameSetUp {
 
     private int size;
-    private Group root;
     private Scene myScene;
     private int numBrickCols;
     private int numBrickRows;
-
-    private int lives = 3; //chose to have 3 lives
     private Text gameOverText;
-    private int levelNum = 1;
-
-
-    private ArrayList<ArrayList<Brick>> myBricks;
-    private Ball myBall;
-    private Paddle myPaddle;
-    private Player myPlayer;
     private Status myStatus;
+//    private Player myPlayer;
+    private Paddle myPaddle;
+    private Ball myBall;
+    private ArrayList<ArrayList<Brick>> myBricks;
+   // private int levelNum = 1;
+
+    public ArrayList<ArrayList<Brick>> getBricks() {
+        return myBricks;
+    }
+
+
+    public Ball getBall() {
+        return myBall;
+    }
+
+
+    public Paddle getPaddle() {
+        return myPaddle;
+    }
+
+
+//    public Player getPlayer() {
+//        return myPlayer;
+//    }
+
+
+    public Status getStatus() {
+        return myStatus;
+    }
+
+    public Text getGameOverText() {
+        return gameOverText;
+    }
 
 
     /**
@@ -36,10 +59,10 @@ public class GameSetUp {
      */
     public GameSetUp(String fileName, Paint background, double elapsedTime){
         fillBrickList(readBrickFile(fileName), numBrickCols, numBrickRows);
-        root = new Group();
-        PlayerSetUp();
+
+//        PlayerSetUp(3);
         myScene = setGameStage(background, elapsedTime);
-        countTotalBricks();
+//        countTotalBricks();
     }
 
     /**
@@ -52,70 +75,70 @@ public class GameSetUp {
 
 
 
-    /**
-     * Changes properties of objects on screen to make them seem animated
-     * @param elapsedTime how often method is run
-     */
-    public void step (double elapsedTime) {
-        myStatus.updateStatusText(myPlayer.getLives(), levelNum, myPlayer.getScore());
-        myBall.move(elapsedTime);
-        myBall.bounce(myScene.getWidth(), myScene.getHeight());
-        checkBallHitsPaddle();
-        checkBallBrickCollision();
-        if (myBall.ballFell(myScene.getHeight()) && myBall.getImage().isVisible()) {
-            myPlayer.loseLife();
-            if (myPlayer.getLives() > 0) {
-                placeItemsForStart();
-            }
-        }
-        if (myPlayer.getLives() == 0 || countTotalBricks() == countDestroyedBricks()){
-            endGame();
-        }
-    }
+//    /**
+//     * Changes properties of objects on screen to make them seem animated
+//     * @param elapsedTime how often method is run
+//     */
+//    public void step (double elapsedTime) {
+//        myStatus.updateStatusText(myPlayer.getLives(), levelNum, myPlayer.getScore());
+//        myBall.move(elapsedTime);
+//        myBall.bounce(myScene.getWidth(), myScene.getHeight());
+//        checkBallHitsPaddle();
+//        checkBallBrickCollision();
+//        if (myBall.ballFell(myScene.getHeight()) && myBall.getImage().isVisible()) {
+//            myPlayer.loseLife();
+//            if (myPlayer.getLives() > 0) {
+//                placeItemsForStart();
+//            }
+//        }
+//        if (myPlayer.getLives() == 0 || countTotalBricks() == countDestroyedBricks()){
+//            endGame();
+//        }
+//    }
 
-    private int countDestroyedBricks(){
-        int destroyedBricks = 0;
-        for (ArrayList<Brick> brickRow : myBricks) {
-            for (Brick myBrick : brickRow) {
-                if (myBrick.getHealth() == 0) {
-                    destroyedBricks += 1;
-                }
-            }
-        }
-        return destroyedBricks;
-    }
+//    private int countDestroyedBricks(){
+//        int destroyedBricks = 0;
+//        for (ArrayList<Brick> brickRow : myBricks) {
+//            for (Brick myBrick : brickRow) {
+//                if (myBrick.getHealth() == 0) {
+//                    destroyedBricks += 1;
+//                }
+//            }
+//        }
+//        return destroyedBricks;
+//    }
+//
+//
+//    private int countTotalBricks(){
+//        int totalBricks = 0;
+//        for (ArrayList<Brick> brickRow : myBricks){
+//            totalBricks += brickRow.size();
+//        }
+//        return totalBricks;
+//    }
+//
 
+//    private void endGame(){
+//        if(countDestroyedBricks() != countTotalBricks()){
+//            displayGameOverMessage("You Lost :(", Color.RED);
+//        }
+//        else{
+//            displayGameOverMessage("You Won!", Color.GREEN);
+//            myBall.getImage().setVisible(false);
+//        }
+//    }
 
-    private int countTotalBricks(){
-        int totalBricks = 0;
-        for (ArrayList<Brick> brickRow : myBricks){
-            totalBricks += brickRow.size();
-        }
-        return totalBricks;
-    }
+//    private void displayGameOverMessage(String message, Color color){
+//        gameOverText.setText(message);
+//        gameOverText.setFont(new Font(20));
+//        gameOverText.setFill(color);
+//        gameOverText.setX(size / 2 - (gameOverText.getBoundsInLocal().getWidth() / 2));
+//        gameOverText.setY(size / 2);
+//    }
 
-
-    private void endGame(){
-        if(countDestroyedBricks() != countTotalBricks()){
-            displayGameOverMessage("You Lost :(", Color.RED);
-        }
-        else{
-            displayGameOverMessage("You Won!", Color.GREEN);
-            myBall.getImage().setVisible(false);
-        }
-    }
-
-    private void displayGameOverMessage(String message, Color color){
-        gameOverText.setText(message);
-        gameOverText.setFont(new Font(20));
-        gameOverText.setFill(color);
-        gameOverText.setX(size / 2 - (gameOverText.getBoundsInLocal().getWidth() / 2));
-        gameOverText.setY(size / 2);
-    }
-
-    private void PlayerSetUp(){
-        myPlayer = new Player(lives);
-    }
+//    private void PlayerSetUp(int lives){
+//        myPlayer = new Player(lives);
+//    }
 
     /**
      * Reads information from block configuration text file, including size of screen, number of block rows, number of
@@ -172,6 +195,7 @@ public class GameSetUp {
     //////////////////////////////////////////////////////////////////////////
     private Scene setGameStage (Paint background, double elapsedTime) {
         // create a place to see the shapes
+        Group root = new Group();
         var scene = new Scene(root, size, size, background);
 
         gameOverText = new Text();
@@ -183,7 +207,7 @@ public class GameSetUp {
         myBall = new Ball();
         myPaddle = new Paddle();
 
-        placeItemsForStart();
+       // placeItemsForStart();
         root.getChildren().add(myBall.getImage());
         root.getChildren().add(myPaddle.getImage());
 
@@ -193,8 +217,7 @@ public class GameSetUp {
             }
         }
 
-      //  scene.setOnKeyPressed(key -> myPaddle.handleSideKeyInput(key.getCode(), myScene.getWidth(), elapsedTime));
-        scene.setOnKeyPressed(key -> handleCheatKeys(key.getCode(), elapsedTime));
+        //scene.setOnKeyPressed(key -> handleCheatKeys(key.getCode(), elapsedTime));
 
         return scene;
     }
@@ -203,45 +226,44 @@ public class GameSetUp {
     /////////////////////////////////////////////////////////////////////////////
 
 
-    private void checkBallBrickCollision(){
-        for (ArrayList<Brick> brickRow : myBricks){
-            for (Brick myBrick : brickRow){
-                if (myBrick.getHealth() > 0 && myBall.getImage().getBoundsInParent().intersects(myBrick.getImage().getBoundsInParent())) {
-                    myBrick.decreaseHealth();
-                    myBall.BounceOff();
-                    myPlayer.increaseScore(1);
-                }
-            }
-        }
-    }
+//    private void checkBallBrickCollision(){
+//        for (ArrayList<Brick> brickRow : myBricks){
+//            for (Brick myBrick : brickRow){
+//                if (myBrick.getHealth() > 0 && myBall.getImage().getBoundsInParent().intersects(myBrick.getImage().getBoundsInParent())) {
+//                    myBrick.decreaseHealth();
+//                    myBall.BounceOff();
+//                    myPlayer.increaseScore(1);
+//                }
+//            }
+//        }
+//    }
+//
+//    private void checkBallHitsPaddle(){
+//        if(myBall.getImage().getBoundsInLocal().intersects(myPaddle.getImage().getBoundsInLocal())){
+//            myBall.BounceOffPad();
+//        }
+//    }
 
-    private void checkBallHitsPaddle(){
-        if(myBall.getImage().getBoundsInLocal().intersects(myPaddle.getImage().getBoundsInLocal())){
-            myBall.BounceOffPad();
-        }
-    }
-
-    private void placeItemsForStart(){
-        myBall.getImage().setVisible(true);
-        myBall.placeItem(size / 2 - myBall.getImage().getBoundsInLocal().getWidth() / 2,
-                size / 2 - myBall.getImage().getBoundsInLocal().getHeight() / 2);
-        myPaddle.placeItem(size / 2 - myPaddle.getImage().getBoundsInLocal().getWidth() / 2,
-                size - myPaddle.getImage().getBoundsInLocal().getHeight());
-    }
-
-    private void handleCheatKeys(KeyCode code, double elapsedTime){
-        if (code.getChar().equals("L")){
-           myPlayer.gainLife();
-        }
-        if (code.getChar().equals("R")){
-            placeItemsForStart();
-        }
-        if (code.isArrowKey()){
-            myPaddle.handleSideKeyInput(code, myScene.getWidth(), elapsedTime);
-        }
-
-    }
-
+//    private void placeItemsForStart(){
+//        myBall.getImage().setVisible(true);
+//        myBall.placeItem(size / 2 - myBall.getImage().getBoundsInLocal().getWidth() / 2,
+//                size / 2 - myBall.getImage().getBoundsInLocal().getHeight() / 2);
+//        myPaddle.placeItem(size / 2 - myPaddle.getImage().getBoundsInLocal().getWidth() / 2,
+//                size - myPaddle.getImage().getBoundsInLocal().getHeight());
+//    }
+//
+//    private void handleCheatKeys(KeyCode code, double elapsedTime){
+//        if (code.getChar().equals("L")){
+//           myPlayer.gainLife();
+//        }
+//        if (code.getChar().equals("R")){
+//            placeItemsForStart();
+//        }
+//        if (code.isArrowKey()){
+//            myPaddle.handleSideKeyInput(code, myScene.getWidth(), elapsedTime);
+//        }
+//
+//    }
 
 
 
