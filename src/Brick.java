@@ -7,18 +7,17 @@ import javafx.scene.image.ImageView;
  *
  * @author leahschwartz
  */
-public class Brick {
+public class Brick extends Item{
 
     public static final String BRICK_IMAGE = "brick1.gif";
-    private ImageView myBrick;
     private int myHealth;
 
-    public Brick(int width, int height, int health){
+    public Brick(int health){
         var image = new Image(this.getClass().getClassLoader().getResourceAsStream(BRICK_IMAGE));
-        myBrick = new ImageView(image);
+        myImage = new ImageView(image);
         myHealth = health;
-        myBrick.setFitWidth(width);
-        myBrick.setFitHeight(height);
+       // myImage.setFitWidth(width);
+       // myImage.setFitHeight(height);
     }
 
 
@@ -42,15 +41,15 @@ public class Brick {
      * Gets rid of brick
      */
     private void destroyBrick(){
-        myBrick.setVisible(false);
+        myImage.setVisible(false);
     }
 
     /**
      * Gets brick image
      * @return brick image as ImageView
      */
-    public ImageView getView(){
-        return myBrick;
+    public ImageView getImage(){
+        return myImage;
     }
 
 

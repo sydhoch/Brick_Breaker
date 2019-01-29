@@ -6,12 +6,22 @@ abstract public class Item {
     int myYVelocity;
     int myXVelocity;
 
-    abstract void placeForStart(int screenSize);
+    public void placeItem(double x, double y){
+        myImage.setX(x);
+        myImage.setY(y);
+    }
 
     abstract ImageView getImage();
 
-    abstract void move(double elapsedTime);
+    public void move(double elapsedTime){
+        myImage.setX(myImage.getX() + myXVelocity * elapsedTime);
+        myImage.setY(myImage.getY() + myYVelocity * elapsedTime);
+    }
 
+    public void setSize(int width, int height){
+        myImage.setFitWidth(width);
+        myImage.setFitHeight(height);
+    }
 
 
 

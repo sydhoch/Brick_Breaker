@@ -1,14 +1,18 @@
+import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 public class Status {
     private Text statusText;
 
     public Status(int screenSize){
         statusText = new Text();
-        statusText.setFill(Color.WHITE);
+        statusText.setFill(Color.BLUEVIOLET);
+       // statusText.setFont(new Font(screenSize / 25));
         statusText.setFont(new Font(20));
+        updateStatusText(0, 0, 0);
         placeStatusText(screenSize);
     }
 
@@ -17,8 +21,8 @@ public class Status {
     }
 
     private void placeStatusText(int screenSize){
-        statusText.setX(screenSize - (screenSize / 4));
-        statusText.setY(screenSize - (screenSize / 6));
+        statusText.setX(0 + statusText.getBoundsInLocal().getWidth() / 10);
+        statusText.setY(screenSize - statusText.getBoundsInLocal().getHeight());
     }
 
     public void updateStatusText(int currentLives, int currentLevel, int currentScore){

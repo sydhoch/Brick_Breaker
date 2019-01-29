@@ -21,7 +21,7 @@ import javafx.util.Duration;
 
 public class GameDriver extends Application{
 
-    public static final Paint BACKGROUND = Color.CYAN;
+    public static final Paint BACKGROUND = Color.WHITESMOKE;
     public static final String TITLE = "Hello JavaFX";
     public static final int FRAMES_PER_SECOND = 60;
     public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -32,7 +32,7 @@ public class GameDriver extends Application{
 
     public void start (Stage stage) {
         // attach scene to the stage and display it
-        makeGame = new GameSetUp("example.txt", BACKGROUND, SECOND_DELAY);
+        makeGame = new GameSetUp("easyToWin.txt", BACKGROUND, SECOND_DELAY);
 
         stage.setScene(makeGame.getScene());
         stage.setTitle(TITLE);

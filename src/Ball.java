@@ -47,10 +47,10 @@ public class Ball extends Item{
         myYVelocity *= -1;
     }
 
-    public void placeForStart(int screenSize){
-        myImage.setX(screenSize / 2 - myImage.getBoundsInLocal().getWidth() / 2);
-        myImage.setY(screenSize / 2 - myImage.getBoundsInLocal().getHeight() / 2);
-    }
+//    public void placeForStart(int x, int y){
+//        myImage.setX(screenSize / 2 - myImage.getBoundsInLocal().getWidth() / 2);
+//        myImage.setY(screenSize / 2 - myImage.getBoundsInLocal().getHeight() / 2);
+//    }
 
     /**
      * @returns ball's ImageView

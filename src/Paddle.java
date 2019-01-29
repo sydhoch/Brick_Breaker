@@ -19,10 +19,12 @@ public class Paddle extends Item{
     }
 
 
-    public void placeForStart(int screenSize){
-        myImage.setX(screenSize / 2 - myImage.getBoundsInLocal().getWidth() / 2);
-        myImage.setY(screenSize - myImage.getBoundsInLocal().getHeight());
-    }
+//    public void placeForStart(int screenSize){
+//        myImage.setX(screenSize / 2 - myImage.getBoundsInLocal().getWidth() / 2);
+//        myImage.setY(screenSize - myImage.getBoundsInLocal().getHeight());
+//    }
+
+
 
     /**
      * Moves paddle when direction keys are pressed (only RIGHT and LEFT are handled)
