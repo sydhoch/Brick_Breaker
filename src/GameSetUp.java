@@ -1,5 +1,6 @@
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -193,7 +194,8 @@ public class GameSetUp {
             }
         }
 
-        scene.setOnKeyPressed(key -> myPaddle.handleSideKeyInput(key.getCode(), myScene.getWidth(), elapsedTime));
+      //  scene.setOnKeyPressed(key -> myPaddle.handleSideKeyInput(key.getCode(), myScene.getWidth(), elapsedTime));
+        scene.setOnKeyPressed(key -> handleCheatKeys(key.getCode(), elapsedTime));
 
         return scene;
     }
@@ -227,6 +229,21 @@ public class GameSetUp {
         myPaddle.placeItem(size / 2 - myPaddle.getImage().getBoundsInLocal().getWidth() / 2,
                 size - myPaddle.getImage().getBoundsInLocal().getHeight());
     }
+
+    private void handleCheatKeys(KeyCode code, double elapsedTime){
+        if (code.getChar().equals("L")){
+           myPlayer.gainLife();
+        }
+        if (code.getChar().equals("R")){
+            placeItemsForStart();
+        }
+        if (code.isArrowKey()){
+            myPaddle.handleSideKeyInput(code, myScene.getWidth(), elapsedTime);
+        }
+
+    }
+
+
 
 
 }
