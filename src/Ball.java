@@ -3,12 +3,14 @@ import javafx.scene.image.ImageView;
 
 public class Ball extends Item{
 
-    public static final String BOUNCER_IMAGE = "ball.gif";
+    private static final String BOUNCER_IMAGE = "ball.gif";
+    private static final int STARTING_X_VELOCITY = 180;
+    private static final int STARTING_Y_VELOCITY = 60;
 
     Ball(){
         myImage = new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(BOUNCER_IMAGE)));
-        myXVelocity = 180;
-        myYVelocity = 60;
+        myXVelocity = STARTING_X_VELOCITY;
+        myYVelocity = STARTING_Y_VELOCITY;
     }
 
     /**
@@ -38,11 +40,11 @@ public class Ball extends Item{
     /**
      * reverse direction of ball
      */
-    public void BounceOffPad(){
+    public void bounceOffPad(){
             //myVelocityX*=1;
         myYVelocity *=-1;
     }
-    public void BounceOff(){
+    public void bounceOff(){
         myXVelocity *= -1;
         myYVelocity *= -1;
     }

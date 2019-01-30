@@ -18,16 +18,20 @@ public class GamePlay {
     Scene myScene;
     int levelNum;
 
+    private static final int NUM_STARTING_LIVES = 3;
+    private static final int NUM_STARTING_LEVEL = 0;
+    private static final int GAMETEXT_FONT_SIZE = 20;
+
 
     public GamePlay(Ball ball, Paddle paddle, ArrayList<ArrayList<Brick>> bricks, Status status, Text gameText, Scene scene){
         myBall = ball;
         myPaddle = paddle;
         myBricks = bricks;
-        myPlayer = new Player(3);
+        myPlayer = new Player(NUM_STARTING_LIVES);
         myStatus = status;
         myGameText = gameText;
         myScene = scene;
-        levelNum = 0;
+        levelNum = NUM_STARTING_LEVEL;
         placeItemsForStart();
     }
 
@@ -53,6 +57,10 @@ public class GamePlay {
         }
     }
 
+    /**
+     * Counts how many bricks have had their health reduced to 0 (making them "destroyed")
+     * @return number of bricks with 0 health
+     */
     private int countDestroyedBricks(){
         int destroyedBricks = 0;
         for (ArrayList<Brick> brickRow : myBricks) {
@@ -65,7 +73,10 @@ public class GamePlay {
         return destroyedBricks;
     }
 
-
+    /**
+     * Counts the total number of bricks the level started with
+     * @return total number of bricks
+     */
     private int countTotalBricks(){
         int totalBricks = 0;
         for (ArrayList<Brick> brickRow : myBricks){
@@ -74,6 +85,9 @@ public class GamePlay {
         return totalBricks;
     }
 
+    /**
+     * Determines if the winner won or lost in order to call the appropriate message
+     */
     private void endGame(){
         if(countDestroyedBricks() != countTotalBricks()){
             displayGameOverMessage("You Lost :(", Color.RED);
@@ -84,14 +98,22 @@ public class GamePlay {
         }
     }
 
+    /**
+     * Displays a message in the middle of the screen at the end of the game
+     * @param message phrase to be displayed
+     * @param color color of the displayed phrase
+     */
     private void displayGameOverMessage(String message, Color color){
         myGameText.setText(message);
-        myGameText.setFont(new Font(20));
+        myGameText.setFont(new Font(GAMETEXT_FONT_SIZE));
         myGameText.setFill(color);
         myGameText.setX(myScene.getWidth() / 2 - (myGameText.getBoundsInLocal().getWidth() / 2));
         myGameText.setY(myScene.getHeight() / 2);
     }
 
+    /**
+     * Positions ball and paddle for beginning of game
+     */
     private void placeItemsForStart(){
         myBall.getImage().setVisible(true);
         myBall.placeItem(myScene.getWidth() / 2 - myBall.getImage().getBoundsInLocal().getWidth() / 2,
@@ -104,18 +126,23 @@ public class GamePlay {
     private void checkBallBrickCollision(){
         for (ArrayList<Brick> brickRow : myBricks){
             for (Brick myBrick : brickRow){
-                if (myBrick.getHealth() > 0 && myBall.getImage().getBoundsInParent().intersects(myBrick.getImage().getBoundsInParent())) {
+                if (!myBrick.isDestroyed() && myBall.getImage().getBoundsInParent().intersects(myBrick.getImage().getBoundsInParent())) {
                     myBrick.decreaseHealth();
-                    myBall.BounceOff();
-                    myPlayer.increaseScore(1);
+                    myBall.bounceOff();
+                    myPlayer.increaseScore(myBrick.getValue());
+                    //  if (myBrick.isDestroyed() && myBrick.hasPowerUp){
+                    //    Powerup p = new Powerup(type of power up);
+                       //     p.move
+              //  }
                 }
             }
         }
     }
 
+
     private void checkBallHitsPaddle(){
         if(myBall.getImage().getBoundsInLocal().intersects(myPaddle.getImage().getBoundsInLocal())){
-            myBall.BounceOffPad();
+            myBall.bounceOffPad();
         }
     }
 

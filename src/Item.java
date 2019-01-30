@@ -20,7 +20,7 @@ abstract public class Item {
         myImage.setY(myImage.getY() + myYVelocity * elapsedTime);
     }
 
-    public void setSize(int width, int height){
+    public void setSize(double width, double height){
         myImage.setFitWidth(width);
         myImage.setFitHeight(height);
     }

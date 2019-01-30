@@ -9,15 +9,31 @@ import javafx.scene.image.ImageView;
  */
 public class Brick extends Item{
 
-    public static final String BRICK_IMAGE = "brick1.gif";
+    private static final String BRICK_IMAGE = "brick1.gif";
     private int myHealth;
+    private int myValue;
+    private boolean isDestroyed;
 
-    public Brick(int health){
+
+    public Brick(int health, int value){
         var image = new Image(this.getClass().getClassLoader().getResourceAsStream(BRICK_IMAGE));
         myImage = new ImageView(image);
         myHealth = health;
-       // myImage.setFitWidth(width);
-       // myImage.setFitHeight(height);
+        myValue = value;
+        isDestroyed = false;
+    }
+
+
+    public int getValue(){
+        return myValue;
+    }
+
+    public int getHealth(){
+        return myHealth;
+    }
+
+    public boolean isDestroyed() {
+        return isDestroyed;
     }
 
 
@@ -33,15 +49,13 @@ public class Brick extends Item{
             destroyBrick();
         }
     }
-    public int getHealth(){
-        return myHealth;
-    }
 
     /**
      * Gets rid of brick
      */
     private void destroyBrick(){
         myImage.setVisible(false);
+        isDestroyed = true;
     }
 
 

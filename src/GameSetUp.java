@@ -11,17 +11,18 @@ import javafx.scene.text.*;
 
 public class GameSetUp {
 
-    private int size;
+    private double size;
     private Scene myScene;
     private int numBrickCols;
     private int numBrickRows;
     private Text gameOverText;
     private Status myStatus;
-//    private Player myPlayer;
     private Paddle myPaddle;
     private Ball myBall;
     private ArrayList<ArrayList<Brick>> myBricks;
-   // private int levelNum = 1;
+
+    private static final double FRACTION_OF_SCREEN_WIDTH_FOR_BRICKS = 1.0/2.0;
+
 
     public ArrayList<ArrayList<Brick>> getBricks() {
         return myBricks;
@@ -172,7 +173,7 @@ public class GameSetUp {
             ArrayList<Brick> brickRow = new ArrayList<>();
             for (int j = 0; j < numBrickCols; j++) {
                 if (brickConfigs[i][j] > 0) {
-                    Brick myBrick = new Brick(brickConfigs[i][j]);
+                    Brick myBrick = new Brick(brickConfigs[i][j], brickConfigs[i][j]);
                     myBrick.setSize(calcBrickWidth(numBrickCols), calcBrickHeight(numBrickRows));
                     myBrick.placeItem(j * calcBrickWidth(numBrickCols),i * calcBrickHeight(numBrickRows));
                     brickRow.add(myBrick);
@@ -182,11 +183,11 @@ public class GameSetUp {
         }
     }
 
-    private int calcBrickHeight(int numBrickRows){
-        return size / numBrickRows / 2;
+    private double calcBrickHeight(int numBrickRows){
+        return size / numBrickRows * FRACTION_OF_SCREEN_WIDTH_FOR_BRICKS;
     }
 
-    private int calcBrickWidth(int numBrickCols){
+    private double calcBrickWidth(int numBrickCols){
         return size / numBrickCols;
     }
 
@@ -231,7 +232,7 @@ public class GameSetUp {
 //            for (Brick myBrick : brickRow){
 //                if (myBrick.getHealth() > 0 && myBall.getImage().getBoundsInParent().intersects(myBrick.getImage().getBoundsInParent())) {
 //                    myBrick.decreaseHealth();
-//                    myBall.BounceOff();
+//                    myBall.bounceOff();
 //                    myPlayer.increaseScore(1);
 //                }
 //            }
@@ -240,7 +241,7 @@ public class GameSetUp {
 //
 //    private void checkBallHitsPaddle(){
 //        if(myBall.getImage().getBoundsInLocal().intersects(myPaddle.getImage().getBoundsInLocal())){
-//            myBall.BounceOffPad();
+//            myBall.bounceOffPad();
 //        }
 //    }
 

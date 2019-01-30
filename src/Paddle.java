@@ -41,9 +41,9 @@ public class Paddle extends Item{
         }
     }
 
-    public void move(double elapsedTime){
-        myImage.setX(myImage.getX() + myXVelocity * elapsedTime);
-    }
+ //   public void move(double elapsedTime){
+   //     myImage.setX(myImage.getX() + myXVelocity * elapsedTime);
+    //}
 
 
 }

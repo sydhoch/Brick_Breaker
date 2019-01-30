@@ -6,12 +6,14 @@ import javafx.scene.text.TextAlignment;
 
 public class Status {
     private Text statusText;
+    private static final int FONT_SIZE = 20;
 
-    public Status(int screenSize){
+
+    public Status(double screenSize){
         statusText = new Text();
         statusText.setFill(Color.BLUEVIOLET);
        // statusText.setFont(new Font(screenSize / 25));
-        statusText.setFont(new Font(20));
+        statusText.setFont(new Font(FONT_SIZE));
         updateStatusText(0, 0, 0);
         placeStatusText(screenSize);
     }
@@ -20,8 +22,8 @@ public class Status {
         return statusText;
     }
 
-    private void placeStatusText(int screenSize){
-        statusText.setX(0 + statusText.getBoundsInLocal().getWidth() / 10);
+    private void placeStatusText(double screenSize){
+        statusText.setX(statusText.getBoundsInLocal().getWidth() / 10);
         statusText.setY(screenSize - statusText.getBoundsInLocal().getHeight());
     }
 
