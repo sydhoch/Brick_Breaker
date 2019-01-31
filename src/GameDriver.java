@@ -23,11 +23,9 @@ public class GameDriver extends Application{
 
     public void start (Stage stage) {
         // attach scene to the stage and display it
-       // BrickConfigurar gameMaker = new BrickConfigurar("example.txt", BACKGROUND, SECOND_DELAY);
-        GamePlay gamePlayer = new GamePlay(SECOND_DELAY);
-        //Scene myScene = gameMaker.getScene();
-        Scene myScene = gamePlayer.getScene();
 
+        GamePlay gamePlayer = new GamePlay(SECOND_DELAY);
+        Scene myScene = gamePlayer.getScene();
 
         myScene.setOnKeyPressed(key -> gamePlayer.handleCheatKeys(key.getCode(), SECOND_DELAY));
 
@@ -37,14 +35,17 @@ public class GameDriver extends Application{
 
         //show start screen
         stage.setScene(start);
-        stage.setTitle("Hi");
-        stage.show();
+        //stage.setTitle("Hi");
+        //stage.show();
+
+
+        start.setOnKeyPressed(key-> stage.setScene(myScene));
 
 
 
-        /*
+
         //show game screen
-        stage.setScene(myScene);
+        //stage.setScene(myScene);
         stage.setTitle(TITLE);
         stage.show();
 
@@ -54,7 +55,7 @@ public class GameDriver extends Application{
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
         animation.play();
-        */
+
     }
 
 

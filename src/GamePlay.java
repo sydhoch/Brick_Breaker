@@ -23,7 +23,7 @@ public class GamePlay {
     private boolean gameOver;
     private int numCollisions;
     private Group root;
-    private PowerUp myPowerUp;
+    private ArrayList<PowerUp> myPowerUps;
     private ArrayList<Integer> powerUpCollisions;
     private static final double PERCENT_OF_COLLISIONS_WITH_POWERUPS = 1;
     private static final int NUM_STARTING_LIVES = 3;
@@ -47,7 +47,7 @@ public class GamePlay {
         myStatus = new Status(SCREEN_SIZE);
         gameOver = false;
         numCollisions = 0;
-        myPowerUp = new PowerUp();
+        myPowerUps = new ArrayList<>();
         choosePowerUpCollisions();
         setUpNewGame(Color.WHITESMOKE, elapsedTime);
     }
@@ -87,7 +87,9 @@ public class GamePlay {
                 placeItemsForStart();
             }
         }
-        myPowerUp.move(elapsedTime);
+        for (PowerUp myPowerUp : myPowerUps) {
+            myPowerUp.move(elapsedTime);
+        }
         if (myPlayer.getLives() == 0 || countTotalBricks() == countDestroyedBricks()){
             endGame();
         }
@@ -167,9 +169,9 @@ public class GamePlay {
                     myBall.bounceOff();
                     myPlayer.increaseScore(brickHitValue);
                     if (!myBrick.isVisible() && powerUpCollisions.contains(numCollisions)){
-                        myPowerUp = new PowerUp();
+                        PowerUp myPowerUp = new PowerUp();
+                        myPowerUps.add(myPowerUp);
                         root.getChildren().add(myPowerUp.getImage());
-
                         myPowerUp.placeItem(myBrick.getXCoordinate(), myBrick.getYCoordinate());
                         myPowerUp.startFalling();
 
