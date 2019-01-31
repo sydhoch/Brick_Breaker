@@ -9,42 +9,47 @@ import javafx.scene.image.ImageView;
  */
 public class Brick extends Item{
 
-    public static final String BRICK_IMAGE = "brick1.gif";
+    private static final String BRICK_IMAGE = "brick1.gif";
     private int myHealth;
+    private int myValue;
+    private boolean hasPowerUp;
 
-    public Brick(int health){
-        var image = new Image(this.getClass().getClassLoader().getResourceAsStream(BRICK_IMAGE));
-        myImage = new ImageView(image);
+
+    public Brick(int health, int value){
+        setImage(BRICK_IMAGE);
         myHealth = health;
-       // myImage.setFitWidth(width);
-       // myImage.setFitHeight(height);
+        myValue = value;
+        setVisible(true);
     }
 
 
-    /**
-     * Decreases brick's health and calls for it to be destroyed once health is too low
-     */
-    public void decreaseHealth(){
-        if (myHealth > 1){
-            myHealth--;
-        }
-        else{
-            myHealth=0;
-            destroyBrick();
-        }
+    public int getValue(){
+        return myValue;
     }
+
     public int getHealth(){
         return myHealth;
     }
 
     /**
-     * Gets rid of brick
+     * Decreases brick's health and calls for it to be destroyed once health is too low
      */
-    private void destroyBrick(){
-        myImage.setVisible(false);
+    public void decreaseHealth() {
+        if (myHealth > 1) {
+            myHealth--;
+        } else {
+            myHealth = 0;
+            setVisible(false);
+        }
     }
 
+    public void setHasPowerUp(boolean setPowerUp) {
+        hasPowerUp = setPowerUp;
+    }
 
+    public boolean hasPowerUp(){
+        return hasPowerUp;
+    }
 
 
 
