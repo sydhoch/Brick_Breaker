@@ -15,7 +15,7 @@ public class StartScreen {
     }
 
     /**
-     * Gets Scene created by GameSetUp
+     * Gets Scene created by BrickConfigurar
      * @return game Scene
      */
     public Scene getScene(){
