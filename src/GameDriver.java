@@ -44,14 +44,17 @@ public class GameDriver extends Application{
 
         //show start screen
         stage.setScene(start);
-        stage.setTitle("Hi");
-        stage.show();
+        //stage.setTitle("Hi");
+        //stage.show();
+
+
+        start.setOnKeyPressed(key-> stage.setScene(myScene));
 
 
 
-        /*
+
         //show game screen
-        stage.setScene(myScene);
+        //stage.setScene(myScene);
         stage.setTitle(TITLE);
         stage.show();
 
@@ -61,7 +64,7 @@ public class GameDriver extends Application{
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
         animation.play();
-        */
+
     }
 
 
