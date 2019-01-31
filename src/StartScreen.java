@@ -19,6 +19,7 @@ public class StartScreen {
         myScene = setUpScreen(screenSize);
     }
 
+
     public Scene setUpScreen(double screenSize){
         root = new Group();
         Text title = getTitle(screenSize);
@@ -27,6 +28,7 @@ public class StartScreen {
         var scene = new Scene(root, screenSize, screenSize, Color.WHITE);
 
         return scene;
+
     }
 
     public Scene getMyScene(){

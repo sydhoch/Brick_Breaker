@@ -8,7 +8,7 @@ public class Ball extends Item{
     private static final int STARTING_Y_VELOCITY = 60;
 
     Ball(){
-        setImage(BOUNCER_IMAGE);
+        setImage(createImageView(BOUNCER_IMAGE));
         setStartingVelocity();
         setVisible(true);
     }

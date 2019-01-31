@@ -13,7 +13,7 @@ public class Paddle extends Item{
 
 
     public Paddle(){
-        setImage(PADDLE_IMAGE);
+        setImage(createImageView(PADDLE_IMAGE));
         setXVelocity(PADDLE_SPEED);
         setVisible(true);
     }

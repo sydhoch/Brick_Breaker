@@ -1,17 +1,9 @@
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -31,10 +23,11 @@ public class GameDriver extends Application{
 
     public void start (Stage stage) {
         // attach scene to the stage and display it
-        GameSetUp gameMaker = new GameSetUp("example.txt", BACKGROUND, SECOND_DELAY);
-        Scene myScene = gameMaker.getScene();
-        GamePlay gamePlayer = new GamePlay(gameMaker.getBall(), gameMaker.getPaddle(), gameMaker.getBricks(),
-                gameMaker.getStatus(), gameMaker.getGameOverText(), myScene, gameMaker.getPowerUps());
+       // BrickConfigurar gameMaker = new BrickConfigurar("example.txt", BACKGROUND, SECOND_DELAY);
+        GamePlay gamePlayer = new GamePlay(SECOND_DELAY);
+        //Scene myScene = gameMaker.getScene();
+        Scene myScene = gamePlayer.getScene();
+
 
         myScene.setOnKeyPressed(key -> gamePlayer.handleCheatKeys(key.getCode(), SECOND_DELAY));
 

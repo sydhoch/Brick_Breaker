@@ -16,7 +16,7 @@ public class Brick extends Item{
 
 
     public Brick(int health, int value){
-        setImage(BRICK_IMAGE);
+        setImage(createImageView(BRICK_IMAGE));
         myHealth = health;
         myValue = value;
         setVisible(true);

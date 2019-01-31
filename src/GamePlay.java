@@ -1,9 +1,10 @@
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -20,33 +21,59 @@ public class GamePlay {
     private int levelNum;
     private int brickHitValue;
     private boolean gameOver;
-    private ArrayList<PowerUp> myPowerUps;
-
+    private int numCollisions;
+    private Group root;
+    private PowerUp myPowerUp;
+    private ArrayList<Integer> powerUpCollisions;
+    private static final double PERCENT_OF_COLLISIONS_WITH_POWERUPS = 1;
     private static final int NUM_STARTING_LIVES = 3;
     private static final int NUM_STARTING_LEVEL = 0;
     private static final int GAMETEXT_FONT_SIZE = 20;
+    private static final int SCREEN_SIZE = 500;
+    private static final Color BACKGROUND = Color.WHITESMOKE;
 
-
-    public GamePlay(Ball ball, Paddle paddle, ArrayList<ArrayList<Brick>> bricks, Status status, Text gameText, Scene scene, ArrayList<PowerUp> powerUps){
-        myBall = ball;
-        myPaddle = paddle;
-        myBricks = bricks;
+    public GamePlay(double elapsedTime){
+        root = new Group();
+        BrickConfigurar brickSet = new BrickConfigurar("example.txt", root, elapsedTime);
+        myBall = new Ball();
+        myPaddle = new Paddle();
+        myBricks = brickSet.getBricks();
+        myGameText = new Text();
         myPlayer = new Player(NUM_STARTING_LIVES);
-        myStatus = status;
-        myGameText = gameText;
-        myScene = scene;
+        myScene = new Scene(root, SCREEN_SIZE, SCREEN_SIZE, BACKGROUND);
         levelNum = NUM_STARTING_LEVEL;
         placeItemsForStart();
         brickHitValue = 1;
+        myStatus = new Status(SCREEN_SIZE);
         gameOver = false;
-        myPowerUps = powerUps;
+        numCollisions = 0;
+        myPowerUp = new PowerUp();
+        choosePowerUpCollisions();
+        setUpNewGame(Color.WHITESMOKE, elapsedTime);
     }
 
+    public Scene getScene() {
+        return myScene;
+    }
 
-    /**
-     * Changes properties of objects on screen to make them seem animated
-     * @param elapsedTime how often method is run
-     */
+    private Scene setUpNewGame (Paint background, double elapsedTime) {
+        // create a place to see the shapes
+       // root = new Group();
+
+        root.getChildren().add(myGameText);
+        root.getChildren().add(myStatus.getStatusText());
+        root.getChildren().add(myBall.getImage());
+        root.getChildren().add(myPaddle.getImage());
+
+        //scene.setOnKeyPressed(key -> handleCheatKeys(key.getCode(), elapsedTime));
+
+        return myScene;
+    }
+
+        /**
+         * Changes properties of objects on screen to make them seem animated
+         * @param elapsedTime how often method is run
+         */
     public void step (double elapsedTime) {
         myStatus.updateStatusText(myPlayer.getLives(), levelNum, myPlayer.getScore());
         myBall.move(elapsedTime);
@@ -60,9 +87,7 @@ public class GamePlay {
                 placeItemsForStart();
             }
         }
-        for (PowerUp power : myPowerUps){
-            power.move(elapsedTime);
-        }
+        myPowerUp.move(elapsedTime);
         if (myPlayer.getLives() == 0 || countTotalBricks() == countDestroyedBricks()){
             endGame();
         }
@@ -127,7 +152,8 @@ public class GamePlay {
      * Positions ball and paddle for beginning of game
      */
     private void placeItemsForStart(){
-        myBall.placeItem(myScene.getWidth() / 2 - myBall.getWidth() / 2, myScene.getHeight() / 2 - myBall.getHeight() / 2);
+        myBall.placeItem(
+                myScene.getWidth() / 2 - myBall.getWidth() / 2, myScene.getHeight() / 2 - myBall.getHeight() / 2);
         myBall.setStartingVelocity();
         myPaddle.placeItem(myScene.getWidth() / 2 - myPaddle.getWidth() / 2, myScene.getHeight() - myPaddle.getHeight());
     }
@@ -137,24 +163,54 @@ public class GamePlay {
         for (ArrayList<Brick> brickRow : myBricks) {
             for (Brick myBrick : brickRow) {
                 if (myBrick.isVisible() && myBall.getParentBounds().intersects(myBrick.getParentBounds())) {
-                    System.out.println(myBrick.isVisible());
                     myBrick.decreaseHealth();
                     myBall.bounceOff();
                     myPlayer.increaseScore(brickHitValue);
-                    if (myBrick.isVisible() && myBrick.hasPowerUp()) {
-                        PowerUp power = getRandomPowerUp();
-                        power.placeItem(myBrick.getXCoordinate(), myBrick.getYCoordinate());
-                        power.startFalling();
+                    if (!myBrick.isVisible() && powerUpCollisions.contains(numCollisions)){
+                        myPowerUp = new PowerUp();
+                        root.getChildren().add(myPowerUp.getImage());
+
+                        myPowerUp.placeItem(myBrick.getXCoordinate(), myBrick.getYCoordinate());
+                        myPowerUp.startFalling();
+
                     }
+                    numCollisions += 1;
                 }
             }
         }
     }
 
-    private PowerUp getRandomPowerUp(){
-        Random rand = new Random();
-        return myPowerUps.get(rand.nextInt(myPowerUps.size()));
+//    private PowerUp getRandomPowerUp(){
+//        Random rand = new Random();
+//        return myPowerUps.get(rand.nextInt(myPowerUps.size()));
+//    }
+
+
+    private int calculateNumPowerUpCollisions(){
+        return (int)(countTotalBricks() * PERCENT_OF_COLLISIONS_WITH_POWERUPS);
     }
+
+    private ArrayList<Integer> getPossibleCollisions(){
+        ArrayList<Integer> possibleCollisions = new ArrayList<>();
+        for (int i = 0; i < countTotalBricks(); i++){
+            possibleCollisions.add(i);
+        }
+        return possibleCollisions;
+    }
+
+
+    private void choosePowerUpCollisions(){
+        Random rand = new Random();
+        powerUpCollisions = new ArrayList<>();
+        ArrayList<Integer> possibleCollisions = getPossibleCollisions();
+        for (int i = 0; i < calculateNumPowerUpCollisions(); i++){
+            int randomIndex = rand.nextInt(possibleCollisions.size());
+            int randoNum = possibleCollisions.get(randomIndex);
+            possibleCollisions.remove(randomIndex);
+            powerUpCollisions.add(randoNum);
+        }
+    }
+
 
     private void checkBallHitsPaddle(){
         if(myBall.getParentBounds().intersects(myPaddle.getParentBounds())){
