@@ -13,10 +13,9 @@ public class Paddle extends Item{
 
 
     public Paddle(){
-        setImage(new Image(this.getClass().getClassLoader().getResourceAsStream(PADDLE_IMAGE)));
+        setImage(PADDLE_IMAGE);
         setXVelocity(PADDLE_SPEED);
         setVisible(true);
-
     }
 
     /**

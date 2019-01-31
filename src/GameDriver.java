@@ -34,7 +34,7 @@ public class GameDriver extends Application{
         GameSetUp gameMaker = new GameSetUp("example.txt", BACKGROUND, SECOND_DELAY);
         Scene myScene = gameMaker.getScene();
         GamePlay gamePlayer = new GamePlay(gameMaker.getBall(), gameMaker.getPaddle(), gameMaker.getBricks(),
-                gameMaker.getStatus(), gameMaker.getGameOverText(), myScene);
+                gameMaker.getStatus(), gameMaker.getGameOverText(), myScene, gameMaker.getPowerUps());
 
         myScene.setOnKeyPressed(key -> gamePlayer.handleCheatKeys(key.getCode(), SECOND_DELAY));
 

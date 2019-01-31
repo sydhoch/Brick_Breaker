@@ -5,25 +5,29 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class GamePlay {
 
-    Ball myBall;
-    Paddle myPaddle;
-    ArrayList<ArrayList<Brick>> myBricks;
-    Player myPlayer;
-    Status myStatus;
-    Text myGameText;
-    Scene myScene;
-    int levelNum;
+    private Ball myBall;
+    private Paddle myPaddle;
+    private ArrayList<ArrayList<Brick>> myBricks;
+    private Player myPlayer;
+    private Status myStatus;
+    private Text myGameText;
+    private Scene myScene;
+    private int levelNum;
+    private int brickHitValue;
+    private boolean gameOver;
+    private ArrayList<PowerUp> myPowerUps;
 
     private static final int NUM_STARTING_LIVES = 3;
     private static final int NUM_STARTING_LEVEL = 0;
     private static final int GAMETEXT_FONT_SIZE = 20;
 
 
-    public GamePlay(Ball ball, Paddle paddle, ArrayList<ArrayList<Brick>> bricks, Status status, Text gameText, Scene scene){
+    public GamePlay(Ball ball, Paddle paddle, ArrayList<ArrayList<Brick>> bricks, Status status, Text gameText, Scene scene, ArrayList<PowerUp> powerUps){
         myBall = ball;
         myPaddle = paddle;
         myBricks = bricks;
@@ -33,6 +37,9 @@ public class GamePlay {
         myScene = scene;
         levelNum = NUM_STARTING_LEVEL;
         placeItemsForStart();
+        brickHitValue = 1;
+        gameOver = false;
+        myPowerUps = powerUps;
     }
 
 
@@ -52,6 +59,9 @@ public class GamePlay {
             if (myPlayer.getLives() > 0) {
                 placeItemsForStart();
             }
+        }
+        for (PowerUp power : myPowerUps){
+            power.move(elapsedTime);
         }
         if (myPlayer.getLives() == 0 || countTotalBricks() == countDestroyedBricks()){
             endGame();
@@ -90,6 +100,7 @@ public class GamePlay {
      * Determines if the winner won or lost in order to call the appropriate message
      */
     private void endGame(){
+        gameOver = true;
         if(countDestroyedBricks() != countTotalBricks()){
             displayGameOverMessage("You Lost :(", Color.RED);
         }
@@ -122,23 +133,28 @@ public class GamePlay {
     }
 
 
-    private void checkBallBrickCollision(){
-        for (ArrayList<Brick> brickRow : myBricks){
-            for (Brick myBrick : brickRow){
+    private void checkBallBrickCollision() {
+        for (ArrayList<Brick> brickRow : myBricks) {
+            for (Brick myBrick : brickRow) {
                 if (myBrick.isVisible() && myBall.getParentBounds().intersects(myBrick.getParentBounds())) {
                     System.out.println(myBrick.isVisible());
                     myBrick.decreaseHealth();
                     myBall.bounceOff();
-                    myPlayer.increaseScore(myBrick.getValue());
-                    //  if (myBrick.isVisible() && myBrick.hasPowerUp){
-                    //    Powerup p = new Powerup(type of power up);
-                       //     p.move
-              //  }
+                    myPlayer.increaseScore(brickHitValue);
+                    if (myBrick.isVisible() && myBrick.hasPowerUp()) {
+                        PowerUp power = getRandomPowerUp();
+                        power.placeItem(myBrick.getXCoordinate(), myBrick.getYCoordinate());
+                        power.startFalling();
+                    }
                 }
             }
         }
     }
 
+    private PowerUp getRandomPowerUp(){
+        Random rand = new Random();
+        return myPowerUps.get(rand.nextInt(myPowerUps.size()));
+    }
 
     private void checkBallHitsPaddle(){
         if(myBall.getParentBounds().intersects(myPaddle.getParentBounds())){
@@ -147,14 +163,16 @@ public class GamePlay {
     }
 
     public void handleCheatKeys(KeyCode code, double elapsedTime){
-        if (code.getChar().equals("L")){
-            myPlayer.gainLife();
-        }
-        if (code.getChar().equals("R")){
-            placeItemsForStart();
-        }
-        if (code.isArrowKey()){
-            myPaddle.handleSideKeyInput(code, myScene.getWidth(), elapsedTime);
+        if (!gameOver) {
+            if (code.getChar().equals("L")) {
+                myPlayer.gainLife();
+            }
+            if (code.getChar().equals("R")) {
+                placeItemsForStart();
+            }
+            if (code.isArrowKey()) {
+                myPaddle.handleSideKeyInput(code, myScene.getWidth(), elapsedTime);
+            }
         }
 
     }

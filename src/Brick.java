@@ -12,10 +12,11 @@ public class Brick extends Item{
     private static final String BRICK_IMAGE = "brick1.gif";
     private int myHealth;
     private int myValue;
+    private boolean hasPowerUp;
 
 
     public Brick(int health, int value){
-        setImage(new Image(this.getClass().getClassLoader().getResourceAsStream(BRICK_IMAGE)));
+        setImage(BRICK_IMAGE);
         myHealth = health;
         myValue = value;
         setVisible(true);
@@ -33,18 +34,22 @@ public class Brick extends Item{
     /**
      * Decreases brick's health and calls for it to be destroyed once health is too low
      */
-    public void decreaseHealth(){
-        if (myHealth > 1){
+    public void decreaseHealth() {
+        if (myHealth > 1) {
             myHealth--;
-        }
-        else{
-            myHealth=0;
+        } else {
+            myHealth = 0;
             setVisible(false);
         }
     }
 
+    public void setHasPowerUp(boolean setPowerUp) {
+        hasPowerUp = setPowerUp;
+    }
 
-
+    public boolean hasPowerUp(){
+        return hasPowerUp;
+    }
 
 
 

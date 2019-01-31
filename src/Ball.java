@@ -8,19 +8,11 @@ public class Ball extends Item{
     private static final int STARTING_Y_VELOCITY = 60;
 
     Ball(){
-        setImage(new Image(this.getClass().getClassLoader().getResourceAsStream(BOUNCER_IMAGE)));
+        setImage(BOUNCER_IMAGE);
         setStartingVelocity();
         setVisible(true);
     }
 
-    /**
-     * changes the Bouncer's x- and y-coordinate by its speed dampened by the given elapsedTime
-     * @param elapsedTime
-     */
-
-//    public void move(double elapsedTime){
-//        //placeItem(getXCoordinate() + getXVelocity() * elapsedTime,getYCoordinate() + getYVelocity() * elapsedTime);
-//    }
 
     /**
      * makes the ball bounce off of the left right and top walls by switching the direction of X & Y velocities

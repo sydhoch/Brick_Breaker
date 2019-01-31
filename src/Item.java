@@ -25,10 +25,14 @@ abstract public class Item {
         return myImage;
     }
 
-    public void setImage(Image image){
-        myImage = new ImageView(image);
+    public void setImage(String imageName){
+        myImage = new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(imageName)));
     }
 
+    /**
+     * changes the Item's x- and y-coordinate by its speed dampened by the given elapsedTime
+     * @param elapsedTime
+     */
     public void move(double elapsedTime){
         myImage.setX(myImage.getX() + getXVelocity() * elapsedTime);
         myImage.setY(myImage.getY() + getYVelocity() * elapsedTime);

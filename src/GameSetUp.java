@@ -1,9 +1,8 @@
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 import javafx.scene.text.*;
 
@@ -20,8 +19,10 @@ public class GameSetUp {
     private Paddle myPaddle;
     private Ball myBall;
     private ArrayList<ArrayList<Brick>> myBricks;
+    private ArrayList<PowerUp> myPowerUps;
 
     private static final double FRACTION_OF_SCREEN_WIDTH_FOR_BRICKS = 1.0/2.0;
+    private static final double PERCENT_OF_BLOCKS_WITH_POWERUPS = 1;
 
 
     public ArrayList<ArrayList<Brick>> getBricks() {
@@ -39,17 +40,20 @@ public class GameSetUp {
     }
 
 
-//    public Player getPlayer() {
-//        return myPlayer;
-//    }
-
-
     public Status getStatus() {
         return myStatus;
     }
 
     public Text getGameOverText() {
         return gameOverText;
+    }
+
+    public ArrayList<PowerUp> getPowerUps(){
+        return myPowerUps;
+    }
+
+    public Scene getScene(){
+        return myScene;
     }
 
 
@@ -59,19 +63,13 @@ public class GameSetUp {
      * @param background color of screen background
      */
     public GameSetUp(String fileName, Paint background, double elapsedTime){
+        myBricks = new ArrayList<>();
         fillBrickList(readBrickFile(fileName), numBrickCols, numBrickRows);
-
+        myPowerUps = new ArrayList<>();
+        createPowerUps();
 //        PlayerSetUp(3);
         myScene = setGameStage(background, elapsedTime);
 //        countTotalBricks();
-    }
-
-    /**
-     * Gets Scene created by GameSetUp
-     * @return game Scene
-     */
-    public Scene getScene(){
-        return myScene;
     }
 
 
@@ -164,23 +162,24 @@ public class GameSetUp {
     /**
      * Fills myBricks with Brick objects with health and placement as specified by brickConfigs
      * @param brickConfigs represents configuration of blocks onscreen
-     * @param numBrickCols number of columns of countTotalBricks
-     * @param numBrickRows number of rows of countTotalBricks
+     * @param numBrickCols number of columns of bricks
+     * @param numBrickRows number of rows of bricks
      */
     private void fillBrickList(int[][] brickConfigs, int numBrickCols, int numBrickRows) {
-        myBricks = new ArrayList<>();
         for (int i = 0; i < numBrickRows; i++) {
             ArrayList<Brick> brickRow = new ArrayList<>();
             for (int j = 0; j < numBrickCols; j++) {
                 if (brickConfigs[i][j] > 0) {
                     Brick myBrick = new Brick(brickConfigs[i][j], brickConfigs[i][j]);
                     myBrick.setSize(calcBrickWidth(numBrickCols), calcBrickHeight(numBrickRows));
-                    myBrick.placeItem(j * calcBrickWidth(numBrickCols),i * calcBrickHeight(numBrickRows));
+                    myBrick.placeItem(j * myBrick.getWidth(),i * myBrick.getHeight());
                     brickRow.add(myBrick);
                 }
             }
             myBricks.add(brickRow);
         }
+        System.out.println(myBricks.size());
+        System.out.println(myBricks.get(0).size());
     }
 
     private double calcBrickHeight(int numBrickRows){
@@ -190,6 +189,27 @@ public class GameSetUp {
     private double calcBrickWidth(int numBrickCols){
         return size / numBrickCols;
     }
+
+    private void createPowerUps(){
+        for (int i = 0; i < calculateNumberPowerUps(); i++){
+            Brick goBehind = getRandomBrick();
+           // PowerUp power = new PowerUp();
+            //power.placeItem(goBehind.getXCoordinate(), goBehind.getYCoordinate());
+           // myPowerUps.add(power);
+            goBehind.setHasPowerUp(true);
+        }
+    }
+
+    private Brick getRandomBrick(){
+        Random rand = new Random();
+        ArrayList<Brick> randomBrickRow = myBricks.get(rand.nextInt(numBrickRows));
+        return randomBrickRow.get(rand.nextInt(randomBrickRow.size()));
+    }
+
+    private int calculateNumberPowerUps() {
+        return (int)(numBrickRows * numBrickCols * PERCENT_OF_BLOCKS_WITH_POWERUPS);
+    }
+
 
 
 
@@ -216,6 +236,10 @@ public class GameSetUp {
             for (Brick myBrick : brickRow){
                 root.getChildren().add(myBrick.getImage());
             }
+        }
+
+        for (PowerUp power : myPowerUps){
+                root.getChildren().add(power.getImage());
         }
 
         //scene.setOnKeyPressed(key -> handleCheatKeys(key.getCode(), elapsedTime));
