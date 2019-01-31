@@ -38,6 +38,19 @@ public class GameDriver extends Application{
 
         myScene.setOnKeyPressed(key -> gamePlayer.handleCheatKeys(key.getCode(), SECOND_DELAY));
 
+        //make a start screen
+        StartScreen startsetup = new StartScreen(myScene.getHeight());
+        Scene start = startsetup.getMyScene();
+
+        //show start screen
+        stage.setScene(start);
+        stage.setTitle("Hi");
+        stage.show();
+
+
+
+        /*
+        //show game screen
         stage.setScene(myScene);
         stage.setTitle(TITLE);
         stage.show();
@@ -48,6 +61,7 @@ public class GameDriver extends Application{
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
         animation.play();
+        */
     }
 
 
