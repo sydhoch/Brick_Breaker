@@ -12,15 +12,13 @@ public class Brick extends Item{
     private static final String BRICK_IMAGE = "brick1.gif";
     private int myHealth;
     private int myValue;
-    private boolean isDestroyed;
 
 
     public Brick(int health, int value){
-        var image = new Image(this.getClass().getClassLoader().getResourceAsStream(BRICK_IMAGE));
-        myImage = new ImageView(image);
+        setImage(new Image(this.getClass().getClassLoader().getResourceAsStream(BRICK_IMAGE)));
         myHealth = health;
         myValue = value;
-        isDestroyed = false;
+        setVisible(true);
     }
 
 
@@ -32,11 +30,6 @@ public class Brick extends Item{
         return myHealth;
     }
 
-    public boolean isDestroyed() {
-        return isDestroyed;
-    }
-
-
     /**
      * Decreases brick's health and calls for it to be destroyed once health is too low
      */
@@ -46,17 +39,10 @@ public class Brick extends Item{
         }
         else{
             myHealth=0;
-            destroyBrick();
+            setVisible(false);
         }
     }
 
-    /**
-     * Gets rid of brick
-     */
-    private void destroyBrick(){
-        myImage.setVisible(false);
-        isDestroyed = true;
-    }
 
 
 

@@ -46,7 +46,8 @@ public class GamePlay {
         myBall.bounce(myScene.getWidth(), myScene.getHeight());
         checkBallHitsPaddle();
         checkBallBrickCollision();
-        if (myBall.ballFell(myScene.getHeight()) && myBall.getImage().isVisible()) {
+        if (myBall.ballFell(myScene.getHeight()) && myBall.isVisible()) {
+            myBall.setVisible(true);
             myPlayer.loseLife();
             if (myPlayer.getLives() > 0) {
                 placeItemsForStart();
@@ -94,7 +95,7 @@ public class GamePlay {
         }
         else{
             displayGameOverMessage("You Won!", Color.GREEN);
-            myBall.getImage().setVisible(false);
+            myBall.setVisible(false);
         }
     }
 
@@ -115,22 +116,21 @@ public class GamePlay {
      * Positions ball and paddle for beginning of game
      */
     private void placeItemsForStart(){
-        myBall.getImage().setVisible(true);
-        myBall.placeItem(myScene.getWidth() / 2 - myBall.getImage().getBoundsInLocal().getWidth() / 2,
-                myScene.getHeight() / 2 - myBall.getImage().getBoundsInLocal().getHeight() / 2);
-        myPaddle.placeItem(myScene.getWidth() / 2 - myPaddle.getImage().getBoundsInLocal().getWidth() / 2,
-                myScene.getHeight() - myPaddle.getImage().getBoundsInLocal().getHeight());
+        myBall.placeItem(myScene.getWidth() / 2 - myBall.getWidth() / 2, myScene.getHeight() / 2 - myBall.getHeight() / 2);
+        myBall.setStartingVelocity();
+        myPaddle.placeItem(myScene.getWidth() / 2 - myPaddle.getWidth() / 2, myScene.getHeight() - myPaddle.getHeight());
     }
 
 
     private void checkBallBrickCollision(){
         for (ArrayList<Brick> brickRow : myBricks){
             for (Brick myBrick : brickRow){
-                if (!myBrick.isDestroyed() && myBall.getImage().getBoundsInParent().intersects(myBrick.getImage().getBoundsInParent())) {
+                if (myBrick.isVisible() && myBall.getParentBounds().intersects(myBrick.getParentBounds())) {
+                    System.out.println(myBrick.isVisible());
                     myBrick.decreaseHealth();
                     myBall.bounceOff();
                     myPlayer.increaseScore(myBrick.getValue());
-                    //  if (myBrick.isDestroyed() && myBrick.hasPowerUp){
+                    //  if (myBrick.isVisible() && myBrick.hasPowerUp){
                     //    Powerup p = new Powerup(type of power up);
                        //     p.move
               //  }
@@ -141,7 +141,7 @@ public class GamePlay {
 
 
     private void checkBallHitsPaddle(){
-        if(myBall.getImage().getBoundsInLocal().intersects(myPaddle.getImage().getBoundsInLocal())){
+        if(myBall.getParentBounds().intersects(myPaddle.getParentBounds())){
             myBall.bounceOffPad();
         }
     }
