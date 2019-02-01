@@ -42,7 +42,13 @@ public class GamePlay {
 
     private Timeline animation;
 
-    public GamePlay(double elapsedTime){
+    private Boolean testFile; //true if test file is not null
+
+    public GamePlay(double elapsedTime, String test){
+        testFile = (test!=null);
+        if(testFile){
+            Tests tester = new Tests(test);
+        }
         root = new Group();
         BrickConfigurar brickSet = new BrickConfigurar("example.txt", root, elapsedTime);
         myBall = new Ball();
@@ -173,10 +179,15 @@ public class GamePlay {
      * Positions ball and paddle for beginning of game
      */
     private void placeItemsForStart(){
-        myBall.placeItem(
-                myScene.getWidth() / 2 - myBall.getWidth() / 2, myScene.getHeight() / 2 - myBall.getHeight() / 2);
-        myBall.setStartingVelocity();
-        myPaddle.placeItem(myScene.getWidth() / 2 - myPaddle.getWidth() / 2, myScene.getHeight() - myPaddle.getHeight());
+        if (testFile){
+
+        }
+        else {
+            myBall.placeItem(
+                    myScene.getWidth() / 2 - myBall.getWidth() / 2, myScene.getHeight() / 2 - myBall.getHeight() / 2);
+            myBall.setStartingVelocity();
+            myPaddle.placeItem(myScene.getWidth() / 2 - myPaddle.getWidth() / 2, myScene.getHeight() - myPaddle.getHeight());
+        }
     }
 
 
