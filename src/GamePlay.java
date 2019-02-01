@@ -1,3 +1,6 @@
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -5,6 +8,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -31,6 +36,11 @@ public class GamePlay {
     private static final int GAMETEXT_FONT_SIZE = 20;
     private static final int SCREEN_SIZE = 500;
     private static final Color BACKGROUND = Color.WHITESMOKE;
+    public static final int FRAMES_PER_SECOND = 60;
+    public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+    public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+
+    private Timeline animation;
 
     public GamePlay(double elapsedTime){
         root = new Group();
@@ -50,6 +60,13 @@ public class GamePlay {
         myPowerUps = new ArrayList<>();
         choosePowerUpCollisions();
         setUpNewGame(Color.WHITESMOKE, elapsedTime);
+
+
+
+        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+        animation = new Timeline();
+        animation.setCycleCount(Timeline.INDEFINITE);
+        animation.getKeyFrames().add(frame);
     }
 
     public Scene getScene() {
@@ -240,7 +257,31 @@ public class GamePlay {
                 myPaddle.handleSideKeyInput(code, myScene.getWidth(), elapsedTime);
             }
         }
-
     }
+    // attach "game loop" to timeline to play it
+    public void handleAllKeys(KeyCode code, double elapsedTime){
+        handleRunKeys(code, animation);
+        handleCheatKeys(code, elapsedTime);
+    }
+
+    public void handleRunKeys(KeyCode code, Timeline animation){
+        if (code.equals(code.SPACE)){
+            playOrPause(animation);
+        }
+    }
+
+    public void playOrPause(Timeline animation){
+        if (animation.getStatus().equals(Animation.Status.RUNNING)){
+            animation.pause();
+        }
+        else{
+            animation.play();
+        }
+    }
+
+
+
+
+
 
 }

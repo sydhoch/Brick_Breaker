@@ -17,7 +17,7 @@ public class GameDriver extends Application{
     public static final Paint BACKGROUND = Color.WHITESMOKE;
     public static final String TITLE = "Hello JavaFX";
     public static final int FRAMES_PER_SECOND = 60;
-    public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+    static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
 
@@ -28,15 +28,15 @@ public class GameDriver extends Application{
         GamePlay gamePlayer = new GamePlay(SECOND_DELAY);
         Scene myScene = gamePlayer.getScene();
 
-        myScene.setOnKeyPressed(key -> gamePlayer.handleCheatKeys(key.getCode(), SECOND_DELAY));
-
+       // myScene.setOnKeyPressed(key -> gamePlayer.handleCheatKeys(key.getCode(), SECOND_DELAY));
+        myScene.setOnKeyPressed(key -> gamePlayer.handleAllKeys(key.getCode(), SECOND_DELAY));
         //make a start screen
-        StartScreen startsetup = new StartScreen(myScene.getHeight());
-        Scene start = startsetup.getMyScene();
+        StartScreen startSetUp = new StartScreen(myScene.getHeight());
+        Scene start = startSetUp.getMyScene();
 
         //show start screen
         stage.setScene(start);
-        //stage.setTitle("Hi");
+        //stage.setTitle("Hi");s
         //stage.show();
 
 
@@ -48,16 +48,9 @@ public class GameDriver extends Application{
         stage.setTitle(TITLE);
         stage.show();
 
-        // attach "game loop" to timeline to play it
-        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> gamePlayer.step(SECOND_DELAY));
-        var animation = new Timeline();
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
-        if (animation.getStatus() == Animation.Status.PAUSED){
 
 
-        }
-        myScene.setOnKeyPressed(key -> animation.play());
+
 
     }
 
