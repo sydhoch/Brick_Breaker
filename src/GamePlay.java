@@ -236,6 +236,7 @@ public class GamePlay {
             if (code.getChar().equals("R")) {
                 placeItemsForStart();
             }
+            //not a cheat key
             if (code.isArrowKey()) {
                 myPaddle.handleSideKeyInput(code, myScene.getWidth(), elapsedTime);
             }

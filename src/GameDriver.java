@@ -1,3 +1,4 @@
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -42,8 +43,6 @@ public class GameDriver extends Application{
         start.setOnKeyPressed(key-> stage.setScene(myScene));
 
 
-
-
         //show game screen
         //stage.setScene(myScene);
         stage.setTitle(TITLE);
@@ -54,7 +53,11 @@ public class GameDriver extends Application{
         var animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
-        animation.play();
+        if (animation.getStatus() == Animation.Status.PAUSED){
+
+
+        }
+        myScene.setOnKeyPressed(key -> animation.play());
 
     }
 
