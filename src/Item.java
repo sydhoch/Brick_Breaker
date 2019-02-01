@@ -25,7 +25,7 @@ abstract public class Item {
         return myImage;
     }
 
-    public void setImage(ImageView image){
+    public void setImageView(ImageView image){
         myImage = image;
     }
 

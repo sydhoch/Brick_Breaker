@@ -7,6 +7,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class GamePlay {
@@ -19,9 +21,9 @@ public class GamePlay {
     private Text myGameText;
     private Scene myScene;
     private int levelNum;
-    private int brickHitValue;
+    //private int brickHitValue;
     private boolean gameOver;
-    private int numCollisions;
+    private int numDestructions;
     private Group root;
     private ArrayList<PowerUp> myPowerUps;
     private ArrayList<Integer> powerUpCollisions;
@@ -43,10 +45,10 @@ public class GamePlay {
         myScene = new Scene(root, SCREEN_SIZE, SCREEN_SIZE, BACKGROUND);
         levelNum = NUM_STARTING_LEVEL;
         placeItemsForStart();
-        brickHitValue = 1;
+       // brickHitValue = 1;
         myStatus = new Status(SCREEN_SIZE);
         gameOver = false;
-        numCollisions = 0;
+        numDestructions = 0;
         myPowerUps = new ArrayList<>();
         choosePowerUpCollisions();
         setUpNewGame(Color.WHITESMOKE, elapsedTime);
@@ -80,6 +82,7 @@ public class GamePlay {
         myBall.bounce(myScene.getWidth(), myScene.getHeight());
         checkBallHitsPaddle();
         checkBallBrickCollision();
+        checkPowerUpPaddleCollision();
         if (myBall.ballFell(myScene.getHeight()) && myBall.isVisible()) {
             myBall.setVisible(true);
             myPlayer.loseLife();
@@ -167,25 +170,30 @@ public class GamePlay {
                 if (myBrick.isVisible() && myBall.getParentBounds().intersects(myBrick.getParentBounds())) {
                     myBrick.decreaseHealth();
                     myBall.bounceOff();
-                    myPlayer.increaseScore(brickHitValue);
-                    if (!myBrick.isVisible() && powerUpCollisions.contains(numCollisions)){
-                        PowerUp myPowerUp = new PowerUp();
-                        myPowerUps.add(myPowerUp);
-                        root.getChildren().add(myPowerUp.getImage());
-                        myPowerUp.placeItem(myBrick.getXCoordinate(), myBrick.getYCoordinate());
-                        myPowerUp.startFalling();
-
+                    if (!myBrick.isVisible()) {
+                        myPlayer.increaseScore(myBrick.getValue());
+                        if (powerUpCollisions.contains(numDestructions)) {
+                            PowerUp myPowerUp = new PowerUp();
+                            myPowerUps.add(myPowerUp);
+                            root.getChildren().add(myPowerUp.getImage());
+                            myPowerUp.placeItem(myBrick.getXCoordinate(), myBrick.getYCoordinate());
+                            myPowerUp.startFalling();
+                        }
+                        numDestructions += 1;
                     }
-                    numCollisions += 1;
                 }
             }
         }
     }
 
-//    private PowerUp getRandomPowerUp(){
-//        Random rand = new Random();
-//        return myPowerUps.get(rand.nextInt(myPowerUps.size()));
-//    }
+    private void checkPowerUpPaddleCollision(){
+        for (PowerUp myPowerUp : myPowerUps) {
+            if (myPowerUp.isVisible() && myPowerUp.getParentBounds().intersects(myPaddle.getParentBounds())) {
+                myPowerUp.activate(root, myPaddle, myBall, myBricks);
+                }
+            }
+        }
+
 
 
     private int calculateNumPowerUpCollisions(){

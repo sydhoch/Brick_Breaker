@@ -1,6 +1,3 @@
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 public class Ball extends Item{
 
     private static final String BOUNCER_IMAGE = "ball.gif";
@@ -8,7 +5,7 @@ public class Ball extends Item{
     private static final int STARTING_Y_VELOCITY = 60;
 
     Ball(){
-        setImage(createImageView(BOUNCER_IMAGE));
+        setImageView(createImageView(BOUNCER_IMAGE));
         setStartingVelocity();
         setVisible(true);
     }

@@ -1,7 +1,3 @@
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
-
 /**
  * Creates a simulated brick for ball to hit, deteriorate, and eventually destroy
  *
@@ -16,7 +12,7 @@ public class Brick extends Item{
 
 
     public Brick(int health, int value){
-        setImage(createImageView(BRICK_IMAGE));
+        setImageView(createImageView(BRICK_IMAGE));
         myHealth = health;
         myValue = value;
         setVisible(true);
@@ -43,12 +39,12 @@ public class Brick extends Item{
         }
     }
 
-    public void setHasPowerUp(boolean setPowerUp) {
-        hasPowerUp = setPowerUp;
+    public void beDoubleValue(){
+        myValue *= 2;
     }
 
-    public boolean hasPowerUp(){
-        return hasPowerUp;
+    public void undoDoubleValue(){
+        myValue /= 2;
     }
 
 
