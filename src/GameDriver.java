@@ -28,7 +28,7 @@ public class GameDriver extends Application{
         GamePlay gamePlayer = new GamePlay(SECOND_DELAY);
         Scene myScene = gamePlayer.getScene();
 
-       // myScene.setOnKeyPressed(key -> gamePlayer.handleCheatKeys(key.getCode(), SECOND_DELAY));
+        // myScene.setOnKeyPressed(key -> gamePlayer.handleCheatKeys(key.getCode(), SECOND_DELAY));
         myScene.setOnKeyPressed(key -> gamePlayer.handleAllKeys(key.getCode(), SECOND_DELAY));
         //make a start screen
         StartScreen startSetUp = new StartScreen(myScene.getHeight());
