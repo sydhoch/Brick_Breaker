@@ -1,4 +1,5 @@
 import javafx.scene.Group;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class PowerUp extends Item{
 
     public PowerUp(){
         chooseType();
-        setImageView(pickImage());
+        setImage(pickImage());
         setVisible(false);
         isActive = false;
     }
@@ -26,8 +27,8 @@ public class PowerUp extends Item{
         POINTS_POWER, PADDLE_SIZE_POWER;
     }
 
-    private ImageView pickImage(){
-        return createImageView(myType.toString().toLowerCase() + POWERUP_IMAGE_NAME_ENDING);
+    private Image pickImage(){
+        return new Image(this.getClass().getClassLoader().getResourceAsStream((myType.toString().toLowerCase() + POWERUP_IMAGE_NAME_ENDING)));
     }
 
 
@@ -42,47 +43,47 @@ public class PowerUp extends Item{
         setVisible(true);
     }
 
-    public void activate(Group root, Paddle myPaddle, Ball myBall, ArrayList<ArrayList<Brick>> myBricks){
+    public void activate(Group root, Paddle paddle, Ball ball, ArrayList<ArrayList<Brick>> bricks){
         setVisible(false);
         isActive = true;
         switch (myType){
             case POINTS_POWER:
-                for (ArrayList<Brick> brickRow : myBricks){
+                for (ArrayList<Brick> brickRow : bricks){
                     for (Brick myBrick : brickRow){
                         myBrick.beDoubleValue();
                     }
                 }
                 break;
             case PADDLE_SIZE_POWER:
-               myPaddle.lengthen();
+               paddle.lengthen();
                break;
            }
-        startTimer(root, myPaddle, myBall, myBricks);
+        startTimer(root, paddle, ball, bricks);
     }
 
-    private void startTimer(Group root, Paddle myPaddle, Ball myBall, ArrayList<ArrayList<Brick>> myBricks){
+    private void startTimer(Group root, Paddle paddle, Ball ball, ArrayList<ArrayList<Brick>> bricks){
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                deactivate(root, myPaddle, myBall, myBricks);
+                deactivate(root, paddle, ball, bricks);
             }
         };
         Timer timer = new Timer();
         timer.schedule(task, TOTAL_TIME);
     }
 
-    public void deactivate(Group root, Paddle myPaddle, Ball myBall, ArrayList<ArrayList<Brick>> myBricks){
+    public void deactivate(Group root, Paddle paddle, Ball ball, ArrayList<ArrayList<Brick>> bricks){
         isActive = false;
         switch (myType){
             case POINTS_POWER:
-                for (ArrayList<Brick> brickRow : myBricks){
-                    for (Brick myBrick : brickRow){
-                        myBrick.undoDoubleValue();
+                for (ArrayList<Brick> brickRow : bricks){
+                    for (Brick brick : brickRow){
+                        brick.undoDoubleValue();
                     }
                 }
                 break;
             case PADDLE_SIZE_POWER:
-                myPaddle.undoLengthen();
+                paddle.undoLengthen();
                 break;
         }
 

@@ -1,3 +1,6 @@
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -5,10 +8,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
+
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class GamePlay {
@@ -33,6 +36,11 @@ public class GamePlay {
     private static final int GAMETEXT_FONT_SIZE = 20;
     private static final int SCREEN_SIZE = 500;
     private static final Color BACKGROUND = Color.WHITESMOKE;
+    public static final int FRAMES_PER_SECOND = 60;
+    public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+    public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+
+    private Timeline animation;
 
     public GamePlay(double elapsedTime){
         root = new Group();
@@ -52,6 +60,13 @@ public class GamePlay {
         myPowerUps = new ArrayList<>();
         choosePowerUpCollisions();
         setUpNewGame(Color.WHITESMOKE, elapsedTime);
+
+
+
+        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+        animation = new Timeline();
+        animation.setCycleCount(Timeline.INDEFINITE);
+        animation.getKeyFrames().add(frame);
     }
 
     public Scene getScene() {
@@ -64,8 +79,8 @@ public class GamePlay {
 
         root.getChildren().add(myGameText);
         root.getChildren().add(myStatus.getStatusText());
-        root.getChildren().add(myBall.getImage());
-        root.getChildren().add(myPaddle.getImage());
+        root.getChildren().add(myBall);
+        root.getChildren().add(myPaddle);
 
         //scene.setOnKeyPressed(key -> handleCheatKeys(key.getCode(), elapsedTime));
 
@@ -88,30 +103,31 @@ public class GamePlay {
             myPlayer.loseLife();
             if (myPlayer.getLives() > 0) {
                 placeItemsForStart();
+
             }
         }
         for (PowerUp myPowerUp : myPowerUps) {
             myPowerUp.move(elapsedTime);
         }
-        if (myPlayer.getLives() == 0 || countTotalBricks() == countDestroyedBricks()){
+        if (myPlayer.getLives() == 0 || countRemainingBricks() == 0){
             endGame();
         }
     }
 
     /**
-     * Counts how many bricks have had their health reduced to 0 (making them "destroyed")
+     * Counts how many bricks have not had their health reduced to 0 (meaning they have not been "destroyed")
      * @return number of bricks with 0 health
      */
-    private int countDestroyedBricks(){
-        int destroyedBricks = 0;
+    private int countRemainingBricks(){
+        int remainingBricks = 0;
         for (ArrayList<Brick> brickRow : myBricks) {
             for (Brick myBrick : brickRow) {
-                if (myBrick.getHealth() == 0) {
-                    destroyedBricks += 1;
+                if (myBrick.getHealth() != 0) {
+                    remainingBricks += 1;
                 }
             }
         }
-        return destroyedBricks;
+        return remainingBricks;
     }
 
     /**
@@ -131,7 +147,7 @@ public class GamePlay {
      */
     private void endGame(){
         gameOver = true;
-        if(countDestroyedBricks() != countTotalBricks()){
+        if(countRemainingBricks() != 0){
             displayGameOverMessage("You Lost :(", Color.RED);
         }
         else{
@@ -167,7 +183,7 @@ public class GamePlay {
     private void checkBallBrickCollision() {
         for (ArrayList<Brick> brickRow : myBricks) {
             for (Brick myBrick : brickRow) {
-                if (myBrick.isVisible() && myBall.getParentBounds().intersects(myBrick.getParentBounds())) {
+                if (myBrick.isVisible() && myBall.getBoundsInParent().intersects(myBrick.getBoundsInParent())) {
                     myBrick.decreaseHealth();
                     myBall.bounceOff();
                     if (!myBrick.isVisible()) {
@@ -175,8 +191,8 @@ public class GamePlay {
                         if (powerUpCollisions.contains(numDestructions)) {
                             PowerUp myPowerUp = new PowerUp();
                             myPowerUps.add(myPowerUp);
-                            root.getChildren().add(myPowerUp.getImage());
-                            myPowerUp.placeItem(myBrick.getXCoordinate(), myBrick.getYCoordinate());
+                            root.getChildren().add(myPowerUp);
+                            myPowerUp.placeItem(myBrick.getX(), myBrick.getY());
                             myPowerUp.startFalling();
                         }
                         numDestructions += 1;
@@ -188,7 +204,7 @@ public class GamePlay {
 
     private void checkPowerUpPaddleCollision(){
         for (PowerUp myPowerUp : myPowerUps) {
-            if (myPowerUp.isVisible() && myPowerUp.getParentBounds().intersects(myPaddle.getParentBounds())) {
+            if (myPowerUp.isVisible() && myPowerUp.getBoundsInParent().intersects(myPaddle.getBoundsInParent())) {
                 myPowerUp.activate(root, myPaddle, myBall, myBricks);
                 }
             }
@@ -223,7 +239,7 @@ public class GamePlay {
 
 
     private void checkBallHitsPaddle(){
-        if(myBall.getParentBounds().intersects(myPaddle.getParentBounds())){
+        if(myBall.getBoundsInParent().intersects(myPaddle.getBoundsInParent())){
             myBall.bounceOffPad();
         }
     }
@@ -241,7 +257,31 @@ public class GamePlay {
                 myPaddle.handleSideKeyInput(code, myScene.getWidth(), elapsedTime);
             }
         }
-
     }
+    // attach "game loop" to timeline to play it
+    public void handleAllKeys(KeyCode code, double elapsedTime){
+        handleRunKeys(code, animation);
+        handleCheatKeys(code, elapsedTime);
+    }
+
+    public void handleRunKeys(KeyCode code, Timeline animation){
+        if (code.equals(code.SPACE)){
+            playOrPause(animation);
+        }
+    }
+
+    public void playOrPause(Timeline animation){
+        if (animation.getStatus().equals(Animation.Status.RUNNING)){
+            animation.pause();
+        }
+        else{
+            animation.play();
+        }
+    }
+
+
+
+
+
 
 }
