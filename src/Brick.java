@@ -1,3 +1,5 @@
+import javafx.scene.image.Image;
+
 /**
  * Creates a simulated brick for ball to hit, deteriorate, and eventually destroy
  *
@@ -8,14 +10,15 @@ public class Brick extends Item{
     private static final String BRICK_IMAGE = "brick1.gif";
     private int myHealth;
     private int myValue;
-    private boolean hasPowerUp;
+    private boolean isDestroyed;
 
 
     public Brick(int health, int value){
-        setImageView(createImageView(BRICK_IMAGE));
+        setImage(new Image(this.getClass().getClassLoader().getResourceAsStream((BRICK_IMAGE))));
         myHealth = health;
         myValue = value;
         setVisible(true);
+        isDestroyed = false;
     }
 
 
@@ -27,6 +30,10 @@ public class Brick extends Item{
         return myHealth;
     }
 
+    public boolean isDestroyed(){
+        return isDestroyed;
+    }
+
     /**
      * Decreases brick's health and calls for it to be destroyed once health is too low
      */
@@ -36,6 +43,7 @@ public class Brick extends Item{
         } else {
             myHealth = 0;
             setVisible(false);
+            isDestroyed = true;
         }
     }
 

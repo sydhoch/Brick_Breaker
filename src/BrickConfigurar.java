@@ -109,7 +109,7 @@ public class BrickConfigurar {
     private void addBricksToRoot(){
         for (ArrayList<Brick> brickRow : myBricks){
             for (Brick myBrick : brickRow){
-                myRoot.getChildren().add(myBrick.getImage());
+                myRoot.getChildren().add(myBrick);
             }
         }
     }
