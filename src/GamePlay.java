@@ -28,6 +28,7 @@ public class GamePlay {
     private boolean gameOver;
     private int numDestructions;
     private Group root;
+    private GameInteractions interacter;
     private ArrayList<PowerUp> myPowerUps;
     private ArrayList<Integer> powerUpCollisions;
     private static final double PERCENT_OF_COLLISIONS_WITH_POWERUPS = 1;
@@ -74,11 +75,13 @@ public class GamePlay {
         setUpNewGame(Color.WHITESMOKE, elapsedTime);
 
 
-
         var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
         animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
+
+        interacter = new GameInteractions(root, myBall, myBricks, myPaddle, myPlayer, myPowerUps);
+
     }
 
     public Scene getScene() {
@@ -88,7 +91,8 @@ public class GamePlay {
     private Scene setUpNewGame (Paint background, double elapsedTime) {
         // create a place to see the shapes
        // root = new Group();
-
+        myStatus.updateStatusText(myPlayer.getLives(), levelNum, myPlayer.getScore());
+        placeItemsForStart();
         root.getChildren().add(myGameText);
         root.getChildren().add(myStatus.getStatusText());
         root.getChildren().add(myBall);
@@ -107,9 +111,12 @@ public class GamePlay {
         myStatus.updateStatusText(myPlayer.getLives(), levelNum, myPlayer.getScore());
         myBall.move(elapsedTime);
         myBall.bounce(myScene.getWidth(), myScene.getHeight());
-        checkBallHitsPaddle();
-        checkBallBrickCollision();
-        checkPowerUpPaddleCollision();
+        //checkBallHitsPaddle();
+        //checkBallBrickCollision();
+        //checkPowerUpPaddleCollision();
+        interacter.checkBallHitsPaddle();
+        interacter.checkBallBricksCollision();
+        interacter.checkPowerUpPaddleCollision();
         if (myBall.ballFell(myScene.getHeight()) && myBall.isVisible()) {
             myBall.setVisible(true);
             myPlayer.loseLife();
