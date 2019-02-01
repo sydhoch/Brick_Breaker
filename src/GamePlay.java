@@ -42,23 +42,29 @@ public class GamePlay {
 
     private Timeline animation;
 
-    private Boolean testFile; //true if test file is not null
+    private Tests tester = null; //true if test file is not null
 
     public GamePlay(double elapsedTime, String test){
-        testFile = (test!=null);
-        if(testFile){
-            Tests tester = new Tests(test);
+        if(test!=null){
+            tester = new Tests(test);
         }
         root = new Group();
         BrickConfigurar brickSet = new BrickConfigurar("example.txt", root, elapsedTime);
-        myBall = new Ball();
+        myBall = new Ball(tester);
         myPaddle = new Paddle();
         myBricks = brickSet.getBricks();
         myGameText = new Text();
         myPlayer = new Player(NUM_STARTING_LIVES);
         myScene = new Scene(root, SCREEN_SIZE, SCREEN_SIZE, BACKGROUND);
         levelNum = NUM_STARTING_LEVEL;
-        placeItemsForStart();
+
+        if(test!=null){
+            testPlaceItemsForStart(tester);
+        }
+        else {
+            placeItemsForStart();
+        }
+
        // brickHitValue = 1;
         myStatus = new Status(SCREEN_SIZE);
         gameOver = false;
@@ -179,15 +185,15 @@ public class GamePlay {
      * Positions ball and paddle for beginning of game
      */
     private void placeItemsForStart(){
-        if (testFile){
+        myBall.placeItem(
+                myScene.getWidth() / 2 - myBall.getWidth() / 2, myScene.getHeight() / 2 - myBall.getHeight() / 2);
+        //myBall.setStartingVelocity(tester);
+        myPaddle.placeItem(myScene.getWidth() / 2 - myPaddle.getWidth() / 2, myScene.getHeight() - myPaddle.getHeight());
+    }
 
-        }
-        else {
-            myBall.placeItem(
-                    myScene.getWidth() / 2 - myBall.getWidth() / 2, myScene.getHeight() / 2 - myBall.getHeight() / 2);
-            myBall.setStartingVelocity();
-            myPaddle.placeItem(myScene.getWidth() / 2 - myPaddle.getWidth() / 2, myScene.getHeight() - myPaddle.getHeight());
-        }
+    private void testPlaceItemsForStart(Tests tester){
+        myBall.placeItem(tester.getPosX(),tester.getPosY());
+        myPaddle.placeItem(myScene.getWidth() / 2 - myPaddle.getWidth() / 2, myScene.getHeight() - myPaddle.getHeight());
     }
 
 

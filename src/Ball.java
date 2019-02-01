@@ -6,9 +6,9 @@ public class Ball extends Item {
     private static final int STARTING_X_VELOCITY = 180;
     private static final int STARTING_Y_VELOCITY = 60;
 
-    Ball(){
+    Ball(Tests tester){
         setImage(new Image(this.getClass().getClassLoader().getResourceAsStream(BOUNCER_IMAGE)));
-        setStartingVelocity();
+        setStartingVelocity(tester);
         setVisible(true);
 
     }
@@ -45,9 +45,15 @@ public class Ball extends Item {
         return getY() > (screenHeight);
     }
 
-    public void setStartingVelocity(){
-        setXVelocity(STARTING_X_VELOCITY);
-        setYVelocity(STARTING_Y_VELOCITY);
+    public void setStartingVelocity(Tests tester){
+        if(tester!=null){
+            setXVelocity(tester.getXVel());
+            setYVelocity(tester.getYVel());
+        }
+        else{
+            setXVelocity(STARTING_X_VELOCITY);
+            setYVelocity(STARTING_Y_VELOCITY);
+        }
     }
 
 }

@@ -3,8 +3,8 @@ import java.util.Scanner;
 public class Tests {
     private int ballInitX;
     private int ballInitY;
-    private double startingXVelocity;
-    private double startingYVelocity;
+    private int startingXVelocity;
+    private int startingYVelocity;
     public Tests(String fileName){
         readFile(fileName);
     }
@@ -18,6 +18,21 @@ public class Tests {
         String event = scanner.next();
 
         callTest(event);
+    }
+
+    public int getPosX(){
+        return ballInitX;
+    }
+
+    public int getPosY(){
+        return ballInitY;
+    }
+
+    public int getXVel(){
+        return startingXVelocity;
+    }
+    public int getYVel(){
+        return startingYVelocity;
     }
 
     private void callTest(String event){
