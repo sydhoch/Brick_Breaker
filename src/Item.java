@@ -2,72 +2,73 @@ import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-abstract public class Item {
+abstract public class Item extends ImageView{
     private ImageView myImage;
     private double myYVelocity;
     private double myXVelocity;
     private boolean isVisible;
 
     public void placeItem(double x, double y){
-        myImage.setX(x);
-        myImage.setY(y);
+        setX(x);
+        setY(y);
     }
 
-    public double getXCoordinate(){
-        return myImage.getX();
-    }
+//    public double getXCoordinate(){
+//        return myImage.getX();
+//    }
 
-    public  double getYCoordinate(){
-        return myImage.getY();
-    }
+//    public  double getYCoordinate(){
+//        return myImage.getY();
+//    }
 
-    public ImageView getImage(){
-        return myImage;
-    }
+//    public ImageView getImage(){
+//        return myImage;
+//    }
 
-    public void setImageView(ImageView image){
-        myImage = image;
-    }
+//    public void setImageView(ImageView image){
+//        myImage = image;
+//    }
 
-    public ImageView createImageView(String imageName){
-        return new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(imageName)));
-    }
+//    public ImageView createImageView(String imageName){
+//        return new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(imageName)));
+//    }
 
     /**
      * changes the Item's x- and y-coordinate by its speed dampened by the given elapsedTime
      * @param elapsedTime
      */
     public void move(double elapsedTime){
-        myImage.setX(myImage.getX() + getXVelocity() * elapsedTime);
-        myImage.setY(myImage.getY() + getYVelocity() * elapsedTime);
+        setX(getX() + getXVelocity() * elapsedTime);
+        setY(getY() + getYVelocity() * elapsedTime);
+
     }
 
     public void setSize(double width, double height){
-        myImage.setFitWidth(width);
-        myImage.setFitHeight(height);
+        setFitWidth(width);
+        setFitHeight(height);
     }
 
-    public void setVisible(boolean setVisible){
-        isVisible = setVisible;
-        myImage.setVisible(setVisible);
-
-    }
-
-    public boolean isVisible(){
-        return isVisible;
-    }
+//    public void setVisible(boolean setVisible){
+//        isVisible = setVisible;
+//        setVisible(setVisible);
+//
+//    }
+//
+//    public boolean isVisible(){
+//        return isVisible;
+//    }
 
     public double getWidth(){
-        return myImage.getBoundsInLocal().getWidth();
+        return getBoundsInLocal().getWidth();
     }
 
     public double getHeight(){
-        return myImage.getBoundsInLocal().getHeight();
+        return getBoundsInLocal().getHeight();
     }
 
-    public Bounds getParentBounds(){
-        return myImage.getBoundsInParent();
-    }
+//    public Bounds getParentBounds(){
+//        return myImage.getBoundsInParent();
+//    }
 
     public double getYVelocity() {
         return myYVelocity;

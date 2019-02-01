@@ -7,8 +7,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class GamePlay {
@@ -64,8 +62,8 @@ public class GamePlay {
 
         root.getChildren().add(myGameText);
         root.getChildren().add(myStatus.getStatusText());
-        root.getChildren().add(myBall.getImage());
-        root.getChildren().add(myPaddle.getImage());
+        root.getChildren().add(myBall);
+        root.getChildren().add(myPaddle);
 
         //scene.setOnKeyPressed(key -> handleCheatKeys(key.getCode(), elapsedTime));
 
@@ -88,30 +86,31 @@ public class GamePlay {
             myPlayer.loseLife();
             if (myPlayer.getLives() > 0) {
                 placeItemsForStart();
+
             }
         }
         for (PowerUp myPowerUp : myPowerUps) {
             myPowerUp.move(elapsedTime);
         }
-        if (myPlayer.getLives() == 0 || countTotalBricks() == countDestroyedBricks()){
+        if (myPlayer.getLives() == 0 || countRemainingBricks() == 0){
             endGame();
         }
     }
 
     /**
-     * Counts how many bricks have had their health reduced to 0 (making them "destroyed")
+     * Counts how many bricks have not had their health reduced to 0 (meaning they have not been "destroyed")
      * @return number of bricks with 0 health
      */
-    private int countDestroyedBricks(){
-        int destroyedBricks = 0;
+    private int countRemainingBricks(){
+        int remainingBricks = 0;
         for (ArrayList<Brick> brickRow : myBricks) {
             for (Brick myBrick : brickRow) {
-                if (myBrick.getHealth() == 0) {
-                    destroyedBricks += 1;
+                if (myBrick.getHealth() != 0) {
+                    remainingBricks += 1;
                 }
             }
         }
-        return destroyedBricks;
+        return remainingBricks;
     }
 
     /**
@@ -131,7 +130,7 @@ public class GamePlay {
      */
     private void endGame(){
         gameOver = true;
-        if(countDestroyedBricks() != countTotalBricks()){
+        if(countRemainingBricks() != 0){
             displayGameOverMessage("You Lost :(", Color.RED);
         }
         else{
@@ -167,7 +166,7 @@ public class GamePlay {
     private void checkBallBrickCollision() {
         for (ArrayList<Brick> brickRow : myBricks) {
             for (Brick myBrick : brickRow) {
-                if (myBrick.isVisible() && myBall.getParentBounds().intersects(myBrick.getParentBounds())) {
+                if (myBrick.isVisible() && myBall.getBoundsInParent().intersects(myBrick.getBoundsInParent())) {
                     myBrick.decreaseHealth();
                     myBall.bounceOff();
                     if (!myBrick.isVisible()) {
@@ -175,8 +174,8 @@ public class GamePlay {
                         if (powerUpCollisions.contains(numDestructions)) {
                             PowerUp myPowerUp = new PowerUp();
                             myPowerUps.add(myPowerUp);
-                            root.getChildren().add(myPowerUp.getImage());
-                            myPowerUp.placeItem(myBrick.getXCoordinate(), myBrick.getYCoordinate());
+                            root.getChildren().add(myPowerUp);
+                            myPowerUp.placeItem(myBrick.getX(), myBrick.getY());
                             myPowerUp.startFalling();
                         }
                         numDestructions += 1;
@@ -188,7 +187,7 @@ public class GamePlay {
 
     private void checkPowerUpPaddleCollision(){
         for (PowerUp myPowerUp : myPowerUps) {
-            if (myPowerUp.isVisible() && myPowerUp.getParentBounds().intersects(myPaddle.getParentBounds())) {
+            if (myPowerUp.isVisible() && myPowerUp.getBoundsInParent().intersects(myPaddle.getBoundsInParent())) {
                 myPowerUp.activate(root, myPaddle, myBall, myBricks);
                 }
             }
@@ -223,7 +222,7 @@ public class GamePlay {
 
 
     private void checkBallHitsPaddle(){
-        if(myBall.getParentBounds().intersects(myPaddle.getParentBounds())){
+        if(myBall.getBoundsInParent().intersects(myPaddle.getBoundsInParent())){
             myBall.bounceOffPad();
         }
     }

@@ -1,13 +1,16 @@
-public class Ball extends Item{
+import javafx.scene.image.Image;
+
+public class Ball extends Item {
 
     private static final String BOUNCER_IMAGE = "ball.gif";
     private static final int STARTING_X_VELOCITY = 180;
     private static final int STARTING_Y_VELOCITY = 60;
 
     Ball(){
-        setImageView(createImageView(BOUNCER_IMAGE));
+        setImage(new Image(this.getClass().getClassLoader().getResourceAsStream(BOUNCER_IMAGE)));
         setStartingVelocity();
         setVisible(true);
+
     }
 
 
@@ -17,11 +20,11 @@ public class Ball extends Item{
      * @param screenHeight height of screen
     */
     public void bounce(double screenWidth, double screenHeight){
-        if(getXCoordinate() < 0 || getXCoordinate()>(screenWidth - getImage().getBoundsInLocal().getWidth())){
+        if(getX() < 0 || getX()>(screenWidth - getBoundsInLocal().getWidth())){
 
             setXVelocity(getXVelocity() * -1);
         }
-        if(getYCoordinate() < 0){
+        if(getY() < 0){
             setYVelocity(getYVelocity() * -1);
         }
     }
@@ -39,7 +42,7 @@ public class Ball extends Item{
     }
 
     public boolean ballFell(double screenHeight){
-        return getYCoordinate() > (screenHeight);
+        return getY() > (screenHeight);
     }
 
     public void setStartingVelocity(){
