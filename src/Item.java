@@ -25,8 +25,12 @@ abstract public class Item {
         return myImage;
     }
 
-    public void setImage(String imageName){
-        myImage = new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(imageName)));
+    public void setImageView(ImageView image){
+        myImage = image;
+    }
+
+    public ImageView createImageView(String imageName){
+        return new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(imageName)));
     }
 
     /**

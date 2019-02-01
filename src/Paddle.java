@@ -1,6 +1,4 @@
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
 import java.lang.*;
@@ -10,12 +8,29 @@ public class Paddle extends Item{
 
     private static final String PADDLE_IMAGE = "paddle.gif";
     private static final int PADDLE_SPEED = 1000;
+    private boolean isExtraWide;
+
 
 
     public Paddle(){
-        setImage(PADDLE_IMAGE);
+        setImageView(createImageView(PADDLE_IMAGE));
         setXVelocity(PADDLE_SPEED);
         setVisible(true);
+        isExtraWide = false;
+    }
+
+    public void lengthen(){
+       // if (!isExtraWide) {
+            setSize(getWidth() * 2, getHeight());
+           // isExtraWide = true;
+       // }
+    }
+//
+    public void undoLengthen(){
+      //  if (isExtraWide) {
+            setSize(getWidth() / 2, getHeight());
+        //    isExtraWide = false;
+       // }
     }
 
     /**
@@ -31,6 +46,10 @@ public class Paddle extends Item{
             setXVelocity(Math.abs(getXVelocity()) * -1);
             move(elapsedTime);
         }
+    }
+
+    public boolean isExtraWide() {
+        return isExtraWide;
     }
 
 }
