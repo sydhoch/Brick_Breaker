@@ -1,11 +1,6 @@
 import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Paint;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
-import javafx.scene.text.*;
 
 
 public class BrickConfigurar {
@@ -16,44 +11,20 @@ public class BrickConfigurar {
     private Group myRoot;
     private ArrayList<ArrayList<Brick>> myBricks;
 
-
     private static final double FRACTION_OF_SCREEN_WIDTH_FOR_BRICKS = 1.0/2.0;
-   // private static final double PERCENT_OF_BLOCKS_WITH_POWERUPS = 1;
-
 
     public ArrayList<ArrayList<Brick>> getBricks() {
         return myBricks;
     }
 
-//
-//    public Ball getBall() {
-//        return myBall;
-//    }
-//    public Paddle getPaddle() {
-//        return myPaddle;
-//    }
-//    public Status getStatus() {
-//        return myStatus;
-//    }
-//    public Text getGameOverText() {
-//        return gameOverText;
-//    }
-//    public ArrayList<PowerUp> getPowerUps(){
-//        return myPowerUps;
-//    }
-//    public Scene getScene(){
-//        return myScene;
-//    }
-
     /**
-     * Sets up a scene with paddle, ball, and blocks configured by a text file
+     * Adds an array of bricks to the scene root based on the configuration in a text file
      * @param fileName name of block configuring file
      */
     public BrickConfigurar(String fileName, Group root, double elapsedTime){
         myBricks = new ArrayList<>();
         fillBrickList(readBrickFile(fileName), numBrickCols, numBrickRows);
         myRoot = root;
-        //myScene = setGameStage(background, elapsedTime);
         addBricksToRoot();
     }
 
@@ -88,10 +59,10 @@ public class BrickConfigurar {
             ArrayList<Brick> brickRow = new ArrayList<>();
             for (int j = 0; j < numBrickCols; j++) {
                 if (brickConfigs[i][j] > 0) {
-                    Brick myBrick = new Brick(brickConfigs[i][j], brickConfigs[i][j]);
-                    myBrick.setSize(calcBrickWidth(numBrickCols), calcBrickHeight(numBrickRows));
-                    myBrick.placeItem(j * myBrick.getWidth(),i * myBrick.getHeight());
-                    brickRow.add(myBrick);
+                    Brick brick = new Brick(brickConfigs[i][j], brickConfigs[i][j]);
+                    brick.setSize(calcBrickWidth(numBrickCols), calcBrickHeight(numBrickRows));
+                    brick.placeItem(j * brick.getWidth(),i * brick.getHeight());
+                    brickRow.add(brick);
                 }
             }
             myBricks.add(brickRow);
@@ -108,55 +79,9 @@ public class BrickConfigurar {
 
     private void addBricksToRoot(){
         for (ArrayList<Brick> brickRow : myBricks){
-            for (Brick myBrick : brickRow){
-                myRoot.getChildren().add(myBrick);
+            for (Brick brick : brickRow){
+                myRoot.getChildren().add(brick);
             }
         }
     }
-
-
-
-//    //////////////////////////////////////////////////////////////////////////
-//    private Scene setGameStage (Paint background, double elapsedTime) {
-//        // create a place to see the shapes
-//        Group root = new Group();
-//        var scene = new Scene(root, size, size, background);
-//
-//        gameOverText = new Text();
-//        root.getChildren().add(gameOverText);
-//
-//        myStatus = new Status(size);
-//        root.getChildren().add(myStatus.getStatusText());
-//
-//        myBall = new Ball();
-//        myPaddle = new Paddle();
-//
-//       // placeItemsForStart();
-//        root.getChildren().add(myBall.getImage());
-//        root.getChildren().add(myPaddle.getImage());
-//
-//        for (ArrayList<Brick> brickRow : myBricks){
-//            for (Brick myBrick : brickRow){
-//                root.getChildren().add(myBrick.getImage());
-//            }
-//        }
-//
-////        for (PowerUp power : myPowerUps){
-////                root.getChildren().add(power.getImage());
-////        }
-//
-//        myPowerUp = new PowerUp();
-//        for (ImageView i : myPowerUp.getAllImageViews()) {
-//            root.getChildren().add(i);
-//        }
-//
-//        //scene.setOnKeyPressed(key -> handleCheatKeys(key.getCode(), elapsedTime));
-//
-//        return scene;
-//    }
-
-
-
-
-
 }

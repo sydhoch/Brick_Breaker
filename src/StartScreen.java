@@ -28,7 +28,6 @@ public class StartScreen {
         var scene = new Scene(root, screenSize, screenSize, Color.WHITE);
 
         return scene;
-
     }
 
     public Scene getMyScene(){
@@ -54,20 +53,5 @@ public class StartScreen {
         title.setY(0+ title.getBoundsInLocal().getHeight() + before.getBoundsInLocal().getHeight());
         return title;
     }
-
-
-    /*
-    public void handleCheatKeys(KeyCode code, double elapsedTime){
-            if (code== KeyCode.SPACE){
-                myPlayer.gainLife();
-            }
-            if (code.isArrowKey()) {
-                myPaddle.handleSideKeyInput(code, myScene.getWidth(), elapsedTime);
-            }
-    }
-    */
-
-
-
 
 }

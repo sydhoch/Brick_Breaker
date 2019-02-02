@@ -36,11 +36,17 @@ public class Ball extends Item {
         setYVelocity(getYVelocity() * -1);
     }
 
+
     public void bounceOff(){
         setYVelocity(getYVelocity() * -1);
         setXVelocity(getXVelocity() * -1);
     }
 
+    /**
+     * Checks if ball is off of screen, indicating that it "fell"
+     * @param screenHeight height of scene
+     * @return if the ball is offscreen
+     */
     public boolean ballFell(double screenHeight){
         return getY() > (screenHeight);
     }

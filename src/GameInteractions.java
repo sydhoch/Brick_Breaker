@@ -14,7 +14,7 @@ public class GameInteractions {
     private ArrayList<Integer> powerUpCollisions;
     private int numDestructions;
 
-    private static final double PERCENT_OF_COLLISIONS_WITH_POWERUPS = 1;
+    private static final double PERCENT_COLLISIONS_WITH_POWERUPS = 1;
 
     public GameInteractions(Group root, Ball ball, ArrayList<ArrayList<Brick>> bricks, Paddle paddle,
                             Player player, ArrayList<PowerUp> powerUps){
@@ -28,42 +28,68 @@ public class GameInteractions {
         numDestructions = 0;
     }
 
+    /**
+     * Bounces the ball off the paddle if they collide
+     */
+    public void checkBallHitsPaddle(){
+        if(itemsCollide(myBall, myPaddle)){
+            myBall.bounceOffPad();
+        }
+    }
 
+    /**
+     * Checks if a brick has been collided with by the ball and calls for the game to be updated by decreasing the
+     * brick's health, bouncing the ball off, and possibly releasing powerups
+     */
     public void checkBallBricksCollision() {
         for (ArrayList<Brick> brickRow : myBricks) {
-            for (Brick myBrick : brickRow) {
-                if (myBrick.isVisible() && myBall.getBoundsInParent().intersects(myBrick.getBoundsInParent())) {
-                    myBrick.decreaseHealth();
+            for (Brick brick : brickRow) {
+                if (itemsCollide(brick, myBall)) {
+                    brick.decreaseHealth();
                     myBall.bounceOff();
-                    if (!myBrick.isVisible()) {
-                        myPlayer.increaseScore(myBrick.getValue());
-                        if (powerUpCollisions.contains(numDestructions)) {
-                            PowerUp myPowerUp = new PowerUp();
-                            myPowerUps.add(myPowerUp);
-                            myRoot.getChildren().add(myPowerUp);
-                            myPowerUp.placeItem(myBrick.getX(), myBrick.getY());
-                            myPowerUp.startFalling();
-                        }
-                        numDestructions += 1;
+                    if (brick.isDestroyed()) {
+                        updateGameOnBrickDestruction(brick);
                     }
                 }
             }
         }
     }
 
+    /**
+     * Activates a powerup if it collides with the paddle
+     */
     public void checkPowerUpPaddleCollision() {
-
-        for (PowerUp myPowerUp : myPowerUps) {
-            if (myPowerUp.isVisible() && myPowerUp.getBoundsInParent().intersects(myPaddle.getBoundsInParent())) {
-                myPowerUp.activate(myRoot, myPaddle, myBall, myBricks);
+        for (PowerUp powerUp : myPowerUps) {
+            if (itemsCollide(powerUp, myPaddle)) {
+                powerUp.activate();
             }
         }
     }
 
+    private boolean itemsCollide(Item a, Item b){
+        return a.isVisible() && b.isVisible() &&
+                a.getBoundsInParent().intersects(b.getBoundsInParent());
+    }
+
+    private void updateGameOnBrickDestruction(Brick brick){
+            myPlayer.increaseScore(brick.getValue());
+            if (powerUpCollisions.contains(numDestructions)) {
+                releasePowerUp(brick);
+                numDestructions += 1;
+            }
+    }
+
+    private void releasePowerUp(Brick brick){
+        PowerUp myPowerUp = new PowerUp(myRoot, myPaddle, myBall, myBricks);
+        myPowerUps.add(myPowerUp);
+        myRoot.getChildren().add(myPowerUp);
+        myPowerUp.placeItem(brick.getX(), brick.getY());
+        myPowerUp.startFalling();
+    }
 
 
     private int calculateNumPowerUpCollisions(){
-        return (int)(countTotalBricks() * PERCENT_OF_COLLISIONS_WITH_POWERUPS);
+        return (int)(countTotalBricks() * PERCENT_COLLISIONS_WITH_POWERUPS);
     }
 
     private ArrayList<Integer> getPossibleCollisions(){
@@ -73,7 +99,6 @@ public class GameInteractions {
         }
         return possibleCollisions;
     }
-
 
     private ArrayList<Integer> getPowerUpCollisions(){
         Random rand = new Random();
@@ -86,13 +111,6 @@ public class GameInteractions {
             powerUpCollisions.add(randoNum);
         }
         return powerUpCollisions;
-    }
-
-
-    public void checkBallHitsPaddle(){
-        if(myBall.getBoundsInParent().intersects(myPaddle.getBoundsInParent())){
-            myBall.bounceOffPad();
-        }
     }
 
     /**

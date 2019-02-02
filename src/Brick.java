@@ -35,7 +35,7 @@ public class Brick extends Item{
     }
 
     /**
-     * Decreases brick's health and calls for it to be destroyed once health is too low
+     * Decreases brick's health and "destroys" it once health is too low
      */
     public void decreaseHealth() {
         if (myHealth > 1) {

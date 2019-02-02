@@ -1,17 +1,12 @@
-
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-
 import java.lang.*;
-
 
 public class Paddle extends Item{
 
     private static final String PADDLE_IMAGE = "paddle.gif";
     private static final int PADDLE_SPEED = 1000;
     private boolean isExtraWide;
-
-
 
     public Paddle(){
         setImage(new Image(this.getClass().getClassLoader().getResourceAsStream((PADDLE_IMAGE))));
