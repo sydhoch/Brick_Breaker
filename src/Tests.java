@@ -1,3 +1,5 @@
+import javafx.animation.Animation;
+import javafx.animation.Timeline;
 import java.util.Scanner;
 
 public class Tests {
@@ -5,8 +7,11 @@ public class Tests {
     private int ballInitY;
     private int startingXVelocity;
     private int startingYVelocity;
-    public Tests(String fileName){
+    private String myFirstEvent="";
+    private Timeline myAnimation;
+    public Tests(String fileName, Timeline animation){
         readFile(fileName);
+        myAnimation = animation;
     }
 
     private void readFile(String fileName){
@@ -16,8 +21,6 @@ public class Tests {
         startingXVelocity = scanner.nextInt();
         startingYVelocity = scanner.nextInt();
         String event = scanner.next();
-
-        callTest(event);
     }
 
     public int getPosX(){
@@ -35,13 +38,29 @@ public class Tests {
         return startingYVelocity;
     }
 
-    private void callTest(String event){
-        if(event.equals("Lose Life")){
-            testLoseLifeAtBottom();
+    public void setFirstEvent(String firstEvent){
+        myFirstEvent = firstEvent;
+    }
+
+    public void callTest(){
+        if(myFirstEvent.equals("Lose Life")){
+            System.out.println("Lose Life Success");
+        }
+        if(myFirstEvent.equals("Destroy Block")){
+            System.out.println("Destroy Block Success");
         }
     }
 
-    private void testLoseLifeAtBottom(){
+
+    /*private void testLoseLifeAtBottom(){
 
     }
+    */
 }
+/* Things left to do:
+    - "press space to start"
+    - add space ass pause button on start screen
+    - start screen stuff
+    - Tests
+
+ */

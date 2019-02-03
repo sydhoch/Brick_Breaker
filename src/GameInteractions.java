@@ -2,6 +2,7 @@ import javafx.scene.Group;
 
 import java.util.ArrayList;
 import java.util.Random;
+import javafx.animation.Timeline;
 
 public class GameInteractions {
 
@@ -41,11 +42,11 @@ public class GameInteractions {
      * Checks if a brick has been collided with by the ball and calls for the game to be updated by decreasing the
      * brick's health, bouncing the ball off, and possibly releasing powerups
      */
-    public void checkBallBricksCollision() {
+    public void checkBallBricksCollision(Tests tester, Timeline animation) {
         for (ArrayList<Brick> brickRow : myBricks) {
             for (Brick brick : brickRow) {
                 if (itemsCollide(brick, myBall)) {
-                    brick.decreaseHealth();
+                    brick.decreaseHealth(tester, animation);
                     myBall.bounceOff();
                     if (brick.isDestroyed()) {
                         updateGameOnBrickDestruction(brick);

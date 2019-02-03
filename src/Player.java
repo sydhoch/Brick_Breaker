@@ -17,9 +17,12 @@ public class Player {
         return score;
     }
 
-    public void loseLife(){
+    public void loseLife(Tests tester){
         if (livesLeft > 0) {
             livesLeft--;
+        }
+        if(tester!=null) {
+            tester.setFirstEvent("Lose Life");
         }
     }
 

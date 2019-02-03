@@ -27,7 +27,7 @@ public class GamePlay {
     private GameInteractions interacter;
     private ArrayList<PowerUp> myPowerUps;
     private static final int NUM_STARTING_LIVES = 3;
-    private static final int NUM_STARTING_LEVEL = 0;
+    private static final int NUM_STARTING_LEVEL = 1;
     private static final int GAMETEXT_FONT_SIZE = 20;
     private static final int SCREEN_SIZE = 500;
     private static final Color BACKGROUND = Color.WHITESMOKE;
@@ -36,13 +36,14 @@ public class GamePlay {
     public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 
     private Timeline animation;
+    private boolean animationRunning;
     private boolean testMode;
 
     private Tests tester; //true if test file is not null
 
     public GamePlay(double elapsedTime, String test){
         if(test != null){
-            tester = new Tests(test);
+            tester = new Tests(test, animation);
             testMode = true;
         }
         else{
@@ -83,7 +84,6 @@ public class GamePlay {
         }
 
         myStatus.updateStatusText(myPlayer.getLives(), levelNum, myPlayer.getScore());
-        placeItemsForStart();
         myRoot.getChildren().add(myGameText);
         myRoot.getChildren().add(myStatus.getStatusText());
         myRoot.getChildren().add(myBall);
@@ -101,11 +101,15 @@ public class GamePlay {
         myBall.move(elapsedTime);
         myBall.bounce(myScene.getWidth(), myScene.getHeight());
         interacter.checkBallHitsPaddle();
-        interacter.checkBallBricksCollision();
+        interacter.checkBallBricksCollision(tester,animation);
         interacter.checkPowerUpPaddleCollision();
         if (myBall.ballFell(myScene.getHeight()) && myBall.isVisible()) {
             myBall.setVisible(true);
-            myPlayer.loseLife();
+            myPlayer.loseLife(tester);
+            if(tester!=null){
+                animation.stop();
+                tester.callTest();
+            }
             if (myPlayer.getLives() > 0) {
                 placeItemsForStart();
 
@@ -166,7 +170,6 @@ public class GamePlay {
     private void placeItemsForStart(){
         myBall.placeItem(
                 myScene.getWidth() / 2 - myBall.getWidth() / 2, myScene.getHeight() / 2 - myBall.getHeight() / 2);
-        //myBall.setStartingVelocity(tester);
         myPaddle.placeItem(myScene.getWidth() / 2 - myPaddle.getWidth() / 2, myScene.getHeight() - myPaddle.getHeight());
     }
 
@@ -209,6 +212,7 @@ public class GamePlay {
             animation.play();
         }
     }
+
 
 
 }

@@ -1,4 +1,5 @@
 import javafx.scene.image.Image;
+import javafx.animation.Timeline;
 
 /**
  * Creates a simulated brick for ball to hit, deteriorate, and eventually destroy
@@ -37,13 +38,18 @@ public class Brick extends Item{
     /**
      * Decreases brick's health and "destroys" it once health is too low
      */
-    public void decreaseHealth() {
+    public void decreaseHealth(Tests tester, Timeline animation) {
         if (myHealth > 1) {
             myHealth--;
         } else {
             myHealth = 0;
             setVisible(false);
             isDestroyed = true;
+            if(tester!=null){
+                tester.setFirstEvent("Destroy Block");
+                animation.stop();
+                tester.callTest();
+            }
         }
     }
 
