@@ -74,8 +74,6 @@ public class GameInteractions {
 
     private void updateGameOnBrickDestruction(Brick brick){
             myPlayer.increaseScore(brick.getValue());
-            System.out.println(powerUpCollisions);
-            System.out.println(numDestructions );
             if (powerUpCollisions.contains(numDestructions)) {
                 releasePowerUp(brick);
             }
@@ -113,7 +111,6 @@ public class GameInteractions {
             possibleCollisions.remove(randomIndex);
             powerUpCollisions.add(randoNum);
         }
-        System.out.println(powerUpCollisions);
         return powerUpCollisions;
     }
 
