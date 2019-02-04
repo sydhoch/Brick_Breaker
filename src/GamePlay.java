@@ -50,7 +50,8 @@ public class GamePlay {
             testMode = false;
         }
         myRoot = new Group();
-        BrickConfigurar brickSet = new BrickConfigurar("example.txt", myRoot, elapsedTime);
+        System.out.println(SCREEN_SIZE);
+        BrickConfigurar brickSet = new BrickConfigurar("example.txt", myRoot, elapsedTime, SCREEN_SIZE);
         myBall = new Ball(tester);
         myPaddle = new Paddle();
         myBricks = brickSet.getBricks();
@@ -67,7 +68,7 @@ public class GamePlay {
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
         interacter = new GameInteractions(myRoot, myBall, myBricks, myPaddle, myPlayer, myPowerUps);
-        setUpNewGame(Color.WHITESMOKE, elapsedTime);
+        setUpNewGame();
 
     }
 
@@ -75,14 +76,23 @@ public class GamePlay {
         return myScene;
     }
 
-    private void setUpNewGame (Paint background, double elapsedTime) {
+    private void displayGameMessage(String message, Color color, double height){
+        myGameText.setVisible(true);
+        myGameText.setText(message);
+        myGameText.setFont(new Font(GAMETEXT_FONT_SIZE));
+        myGameText.setFill(color);
+        myGameText.setX(myScene.getWidth() / 2 - (myGameText.getBoundsInLocal().getWidth() / 2));
+        myGameText.setY(height);
+    }
+
+    private void setUpNewGame () {
         if(testMode){
             testPlaceItemsForStart(tester);
         }
         else {
             placeItemsForStart();
         }
-
+        displayGameMessage("Press Space To Start", Color.BLACK, myScene.getHeight() - myScene.getHeight() / 4);
         myStatus.updateStatusText(myPlayer.getLives(), levelNum, myPlayer.getScore());
         myRoot.getChildren().add(myGameText);
         myRoot.getChildren().add(myStatus.getStatusText());
@@ -141,26 +151,14 @@ public class GamePlay {
     private void endGame(){
         gameOver = true;
         if(countRemainingBricks() != 0){
-            displayGameOverMessage("You Lost :(", Color.RED);
+            displayGameMessage("You Lost :(", Color.RED, myScene.getHeight() / 2);
         }
         else{
-            displayGameOverMessage("You Won!", Color.GREEN);
+            displayGameMessage("You Won!", Color.GREEN, myScene.getHeight() / 2);
             myBall.setVisible(false);
         }
     }
 
-    /**
-     * Displays a message in the middle of the screen at the end of the game
-     * @param message phrase to be displayed
-     * @param color color of the displayed phrase
-     */
-    private void displayGameOverMessage(String message, Color color){
-        myGameText.setText(message);
-        myGameText.setFont(new Font(GAMETEXT_FONT_SIZE));
-        myGameText.setFill(color);
-        myGameText.setX(myScene.getWidth() / 2 - (myGameText.getBoundsInLocal().getWidth() / 2));
-        myGameText.setY(myScene.getHeight() / 2);
-    }
 
     private void placeItemsForStart(){
         myBall.placeItem(
@@ -193,6 +191,9 @@ public class GamePlay {
     private void handleRunKeys(KeyCode code, Timeline animation, double elapsedTime){
         if (code.equals(code.SPACE)){
             playOrPause(animation);
+            if (!gameOver) {
+                myGameText.setVisible(false);
+            }
         }
         if (code.isArrowKey()) {
             myPaddle.handleSideKeyInput(code, myScene.getWidth(), elapsedTime);

@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class BrickConfigurar {
 
-    private double size;
+    private int mySize;
     private int numBrickCols;
     private int numBrickRows;
     private Group myRoot;
@@ -21,22 +21,23 @@ public class BrickConfigurar {
      * Adds an array of bricks to the scene root based on the configuration in a text file
      * @param fileName name of block configuring file
      */
-    public BrickConfigurar(String fileName, Group root, double elapsedTime){
+    public BrickConfigurar(String fileName, Group root, double elapsedTime, int size){
         myBricks = new ArrayList<>();
+        mySize = size;
         fillBrickList(readBrickFile(fileName), numBrickCols, numBrickRows);
         myRoot = root;
         addBricksToRoot();
+
     }
 
     /**
-     * Reads information from block configuration text file, including size of screen, number of block rows, number of
+     * Reads information from block configuration text file, including mySize of screen, number of block rows, number of
      * block columns, and configuration of blocks
      * @param fileName name of block configuring file
      * @return configuration of blocks onscreen represented by ints
      */
     private int[][] readBrickFile(String fileName){
         Scanner scannie = new Scanner(GamePlay.class.getClassLoader().getResourceAsStream(fileName));
-        size = scannie.nextInt();
         numBrickCols = scannie.nextInt();
         numBrickRows = scannie.nextInt();
         int[][] brickConfigs = new int[numBrickRows][numBrickCols];
@@ -70,11 +71,11 @@ public class BrickConfigurar {
     }
 
     private double calcBrickHeight(int numBrickRows){
-        return size / numBrickRows * FRACTION_OF_SCREEN_WIDTH_FOR_BRICKS;
+        return mySize / numBrickRows * FRACTION_OF_SCREEN_WIDTH_FOR_BRICKS;
     }
 
     private double calcBrickWidth(int numBrickCols){
-        return size / numBrickCols;
+        return mySize / numBrickCols;
     }
 
     private void addBricksToRoot(){
