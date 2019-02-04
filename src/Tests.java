@@ -9,6 +9,7 @@ public class Tests {
     private int startingYVelocity;
     private String myFirstEvent="";
     private Timeline myAnimation;
+    private String fileEvent;
     public Tests(String fileName, Timeline animation){
         readFile(fileName);
         myAnimation = animation;
@@ -20,7 +21,8 @@ public class Tests {
         ballInitY = scanner.nextInt();
         startingXVelocity = scanner.nextInt();
         startingYVelocity = scanner.nextInt();
-        String event = scanner.next();
+        scanner.nextLine();
+        fileEvent = scanner.nextLine();
     }
 
     public int getPosX(){
@@ -43,11 +45,8 @@ public class Tests {
     }
 
     public void callTest(){
-        if(myFirstEvent.equals("Lose Life")){
-            System.out.println("Lose Life Success");
-        }
-        if(myFirstEvent.equals("Destroy Block")){
-            System.out.println("Destroy Block Success");
+        if(myFirstEvent.equals(fileEvent)){
+            System.out.println(fileEvent+ " Success");
         }
     }
 

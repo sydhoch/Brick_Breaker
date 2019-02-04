@@ -1,3 +1,4 @@
+import javafx.animation.Timeline;
 public class Player {
 
     int livesLeft;
@@ -17,12 +18,14 @@ public class Player {
         return score;
     }
 
-    public void loseLife(Tests tester){
+    public void loseLife(Tests tester, Timeline animation){
         if (livesLeft > 0) {
             livesLeft--;
         }
         if(tester!=null) {
             tester.setFirstEvent("Lose Life");
+            animation.stop();
+            tester.callTest();
         }
     }
 

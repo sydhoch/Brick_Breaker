@@ -99,20 +99,15 @@ public class GamePlay {
     public void step (double elapsedTime) {
         myStatus.updateStatusText(myPlayer.getLives(), levelNum, myPlayer.getScore());
         myBall.move(elapsedTime);
-        myBall.bounce(myScene.getWidth(), myScene.getHeight());
+        myBall.bounce(myScene.getWidth(), myScene.getHeight(), tester, animation);
         interacter.checkBallHitsPaddle();
         interacter.checkBallBricksCollision(tester,animation);
         interacter.checkPowerUpPaddleCollision();
         if (myBall.ballFell(myScene.getHeight()) && myBall.isVisible()) {
             myBall.setVisible(true);
-            myPlayer.loseLife(tester);
-            if(tester!=null){
-                animation.stop();
-                tester.callTest();
-            }
+            myPlayer.loseLife(tester,animation);
             if (myPlayer.getLives() > 0) {
                 placeItemsForStart();
-
             }
         }
         for (PowerUp powerUp : myPowerUps) {

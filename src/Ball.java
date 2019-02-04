@@ -1,4 +1,5 @@
 import javafx.scene.image.Image;
+import javafx.animation.Timeline;
 
 public class Ball extends Item {
 
@@ -19,14 +20,23 @@ public class Ball extends Item {
      * @param screenWidth width of screen
      * @param screenHeight height of screen
     */
-    public void bounce(double screenWidth, double screenHeight){
+    public void bounce(double screenWidth, double screenHeight, Tests tester, Timeline animation){
         if(getX() < 0 || getX()>(screenWidth - getBoundsInLocal().getWidth())){
-
             setXVelocity(getXVelocity() * -1);
+            if (tester!=null) {
+                tester.setFirstEvent("Corner Bounce Back");
+                animation.stop();
+                tester.callTest();
+            }
         }
         if(getY() < 0){
             setYVelocity(getYVelocity() * -1);
+            if(tester!=null) {
+                tester.setFirstEvent("Corner Bounce Back");
+                animation.stop();
+            }
         }
+
     }
 
     /**
@@ -40,6 +50,7 @@ public class Ball extends Item {
     public void bounceOff(){
         setYVelocity(getYVelocity() * -1);
         setXVelocity(getXVelocity() * -1);
+
     }
 
     /**
