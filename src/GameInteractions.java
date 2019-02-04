@@ -33,7 +33,7 @@ public class GameInteractions {
      * Bounces the ball off the paddle if they collide
      */
     public void checkBallHitsPaddle(){
-        if(itemsCollide(myBall, myPaddle)){
+        if(myBall.collidedWith(myPaddle)){
             myBall.bounceOffPad();
         }
     }
@@ -45,7 +45,7 @@ public class GameInteractions {
     public void checkBallBricksCollision(Tests tester, Timeline animation) {
         for (ArrayList<Brick> brickRow : myBricks) {
             for (Brick brick : brickRow) {
-                if (itemsCollide(brick, myBall)) {
+                if (brick.collidedWith(myBall)) {
                     brick.decreaseHealth(tester, animation);
                     myBall.bounceOff();
                     if (brick.isDestroyed()) {
@@ -61,15 +61,10 @@ public class GameInteractions {
      */
     public void checkPowerUpPaddleCollision() {
         for (PowerUp powerUp : myPowerUps) {
-            if (itemsCollide(powerUp, myPaddle)) {
+            if (powerUp.collidedWith(myPaddle)) {
                 powerUp.activate();
             }
         }
-    }
-
-    private boolean itemsCollide(Item a, Item b){
-        return a.isVisible() && b.isVisible() &&
-                a.getBoundsInParent().intersects(b.getBoundsInParent());
     }
 
     private void updateGameOnBrickDestruction(Brick brick){
@@ -84,7 +79,7 @@ public class GameInteractions {
         PowerUp myPowerUp = new PowerUp(myRoot, myPaddle, myBall, myBricks);
         myPowerUps.add(myPowerUp);
         myRoot.getChildren().add(myPowerUp);
-        myPowerUp.placeItem(brick.getX(), brick.getY());
+        myPowerUp.placeItem(brick.getXCoordinate(), brick.getYCoordinate());
         myPowerUp.startFalling();
     }
 

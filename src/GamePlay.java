@@ -107,24 +107,26 @@ public class GamePlay {
      * @param elapsedTime how often method is run
      */
     public void step (double elapsedTime) {
-        myStatus.updateStatusText(myPlayer.getLives(), levelNum, myPlayer.getScore());
-        myBall.move(elapsedTime);
-        myBall.bounce(myScene.getWidth(), myScene.getHeight(), tester, animation);
-        interacter.checkBallHitsPaddle();
-        interacter.checkBallBricksCollision(tester,animation);
-        interacter.checkPowerUpPaddleCollision();
-        if (myBall.ballFell(myScene.getHeight()) && myBall.isVisible()) {
-            myBall.setVisible(true);
-            myPlayer.loseLife(tester,animation);
-            if (myPlayer.getLives() > 0) {
-                placeItemsForStart();
+        if (!gameOver) {
+            myStatus.updateStatusText(myPlayer.getLives(), levelNum, myPlayer.getScore());
+            myBall.move(elapsedTime);
+            myBall.bounce(myScene.getWidth(), myScene.getHeight(), tester, animation);
+            interacter.checkBallHitsPaddle();
+            interacter.checkBallBricksCollision(tester, animation);
+            interacter.checkPowerUpPaddleCollision();
+            if (myBall.ballFell(myScene.getHeight())) {
+                //myBall.setVisible(true);
+                myPlayer.loseLife(tester, animation);
+                if (myPlayer.getLives() > 0) {
+                    placeItemsForStart();
+                }
             }
-        }
-        for (PowerUp powerUp : myPowerUps) {
-            powerUp.move(elapsedTime);
-        }
-        if (myPlayer.getLives() == 0 || countRemainingBricks() == 0){
-            endGame();
+            for (PowerUp powerUp : myPowerUps) {
+                powerUp.move(elapsedTime);
+            }
+            if (myPlayer.getLives() == 0 || countRemainingBricks() == 0) {
+                endGame();
+            }
         }
     }
 
@@ -155,7 +157,6 @@ public class GamePlay {
         }
         else{
             displayGameMessage("You Won!", Color.GREEN, myScene.getHeight() / 2);
-            myBall.setVisible(false);
         }
     }
 

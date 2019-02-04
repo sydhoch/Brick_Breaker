@@ -47,4 +47,18 @@ abstract public class Item extends ImageView{
     public void setXVelocity(double myXVelocity) {
         this.myXVelocity = myXVelocity;
     }
+
+    public boolean collidedWith(Item other){
+        return this.isVisible() && other.isVisible() &&
+                this.getBoundsInParent().intersects(other.getBoundsInParent());
+    }
+
+    public double getXCoordinate(){
+        return getX();
+    }
+
+    public double getYCoordinate(){
+        return getY();
+    }
+
 }

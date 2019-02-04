@@ -59,7 +59,7 @@ public class Ball extends Item {
      * @return if the ball is offscreen
      */
     public boolean ballFell(double screenHeight){
-        return getY() > (screenHeight);
+        return getY() > (screenHeight) && isVisible();
     }
 
     public void setStartingVelocity(Tests tester){
