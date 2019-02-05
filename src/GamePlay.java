@@ -208,6 +208,17 @@ public class GamePlay {
         }
     }
 
+    private void handleTestKeys(KeyCode code){
+        if(code.getChar().equals(",")){
+
+        }
+        if(code.getChar().equals(".")){
+
+        }
+        if(code.getChar().equals("/")){
+
+        }
+    }
 
 
 }
