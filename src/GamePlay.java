@@ -5,7 +5,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -18,16 +17,14 @@ public class GamePlay {
     private Paddle myPaddle;
     private ArrayList<ArrayList<Brick>> myBricks;
     private Player myPlayer;
-    private Status myStatus;
+    private StatusText myStatus;
     private Text myGameText;
     private Scene myScene;
-    private int levelNum;
     private boolean gameOver;
     private Group myRoot;
     private GameInteractions interacter;
     private ArrayList<PowerUp> myPowerUps;
     private static final int NUM_STARTING_LIVES = 3;
-    private static final int NUM_STARTING_LEVEL = 1;
     private static final int GAMETEXT_FONT_SIZE = 20;
     private static final int SCREEN_SIZE = 500;
     private static final Color BACKGROUND = Color.WHITESMOKE;
@@ -52,9 +49,8 @@ public class GamePlay {
         myGameText = new Text();
         myPlayer = new Player(NUM_STARTING_LIVES);
         myScene = new Scene(myRoot, SCREEN_SIZE, SCREEN_SIZE, BACKGROUND);
-        levelNum = NUM_STARTING_LEVEL;
 
-        myStatus = new Status(SCREEN_SIZE);
+        myStatus = new StatusText(SCREEN_SIZE, myPlayer);
         gameOver = false;
         myPowerUps = new ArrayList<>();
         var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
@@ -87,9 +83,9 @@ public class GamePlay {
             placeItemsForStart();
         }
         displayGameMessage("Press Space To Start", Color.BLACK, myScene.getHeight() - myScene.getHeight() / 4);
-        myStatus.updateStatusText(myPlayer.getLives(), levelNum, myPlayer.getScore());
+        myStatus.updateText();
         myRoot.getChildren().add(myGameText);
-        myRoot.getChildren().add(myStatus.getStatusText());
+        myRoot.getChildren().add(myStatus.getText());
         myRoot.getChildren().add(myBall);
         myRoot.getChildren().add(myPaddle);
 
@@ -101,7 +97,7 @@ public class GamePlay {
      * @param elapsedTime how often method is run
      */
     public void step (double elapsedTime) {
-        myStatus.updateStatusText(myPlayer.getLives(), levelNum, myPlayer.getScore());
+        myStatus.updateText();
         if (!gameOver) {
             myBall.move(elapsedTime);
             myBall.bounce(myScene.getWidth(), myScene.getHeight(), tester, animation);
