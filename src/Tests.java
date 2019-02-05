@@ -8,11 +8,9 @@ public class Tests {
     private int startingXVelocity;
     private int startingYVelocity;
     private String myFirstEvent="";
-    private Timeline myAnimation;
     private String fileEvent;
-    public Tests(String fileName, Timeline animation){
+    public Tests(String fileName){
         readFile(fileName);
-        myAnimation = animation;
     }
 
     private void readFile(String fileName){

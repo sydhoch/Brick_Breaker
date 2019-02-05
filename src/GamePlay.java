@@ -37,20 +37,14 @@ public class GamePlay {
 
     private Timeline animation;
     private boolean animationRunning;
-    private boolean testMode;
 
     private Tests tester; //true if test file is not null
 
     public GamePlay(double elapsedTime, String test){
-        if(test != null){
-            tester = new Tests(test, animation);
-            testMode = true;
-        }
-        else{
-            testMode = false;
+        if(test!=null){
+            tester = new Tests(test);
         }
         myRoot = new Group();
-        System.out.println(SCREEN_SIZE);
         BrickConfigurar brickSet = new BrickConfigurar("example.txt", myRoot, elapsedTime, SCREEN_SIZE);
         myBall = new Ball(tester);
         myPaddle = new Paddle();
@@ -86,7 +80,7 @@ public class GamePlay {
     }
 
     private void setUpNewGame () {
-        if(testMode){
+        if(tester!=null){
             testPlaceItemsForStart(tester);
         }
         else {
@@ -116,7 +110,7 @@ public class GamePlay {
             interacter.checkPowerUpPaddleCollision();
             if (myBall.ballFell(myScene.getHeight())) {
                 //myBall.setVisible(true);
-                myPlayer.loseLife(tester, animation);
+                myPlayer.loseLife(tester,animation);
                 if (myPlayer.getLives() > 0) {
                     placeItemsForStart();
                 }
@@ -207,18 +201,6 @@ public class GamePlay {
         }
         else{
             animation.play();
-        }
-    }
-
-    private void handleTestKeys(KeyCode code){
-        if(code.getChar().equals(",")){
-
-        }
-        if(code.getChar().equals(".")){
-
-        }
-        if(code.getChar().equals("/")){
-
         }
     }
 
