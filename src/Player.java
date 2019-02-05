@@ -4,6 +4,7 @@ public class Player {
     int livesLeft;
     int score;
     int levelNum;
+    int lastLevel;
 
     public Player(int numLives){
         livesLeft = numLives;
@@ -48,6 +49,10 @@ public class Player {
 
     public void increaseLevel(){
         levelNum++;
+    }
+
+    public int getLastLevel(){
+        return lastLevel;
     }
 
 

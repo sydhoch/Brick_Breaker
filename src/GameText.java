@@ -4,24 +4,29 @@ import javafx.scene.text.Text;
 
 abstract public class GameText {
 
-        private Text myText;
-        private Player myPlayer;
-        public GameText(double screenSize, Player player){
-            myPlayer = player;
-            myText = new Text();
-            updateText();
-            placeText(screenSize);
-        }
+    private Text myText;
+    private Player myPlayer;
+    private double size;
 
-        public Text getText(){
-            return myText;
-        }
+    public GameText(double screenSize, Player player) {
+        myPlayer = player;
+        myText = new Text();
+        size = screenSize;
+    }
 
-        public Player getPlayer(){
-            return myPlayer;
-        }
+    public Text getText() {
+        return myText;
+    }
 
-        abstract protected void placeText(double screenSize);
+    public Player getPlayer() {
+        return myPlayer;
+    }
+
+    public double getSize() {
+        return size;
+    }
+
+        abstract protected void placeText();
 
         abstract public void updateText();
 

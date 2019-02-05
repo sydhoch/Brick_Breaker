@@ -3,21 +3,24 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class StatusText extends GameText {
-    private static final int FONT_SIZE = 20;
 
+    private static final int STATUS_FONT_SIZE = 20;
 
     public StatusText(double screenSize, Player player){
         super(screenSize, player);
         getText().setFill(Color.BLUEVIOLET);
-        getText().setFont(new Font(FONT_SIZE));
+        getText().setFont(new Font(STATUS_FONT_SIZE));
+        updateText();
+        placeText();
     }
 
     @Override
-    protected void placeText(double screenSize){
+    protected void placeText(){
         getText().setX(getText().getBoundsInLocal().getWidth() / 10);
-        getText().setY(screenSize - getText().getBoundsInLocal().getHeight());
+        getText().setY(getSize() - getText().getBoundsInLocal().getHeight());
     }
 
+    @Override
     public void updateText(){
         String livesLeft = "Lives Left: "+ getPlayer().getLives() +"\n";
         String score = "Score: " + getPlayer().getScore() + "\n";

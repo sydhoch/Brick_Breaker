@@ -20,7 +20,7 @@ public class LevelSetUp {
         myLevelNum = levelNum;
         myGameText = gametext;
         SCREEN_SIZE = SIZE;
-        levelStartMessage = "Level " + levelNum + "! Press Space To Start";
+
         //createNextLevel();
     }
 

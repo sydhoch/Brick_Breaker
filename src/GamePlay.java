@@ -18,14 +18,15 @@ public class GamePlay {
     private ArrayList<ArrayList<Brick>> myBricks;
     private Player myPlayer;
     private StatusText myStatus;
-    private Text myGameText;
+    //private Text myGameText;
+    private LevelText myLevelText;
     private Scene myScene;
     private boolean gameOver;
     private Group myRoot;
     private GameInteractions interacter;
     private ArrayList<PowerUp> myPowerUps;
     private static final int NUM_STARTING_LIVES = 3;
-    private static final int GAMETEXT_FONT_SIZE = 20;
+   // private static final int GAMETEXT_FONT_SIZE = 20;
     private static final int SCREEN_SIZE = 500;
     private static final Color BACKGROUND = Color.WHITESMOKE;
     public static final int FRAMES_PER_SECOND = 60;
@@ -46,8 +47,9 @@ public class GamePlay {
         myBall = new Ball(tester);
         myPaddle = new Paddle();
         myBricks = brickSet.getBricks();
-        myGameText = new Text();
+       // myGameText = new Text();
         myPlayer = new Player(NUM_STARTING_LIVES);
+        myLevelText = new LevelText(SCREEN_SIZE, myPlayer);
         myScene = new Scene(myRoot, SCREEN_SIZE, SCREEN_SIZE, BACKGROUND);
 
         myStatus = new StatusText(SCREEN_SIZE, myPlayer);
@@ -66,14 +68,14 @@ public class GamePlay {
         return myScene;
     }
 
-    private void displayGameMessage(String message, Color color, double height){
-        myGameText.setVisible(true);
-        myGameText.setText(message);
-        myGameText.setFont(new Font(GAMETEXT_FONT_SIZE));
-        myGameText.setFill(color);
-        myGameText.setX(myScene.getWidth() / 2 - (myGameText.getBoundsInLocal().getWidth() / 2));
-        myGameText.setY(height);
-    }
+//    private void displayGameMessage(String message, Color color, double height){
+//        myGameText.setVisible(true);
+//        myGameText.setText(message);
+//        myGameText.setFont(new Font(GAMETEXT_FONT_SIZE));
+//        myGameText.setFill(color);
+//        myGameText.setX(myScene.getWidth() / 2 - (myGameText.getBoundsInLocal().getWidth() / 2));
+//        myGameText.setY(height);
+//    }
 
     private void setUpNewGame () {
         if(tester!=null){
@@ -82,9 +84,11 @@ public class GamePlay {
         else {
             placeItemsForStart();
         }
-        displayGameMessage("Press Space To Start", Color.BLACK, myScene.getHeight() - myScene.getHeight() / 4);
+        //displayGameMessage("Press Space To Start", Color.BLACK, myScene.getHeight() - myScene.getHeight() / 4);
+        myLevelText.updateText();
         myStatus.updateText();
-        myRoot.getChildren().add(myGameText);
+      // myRoot.getChildren().add(myGameText);
+        myRoot.getChildren().add(myLevelText.getText());
         myRoot.getChildren().add(myStatus.getText());
         myRoot.getChildren().add(myBall);
         myRoot.getChildren().add(myPaddle);
@@ -142,12 +146,13 @@ public class GamePlay {
      */
     private void endGame(){
         gameOver = true;
-        if(countRemainingBricks() != 0){
-            displayGameMessage("You Lost :(", Color.RED, myScene.getHeight() / 2);
-        }
-        else{
-            displayGameMessage("You Won!", Color.GREEN, myScene.getHeight() / 2);
-        }
+//        if(countRemainingBricks() != 0){
+//           // displayGameMessage("You Lost :(", Color.RED, myScene.getHeight() / 2);
+//        }
+//        else{
+//            displayGameMessage("You Won!", Color.GREEN, myScene.getHeight() / 2);
+//        }
+        myLevelText.updateText();
     }
 
 
@@ -183,7 +188,8 @@ public class GamePlay {
         if (code.equals(code.SPACE)){
             playOrPause(animation);
             if (!gameOver) {
-                myGameText.setVisible(false);
+               // myGameText.setVisible(false);
+                myLevelText.disappear();
             }
         }
         if (code.isArrowKey()) {
