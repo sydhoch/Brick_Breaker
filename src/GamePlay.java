@@ -101,8 +101,8 @@ public class GamePlay {
      * @param elapsedTime how often method is run
      */
     public void step (double elapsedTime) {
+        myStatus.updateStatusText(myPlayer.getLives(), levelNum, myPlayer.getScore());
         if (!gameOver) {
-            myStatus.updateStatusText(myPlayer.getLives(), levelNum, myPlayer.getScore());
             myBall.move(elapsedTime);
             myBall.bounce(myScene.getWidth(), myScene.getHeight(), tester, animation);
             interacter.checkBallHitsPaddle();
