@@ -12,13 +12,14 @@ public class Brick extends Item{
     private int myHealth;
     private int myValue;
     private boolean isDestroyed;
+    private boolean hasPowerUp;
 
 
     public Brick(int health, int value){
         setImage(new Image(this.getClass().getClassLoader().getResourceAsStream((BRICK_IMAGE))));
         myHealth = health;
         myValue = value;
-        setVisible(true);
+        setCanSee(true);
         isDestroyed = false;
     }
 
@@ -43,9 +44,9 @@ public class Brick extends Item{
             myHealth--;
         } else {
             myHealth = 0;
-            setVisible(false);
+            setCanSee(false);
             isDestroyed = true;
-            if(tester!=null){
+            if (tester != null){
                 tester.setFirstEvent("Destroy Block");
                 animation.stop();
                 tester.callTest();
@@ -59,6 +60,10 @@ public class Brick extends Item{
 
     public void undoDoubleValue(){
         myValue /= 2;
+    }
+
+    public void setHasPowerUp(boolean containsPowerUp){
+        hasPowerUp = containsPowerUp;
     }
 
 

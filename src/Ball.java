@@ -10,7 +10,7 @@ public class Ball extends Item {
     Ball(Tests tester){
         setImage(new Image(this.getClass().getClassLoader().getResourceAsStream(BOUNCER_IMAGE)));
         setStartingVelocity(tester);
-        setVisible(true);
+        setCanSee(true);
 
     }
 
@@ -59,7 +59,7 @@ public class Ball extends Item {
      * @return if the ball is offscreen
      */
     public boolean ballFell(double screenHeight){
-        return getY() > (screenHeight) && isVisible();
+        return getY() > (screenHeight) && canSee();
     }
 
     public void setStartingVelocity(Tests tester){

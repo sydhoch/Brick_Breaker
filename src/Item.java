@@ -3,6 +3,7 @@ import javafx.scene.image.ImageView;
 abstract public class Item extends ImageView{
     private double myYVelocity;
     private double myXVelocity;
+    private boolean canSee;
 
     public void placeItem(double x, double y){
         setX(x);
@@ -59,6 +60,15 @@ abstract public class Item extends ImageView{
 
     public double getYCoordinate(){
         return getY();
+    }
+
+    public void setCanSee(boolean visible){
+        canSee = visible;
+        setVisible(visible);
+    }
+
+    public boolean canSee(){
+        return canSee;
     }
 
 }

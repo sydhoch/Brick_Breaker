@@ -22,7 +22,7 @@ public class PowerUp extends Item{
     public PowerUp(Group root, Paddle paddle, Ball ball, ArrayList<ArrayList<Brick>> bricks){
         chooseType();
         setImage(pickImage());
-        setVisible(false);
+        setCanSee(false);
         myRoot = root;
         myBall = ball;
         myBricks = bricks;
@@ -47,7 +47,7 @@ public class PowerUp extends Item{
      */
     public void startFalling() {
         setYVelocity(FALLING_Y_VELOCITY);
-        setVisible(true);
+        setCanSee(true);
     }
 
     /**
@@ -55,7 +55,7 @@ public class PowerUp extends Item{
      * powerup will be deactivated and the special effect will be reversed back to normal
      */
     public void activate(){
-        setVisible(false);
+        setCanSee(false);
         doPower();
         startTimer();
     }

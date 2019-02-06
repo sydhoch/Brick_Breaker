@@ -21,8 +21,8 @@ public class BrickConfigurar {
      * Adds an array of bricks to the scene root based on the configuration in a text file
      * @param fileName name of block configuring file
      */
-    public BrickConfigurar(String fileName, Group root, double elapsedTime, int size){
-        myBricks = new ArrayList<>();
+    public BrickConfigurar(String fileName, Group root, int size, ArrayList<ArrayList<Brick>> bricks){
+        myBricks = bricks;
         mySize = size;
         fillBrickList(readBrickFile(fileName), numBrickCols, numBrickRows);
         myRoot = root;

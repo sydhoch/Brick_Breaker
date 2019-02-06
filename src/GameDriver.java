@@ -9,9 +9,9 @@ public class GameDriver extends Application{
 
     //public static final Paint BACKGROUND = Color.WHITESMOKE;
     public static final String TITLE = "Hello JavaFX";
-    public static final int FRAMES_PER_SECOND = 60;
+  //  public static final int FRAMES_PER_SECOND = 60;
     //static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-    public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+    //public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private String test = null;
 
 
@@ -46,7 +46,7 @@ public class GameDriver extends Application{
         if(code.equals(code.SLASH)){
             test = "test3.txt";
         }
-        GamePlay gamePlayer = new GamePlay(SECOND_DELAY, test);
+        GamePlay gamePlayer = new GamePlay(test);
         Scene myScene = gamePlayer.getScene();
         stage.setScene(myScene);
     }

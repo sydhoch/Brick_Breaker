@@ -26,8 +26,12 @@ abstract public class GameText {
         return size;
     }
 
-        abstract protected void placeText();
+    public void disappear(){
+        getText().setVisible(false);
+    }
 
-        abstract public void updateText();
+    abstract protected void placeText();
+
+    abstract public void updateText();
 
     }
