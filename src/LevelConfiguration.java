@@ -25,7 +25,6 @@ public class LevelConfiguration {
     private static final ArrayList<Color> possibleLevelColors = new ArrayList<>(Arrays.asList(
         Color.WHITE, Color.LAVENDER, Color.LIGHTPINK, Color.LIGHTBLUE));
     private static final double FRACTION_OF_SCREEN_WIDTH_FOR_BRICKS = 1.0/2.0;
-    private static final int MAX_MULTIBRICK_HEALTH = 5;
 
     public LevelConfiguration(Ball ball, Paddle paddle, ArrayList<ArrayList<Brick>> bricks, Group root,
                               ArrayList<PowerUp> powerUps, LevelText levelText, int SIZE, Timeline animation, Scene scene){
@@ -109,13 +108,13 @@ public class LevelConfiguration {
                 Brick brick = new Brick(0);
                 if (brickConfigs[i][j].matches("\\d+")){
                     int health = Integer.parseInt(brickConfigs[i][j]);
-//                    if (health == 1) {
-//                        brick = new Brick(health);
-//                    }
-                    if (health >= 1 && health <= MAX_MULTIBRICK_HEALTH){
+                    if (health == 1) {
+                        brick = new Brick(health);
+                    }
+                    if (health > 1){
 //                        System.out.println("in multibrick making");
 //                        System.out.println(health);
-                        brick = new MultiHitBrick(health, myRoot);
+                        brick = new MultiHitBrick(health);
                     }
                 }
                 if (brickConfigs[i][j].equals("*")) {

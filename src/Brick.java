@@ -14,12 +14,9 @@ public class Brick extends Item{
     private boolean isDestroyed;
     private boolean hasPowerUp;
 
-
-
     public Brick(int health){
         myHealth = health;
         setBrickImage();
-       // myRoot = root;
         setCanSee(true);
         isDestroyed = false;
         if (health < 1) {
@@ -31,9 +28,9 @@ public class Brick extends Item{
         setImage(BRICK_IMAGE);
     }
 
-//    public int getValue(){
-//        return myValue;
-//    }
+    public void setHealth(int newHealth){
+        myHealth = newHealth;
+    }
 
     public int getHealth(){
         return myHealth;
