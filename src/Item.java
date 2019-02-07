@@ -56,7 +56,7 @@ abstract public class Item {
         this.myXVelocity = myXVelocity;
     }
 
-    public boolean collidedWith(Item other){
+    public boolean collidesWith(Item other){
         return this.canSee() && other.canSee() &&
                 this.getParentBounds().intersects(other.getParentBounds());
     }

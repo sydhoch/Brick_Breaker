@@ -14,13 +14,13 @@ public class LevelText extends GameText {
         placeText();
     }
 
-    @Override
+
     protected void placeText() {
         getText().setX(getSize() / 2 - (getText().getBoundsInLocal().getWidth() / 2));
         getText().setY(getSize() - getSize() / 4);
     }
 
-    @Override
+
     public void updateText() {
         getText().setVisible(true);
         getText().setText("Level " + getPlayer().getLevel() + "! Press Space To Start");

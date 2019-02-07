@@ -1,3 +1,5 @@
+import javafx.scene.Group;
+
 public class PowerUpBrick extends Brick{
 
     private static final String POWERUP_BRICK_IMAGE = "powerBrick.gif";
@@ -6,7 +8,7 @@ public class PowerUpBrick extends Brick{
 
 
     public PowerUpBrick(){
-        super(STARTING_HEALTH, VALUE);
+        super(STARTING_HEALTH);
         setHasPowerUp(true);
     }
 

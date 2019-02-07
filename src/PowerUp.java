@@ -73,13 +73,13 @@ public class PowerUp extends Item{
 
     private void doPower(){
         switch (myType){
-            case POINTS_POWER:
-                for (ArrayList<Brick> brickRow : myBricks){
-                    for (Brick myBrick : brickRow){
-                        myBrick.beDoubleValue();
-                    }
-                }
-                break;
+//            case POINTS_POWER:
+//                for (ArrayList<Brick> brickRow : myBricks){
+//                    for (Brick myBrick : brickRow){
+//                        myBrick.beDoubleValue();
+//                    }
+//                }
+//                break;
             case PADDLE_SIZE_POWER:
                 myPaddle.lengthen();
                 break;
@@ -88,13 +88,13 @@ public class PowerUp extends Item{
 
     private void deactivate(){
         switch (myType){
-            case POINTS_POWER:
-                for (ArrayList<Brick> brickRow : myBricks){
-                    for (Brick brick : brickRow){
-                        brick.undoDoubleValue();
-                    }
-                }
-                break;
+//            case POINTS_POWER:
+//                for (ArrayList<Brick> brickRow : myBricks){
+//                    for (Brick brick : brickRow){
+//                        brick.undoDoubleValue();
+//                    }
+//                }
+//                break;
             case PADDLE_SIZE_POWER:
                 myPaddle.undoLengthen();
                 break;

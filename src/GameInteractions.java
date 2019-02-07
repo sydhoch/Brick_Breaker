@@ -35,7 +35,7 @@ public class GameInteractions {
      * Bounces the ball off the paddle if they collide
      */
     public void checkBallHitsPaddle(){
-        if(myBall.collidedWith(myPaddle)){
+        if(myBall.collidesWith(myPaddle)){
             myBall.bounceOffPad();
         }
     }
@@ -47,7 +47,8 @@ public class GameInteractions {
     public void checkBallBricksCollision(Tests tester, Timeline animation) {
         for (ArrayList<Brick> brickRow : myBricks) {
             for (Brick brick : brickRow) {
-                if (brick.collidedWith(myBall)) {
+                if (brick.collidesWith(myBall)) {
+                    myPlayer.increaseScore(1);
                     brick.decreaseHealth(tester, animation);
                     myBall.bounceOff();
                     if (brick.isDestroyed()) {
@@ -63,14 +64,14 @@ public class GameInteractions {
      */
     public void checkPowerUpPaddleCollision() {
         for (PowerUp powerUp : myPowerUps) {
-            if (powerUp.collidedWith(myPaddle)) {
+            if (powerUp.collidesWith(myPaddle)) {
                 powerUp.activate();
             }
         }
     }
 
     private void updateGameOnBrickDestruction(Brick brick){
-        myPlayer.increaseScore(brick.getValue());
+      //  myPlayer.increaseScore(brick.getValue());
         if (brick.hasPowerUp()){
             releasePowerUp(brick);
         }

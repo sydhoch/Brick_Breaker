@@ -85,6 +85,7 @@ public class GamePlay {
         if(tester!=null){
             testPlaceItemsForStart(tester);
         }
+        // read high score file
 
     }
 
@@ -146,6 +147,7 @@ public class GamePlay {
     private void endGame(){
         gameOver = true;
         myGameOverText.updateText();
+        // for saving high score
     }
 
 

@@ -1,3 +1,4 @@
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.animation.Timeline;
 
@@ -10,15 +11,15 @@ public class Brick extends Item{
 
     private static final String BRICK_IMAGE = "brick1.gif";
     private int myHealth;
-    private int myValue;
     private boolean isDestroyed;
     private boolean hasPowerUp;
 
 
-    public Brick(int health, int value){
-        setBrickImage();
+
+    public Brick(int health){
         myHealth = health;
-        myValue = value;
+        setBrickImage();
+       // myRoot = root;
         setCanSee(true);
         isDestroyed = false;
         if (health < 1) {
@@ -30,9 +31,9 @@ public class Brick extends Item{
         setImage(BRICK_IMAGE);
     }
 
-    public int getValue(){
-        return myValue;
-    }
+//    public int getValue(){
+//        return myValue;
+//    }
 
     public int getHealth(){
         return myHealth;
@@ -59,13 +60,13 @@ public class Brick extends Item{
         }
     }
 
-    public void beDoubleValue(){
-        myValue *= 2;
-    }
-
-    public void undoDoubleValue(){
-        myValue /= 2;
-    }
+//    public void beDoubleValue(){
+//        myValue *= 2;
+//    }
+//
+//    public void undoDoubleValue(){
+//        myValue /= 2;
+//    }
 
     public void setHasPowerUp(boolean containsPowerUp){
         hasPowerUp = containsPowerUp;

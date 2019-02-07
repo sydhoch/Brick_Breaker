@@ -17,13 +17,13 @@ public class GameOverText extends GameText {
         placeText();
     }
 
-    @Override
+
     protected void placeText() {
         getText().setX(getSize() / 2 - (getText().getBoundsInLocal().getWidth() / 2));
         getText().setY(getSize() - getSize() / 3);
     }
 
-    @Override
+
     public void updateText() {
         getText().setVisible(true);
         if (getPlayer().getLives() == 0){
