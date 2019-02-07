@@ -1,7 +1,7 @@
 import javafx.scene.Group;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
+
 import javafx.animation.Timeline;
 
 public class GameInteractions {
@@ -12,10 +12,10 @@ public class GameInteractions {
     private Paddle myPaddle;
     private Player myPlayer;
     private ArrayList<PowerUp> myPowerUps;
+//    ArrayList<PaddleSizePowerUpFactory> myPowerUpFactories;
     private ArrayList<Integer> powerUpCollisions;
     private int numDestructions;
-
-    private static final double PERCENT_COLLISIONS_WITH_POWERUPS = 1.0;
+    //RandomPowerUpFactory myPowerFactory;
 
     public GameInteractions(Group root, Ball ball, ArrayList<ArrayList<Brick>> bricks, Paddle paddle,
                             Player player, ArrayList<PowerUp> powerUps){
@@ -25,8 +25,10 @@ public class GameInteractions {
         myPaddle = paddle;
         myPlayer = player;
         myPowerUps = powerUps;
-//        powerUpCollisions = getPowerUpCollisions();
-        numDestructions = 0;
+//        myPowerUpFactories = new ArrayList<>(Arrays.asList(new PaddleSizePowerUpFactory());
+        //myPowerFactory = new RandomPowerUpFactory();
+
+
     }
 
     /**
@@ -68,23 +70,16 @@ public class GameInteractions {
     }
 
     private void updateGameOnBrickDestruction(Brick brick){
-            myPlayer.increaseScore(brick.getValue());
-           // System.out.println(powerUpCollisions);
-           // System.out.println(numDestructions);
-//            if (powerUpCollisions.contains(numDestructions)) {
-//                releasePowerUp(brick);
-//            }
-        System.out.println(brick.hasPowerUp());
+        myPlayer.increaseScore(brick.getValue());
         if (brick.hasPowerUp()){
-            System.out.println("that brick has a powerup");
             releasePowerUp(brick);
         }
-//        numDestructions += 1;
     }
 
     private void releasePowerUp(Brick brick){
         System.out.println("in release");
         PowerUp myPowerUp = new PowerUp(myRoot, myPaddle, myBall, myBricks);
+        //PowerUp myPowerUp = myPowerFactory.createRandomPowerUp();
         myPowerUps.add(myPowerUp);
         myRoot.getChildren().add(myPowerUp.getImage());
         myPowerUp.placeItem(brick.getXCoordinate(), brick.getYCoordinate());
@@ -93,30 +88,6 @@ public class GameInteractions {
     }
 
 
-//    private int calculateNumPowerUpCollisions(){
-//        return (int)(countTotalBricks() * PERCENT_COLLISIONS_WITH_POWERUPS);
-//    }
-
-//    private ArrayList<Integer> getPossibleCollisions(){
-//        ArrayList<Integer> possibleCollisions = new ArrayList<>();
-//        for (int i = 0; i < countTotalBricks(); i++){
-//            possibleCollisions.add(i);
-//        }
-//        return possibleCollisions;
-//    }
-
-//    private ArrayList<Integer> getPowerUpCollisions(){
-//        Random rand = new Random();
-//        powerUpCollisions = new ArrayList<>();
-//        ArrayList<Integer> possibleCollisions = getPossibleCollisions();
-//        for (int i = 0; i < calculateNumPowerUpCollisions(); i++){
-//            int randomIndex = rand.nextInt(possibleCollisions.size());
-//            int randoNum = possibleCollisions.get(randomIndex);
-//            possibleCollisions.remove(randomIndex);
-//            powerUpCollisions.add(randoNum);
-//        }
-//        return powerUpCollisions;
-//    }
 
     /**
      * Counts the total number of bricks the level started with
@@ -130,4 +101,25 @@ public class GameInteractions {
         return totalBricks;
     }
 
+
+
+//       private class RandomPowerUpFactory {
+//
+//        private ArrayList<PaddleSizePowerUpFactory> myPowerUpFactories;
+//        private RandomPowerUpFactory(){
+//            myPowerUpFactories = new ArrayList<>(Arrays.asList(new PaddleSizePowerUpFactory()));
+//        }
+//
+//        private PowerUp createRandomPowerUp(){
+//            Collections.shuffle(myPowerUpFactories);
+//            return myPowerUpFactories.get(0).create(myRoot, myPaddle, myBall, myBricks);
+//
+//        }
+//    }
+
+
 }
+
+
+
+
