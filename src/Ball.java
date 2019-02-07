@@ -8,7 +8,7 @@ public class Ball extends Item {
     private static final int STARTING_Y_VELOCITY = 60;
 
     Ball(Tests tester){
-        setImage(new Image(this.getClass().getClassLoader().getResourceAsStream(BOUNCER_IMAGE)));
+        setImage(BOUNCER_IMAGE);
         setStartingVelocity(tester);
         setCanSee(true);
 
@@ -21,7 +21,7 @@ public class Ball extends Item {
      * @param screenHeight height of screen
     */
     public void bounce(double screenWidth, double screenHeight, Tests tester, Timeline animation){
-        if(getX() < 0 || getX()>(screenWidth - getBoundsInLocal().getWidth())){
+        if(getXCoordinate() < 0 || getXCoordinate()>(screenWidth - getWidth())){
             setXVelocity(getXVelocity() * -1);
             if (tester!=null) {
                 tester.setFirstEvent("Corner Bounce Back");
@@ -29,7 +29,7 @@ public class Ball extends Item {
                 tester.callTest();
             }
         }
-        if(getY() < 0){
+        if(getYCoordinate() < 0){
             setYVelocity(getYVelocity() * -1);
             if(tester!=null) {
                 tester.setFirstEvent("Corner Bounce Back");
@@ -59,7 +59,7 @@ public class Ball extends Item {
      * @return if the ball is offscreen
      */
     public boolean ballFell(double screenHeight){
-        return getY() > (screenHeight) && canSee();
+        return getYCoordinate() > (screenHeight) && canSee();
     }
 
     public void setStartingVelocity(Tests tester){

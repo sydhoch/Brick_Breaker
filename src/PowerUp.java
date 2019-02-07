@@ -21,7 +21,7 @@ public class PowerUp extends Item{
 
     public PowerUp(Group root, Paddle paddle, Ball ball, ArrayList<ArrayList<Brick>> bricks){
         chooseType();
-        setImage(pickImage());
+        setImage(pickImageName());
         setCanSee(false);
         myRoot = root;
         myBall = ball;
@@ -33,8 +33,8 @@ public class PowerUp extends Item{
         POINTS_POWER, PADDLE_SIZE_POWER;
     }
 
-    private Image pickImage(){
-        return new Image(this.getClass().getClassLoader().getResourceAsStream((myType.toString().toLowerCase() + POWERUP_IMAGE_NAME_ENDING)));
+    private String pickImageName(){
+        return (myType.toString().toLowerCase() + POWERUP_IMAGE_NAME_ENDING);
     }
 
     private void chooseType(){

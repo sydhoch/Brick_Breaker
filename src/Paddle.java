@@ -9,7 +9,7 @@ public class Paddle extends Item{
     private boolean isExtraWide;
 
     public Paddle(){
-        setImage(new Image(this.getClass().getClassLoader().getResourceAsStream((PADDLE_IMAGE))));
+        setImage(PADDLE_IMAGE);
         setXVelocity(PADDLE_SPEED);
         setCanSee(true);
         isExtraWide = false;
@@ -34,11 +34,11 @@ public class Paddle extends Item{
      * @param code key pressed by user
      */
     public void handleSideKeyInput(KeyCode code, double screenWidth, double elapsedTime){
-        if (code == KeyCode.RIGHT && getBoundsInLocal().getMaxX() < screenWidth) {
+        if (code == KeyCode.RIGHT && getMaxX() < screenWidth) {
             setXVelocity(Math.abs(getXVelocity()));
             move(elapsedTime);
         }
-        else if (code == KeyCode.LEFT && getBoundsInLocal().getMinX() > 0) {
+        else if (code == KeyCode.LEFT && getMinX() > 0) {
             setXVelocity(Math.abs(getXVelocity()) * -1);
             move(elapsedTime);
         }

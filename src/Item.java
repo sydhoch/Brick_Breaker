@@ -1,13 +1,20 @@
+import javafx.geometry.Bounds;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-abstract public class Item extends ImageView{
+abstract public class Item {
     private double myYVelocity;
     private double myXVelocity;
     private boolean canSee;
+    private ImageView myImage;
+
+    public Item(){
+        myImage = new ImageView();
+    }
 
     public void placeItem(double x, double y){
-        setX(x);
-        setY(y);
+        myImage.setX(x);
+        myImage.setY(y);
     }
 
     /**
@@ -15,22 +22,22 @@ abstract public class Item extends ImageView{
      * @param elapsedTime
      */
     public void move(double elapsedTime){
-        setX(getX() + getXVelocity() * elapsedTime);
-        setY(getY() + getYVelocity() * elapsedTime);
+        myImage.setX(myImage.getX() + getXVelocity() * elapsedTime);
+        myImage.setY(myImage.getY() + getYVelocity() * elapsedTime);
 
     }
 
     public void setSize(double width, double height){
-        setFitWidth(width);
-        setFitHeight(height);
+        myImage.setFitWidth(width);
+        myImage.setFitHeight(height);
     }
 
     public double getWidth(){
-        return getBoundsInLocal().getWidth();
+        return myImage.getBoundsInLocal().getWidth();
     }
 
     public double getHeight(){
-        return getBoundsInLocal().getHeight();
+        return myImage.getBoundsInLocal().getHeight();
     }
 
     public double getYVelocity() {
@@ -50,25 +57,45 @@ abstract public class Item extends ImageView{
     }
 
     public boolean collidedWith(Item other){
-        return this.isVisible() && other.isVisible() &&
-                this.getBoundsInParent().intersects(other.getBoundsInParent());
+        return this.canSee() && other.canSee() &&
+                this.getParentBounds().intersects(other.getParentBounds());
     }
 
     public double getXCoordinate(){
-        return getX();
+        return myImage.getX();
     }
 
     public double getYCoordinate(){
-        return getY();
+        return myImage.getY();
     }
 
     public void setCanSee(boolean visible){
         canSee = visible;
-        setVisible(visible);
+        myImage.setVisible(visible);
     }
 
     public boolean canSee(){
         return canSee;
+    }
+
+    public Bounds getParentBounds(){
+        return myImage.getBoundsInParent();
+    }
+
+    public ImageView getImage(){
+        return myImage;
+    }
+
+    public void setImage(String imageFile){
+        myImage.setImage(new Image(this.getClass().getClassLoader().getResourceAsStream((imageFile))));
+    }
+
+    public double getMaxX(){
+       return myImage.getBoundsInLocal().getMaxX();
+    }
+
+    public double getMinX(){
+        return myImage.getBoundsInLocal().getMinX();
     }
 
 }

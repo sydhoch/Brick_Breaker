@@ -15,7 +15,7 @@ public class GameInteractions {
     private ArrayList<Integer> powerUpCollisions;
     private int numDestructions;
 
-    private static final double PERCENT_COLLISIONS_WITH_POWERUPS = 1.0 / 3.0;
+    private static final double PERCENT_COLLISIONS_WITH_POWERUPS = 1.0;
 
     public GameInteractions(Group root, Ball ball, ArrayList<ArrayList<Brick>> bricks, Paddle paddle,
                             Player player, ArrayList<PowerUp> powerUps){
@@ -69,6 +69,8 @@ public class GameInteractions {
 
     private void updateGameOnBrickDestruction(Brick brick){
             myPlayer.increaseScore(brick.getValue());
+           // System.out.println(powerUpCollisions);
+           // System.out.println(numDestructions);
             if (powerUpCollisions.contains(numDestructions)) {
                 releasePowerUp(brick);
             }
@@ -78,7 +80,7 @@ public class GameInteractions {
     private void releasePowerUp(Brick brick){
         PowerUp myPowerUp = new PowerUp(myRoot, myPaddle, myBall, myBricks);
         myPowerUps.add(myPowerUp);
-        myRoot.getChildren().add(myPowerUp);
+        myRoot.getChildren().add(myPowerUp.getImage());
         myPowerUp.placeItem(brick.getXCoordinate(), brick.getYCoordinate());
         myPowerUp.startFalling();
     }

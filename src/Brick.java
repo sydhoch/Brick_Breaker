@@ -16,7 +16,7 @@ public class Brick extends Item{
 
 
     public Brick(int health, int value){
-        setImage(new Image(this.getClass().getClassLoader().getResourceAsStream((BRICK_IMAGE))));
+        setImage(BRICK_IMAGE);
         myHealth = health;
         myValue = value;
         setCanSee(true);
@@ -44,8 +44,7 @@ public class Brick extends Item{
             myHealth--;
         } else {
             myHealth = 0;
-            setCanSee(false);
-            isDestroyed = true;
+            destroyBrick();
             if (tester != null){
                 tester.setFirstEvent("Destroy Block");
                 animation.stop();
@@ -64,6 +63,11 @@ public class Brick extends Item{
 
     public void setHasPowerUp(boolean containsPowerUp){
         hasPowerUp = containsPowerUp;
+    }
+
+    public void destroyBrick(){
+        myHealth = 0;
+        setCanSee(false);
     }
 
 

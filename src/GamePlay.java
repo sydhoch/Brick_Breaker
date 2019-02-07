@@ -22,7 +22,7 @@ public class GamePlay {
     private boolean gameOver;
     private Group myRoot;
     private GameInteractions interacter;
-    private LevelSetUp levelSetter;
+    private LevelConfiguration levelSetter;
     private ArrayList<PowerUp> myPowerUps;
     private static final int NUM_STARTING_LIVES = 1;
     private static final int SCREEN_SIZE = 500;
@@ -56,10 +56,11 @@ public class GamePlay {
         animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
-        levelSetter = new LevelSetUp(myBall, myPaddle, myBricks, myRoot, myPlayer.getLevel(), myLevelText, SCREEN_SIZE, animation);
-        interacter = new GameInteractions(myRoot, myBall, myBricks, myPaddle, myPlayer, myPowerUps);
+        levelSetter = new LevelConfiguration(myBall, myPaddle, myBricks,myRoot, myPowerUps, myLevelText, SCREEN_SIZE, animation);
+        //interacter = new GameInteractions(myRoot, myBall, myBricks, myPaddle, myPlayer, myPowerUps);
         setUpNewScene();
         resetForNewGame();
+        interacter = new GameInteractions(myRoot, myBall, myBricks, myPaddle, myPlayer, myPowerUps);
     }
 
     public Scene getScene() {
@@ -70,14 +71,13 @@ public class GamePlay {
         myRoot.getChildren().add(myLevelText.getText());
         myRoot.getChildren().add(myGameOverText.getText());
         myRoot.getChildren().add(myStatus.getText());
-        myRoot.getChildren().add(myBall);
-        myRoot.getChildren().add(myPaddle);
+        myRoot.getChildren().add(myBall.getImage());
+        myRoot.getChildren().add(myPaddle.getImage());
 
         myScene.setOnKeyPressed(key -> handleAllKeys(key.getCode()));
     }
 
     private void resetForNewGame(){
-        destroyAllBricks();
         myPlayer.reset();
         levelSetter.createNextLevel(myPlayer.getLevel());
         myStatus.updateText();
@@ -88,20 +88,16 @@ public class GamePlay {
 
     }
 
-    private void destroyAllBricks() {
-        for (ArrayList<Brick> brickRow : myBricks) {
-            for (Brick brick : brickRow) {
-                brick.setCanSee(false);
-            }
-        }
-    }
+
 
     /**
      * Changes properties of objects on screen to make them seem animated
      */
     private void step (){
+        System.out.println(countRemainingBricks()  );
 
         if (myPlayer.getLives() > 0 && countRemainingBricks() == 0 && myPlayer.getLastLevel() != myPlayer.getLevel()){
+            System.out.println("new level needed");
             myPlayer.increaseLevel();
             levelSetter.createNextLevel(myPlayer.getLevel());
         }
