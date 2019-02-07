@@ -58,6 +58,12 @@ public class Player {
         myLevelNum = 1;
     }
 
+    public void setLevel(int level){
+        if (level <= myLastLevel) {
+            myLevelNum = level;
+        }
+    }
+
 
 
 

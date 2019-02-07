@@ -25,7 +25,7 @@ public class GameInteractions {
         myPaddle = paddle;
         myPlayer = player;
         myPowerUps = powerUps;
-        powerUpCollisions = getPowerUpCollisions();
+//        powerUpCollisions = getPowerUpCollisions();
         numDestructions = 0;
     }
 
@@ -71,45 +71,52 @@ public class GameInteractions {
             myPlayer.increaseScore(brick.getValue());
            // System.out.println(powerUpCollisions);
            // System.out.println(numDestructions);
-            if (powerUpCollisions.contains(numDestructions)) {
-                releasePowerUp(brick);
-            }
-        numDestructions += 1;  
+//            if (powerUpCollisions.contains(numDestructions)) {
+//                releasePowerUp(brick);
+//            }
+        System.out.println(brick.hasPowerUp());
+        if (brick.hasPowerUp()){
+            System.out.println("that brick has a powerup");
+            releasePowerUp(brick);
+        }
+//        numDestructions += 1;
     }
 
     private void releasePowerUp(Brick brick){
+        System.out.println("in release");
         PowerUp myPowerUp = new PowerUp(myRoot, myPaddle, myBall, myBricks);
         myPowerUps.add(myPowerUp);
         myRoot.getChildren().add(myPowerUp.getImage());
         myPowerUp.placeItem(brick.getXCoordinate(), brick.getYCoordinate());
         myPowerUp.startFalling();
+        System.out.println("past falling");
     }
 
 
-    private int calculateNumPowerUpCollisions(){
-        return (int)(countTotalBricks() * PERCENT_COLLISIONS_WITH_POWERUPS);
-    }
+//    private int calculateNumPowerUpCollisions(){
+//        return (int)(countTotalBricks() * PERCENT_COLLISIONS_WITH_POWERUPS);
+//    }
 
-    private ArrayList<Integer> getPossibleCollisions(){
-        ArrayList<Integer> possibleCollisions = new ArrayList<>();
-        for (int i = 0; i < countTotalBricks(); i++){
-            possibleCollisions.add(i);
-        }
-        return possibleCollisions;
-    }
+//    private ArrayList<Integer> getPossibleCollisions(){
+//        ArrayList<Integer> possibleCollisions = new ArrayList<>();
+//        for (int i = 0; i < countTotalBricks(); i++){
+//            possibleCollisions.add(i);
+//        }
+//        return possibleCollisions;
+//    }
 
-    private ArrayList<Integer> getPowerUpCollisions(){
-        Random rand = new Random();
-        powerUpCollisions = new ArrayList<>();
-        ArrayList<Integer> possibleCollisions = getPossibleCollisions();
-        for (int i = 0; i < calculateNumPowerUpCollisions(); i++){
-            int randomIndex = rand.nextInt(possibleCollisions.size());
-            int randoNum = possibleCollisions.get(randomIndex);
-            possibleCollisions.remove(randomIndex);
-            powerUpCollisions.add(randoNum);
-        }
-        return powerUpCollisions;
-    }
+//    private ArrayList<Integer> getPowerUpCollisions(){
+//        Random rand = new Random();
+//        powerUpCollisions = new ArrayList<>();
+//        ArrayList<Integer> possibleCollisions = getPossibleCollisions();
+//        for (int i = 0; i < calculateNumPowerUpCollisions(); i++){
+//            int randomIndex = rand.nextInt(possibleCollisions.size());
+//            int randoNum = possibleCollisions.get(randomIndex);
+//            possibleCollisions.remove(randomIndex);
+//            powerUpCollisions.add(randoNum);
+//        }
+//        return powerUpCollisions;
+//    }
 
     /**
      * Counts the total number of bricks the level started with

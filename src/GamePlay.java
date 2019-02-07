@@ -56,7 +56,7 @@ public class GamePlay {
         animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
-        levelSetter = new LevelConfiguration(myBall, myPaddle, myBricks,myRoot, myPowerUps, myLevelText, SCREEN_SIZE, animation);
+        levelSetter = new LevelConfiguration(myBall, myPaddle, myBricks,myRoot, myPowerUps, myLevelText, SCREEN_SIZE, animation, myScene);
         //interacter = new GameInteractions(myRoot, myBall, myBricks, myPaddle, myPlayer, myPowerUps);
         setUpNewScene();
         resetForNewGame();
@@ -79,7 +79,7 @@ public class GamePlay {
 
     private void resetForNewGame(){
         myPlayer.reset();
-        levelSetter.createNextLevel(myPlayer.getLevel());
+        levelSetter.createNewLevel(myPlayer.getLevel());
         myStatus.updateText();
         myGameOverText.disappear();
         if(tester!=null){
@@ -94,12 +94,12 @@ public class GamePlay {
      * Changes properties of objects on screen to make them seem animated
      */
     private void step (){
-        System.out.println(countRemainingBricks()  );
+       // System.out.println(countRemainingBricks()  );
 
         if (myPlayer.getLives() > 0 && countRemainingBricks() == 0 && myPlayer.getLastLevel() != myPlayer.getLevel()){
-            System.out.println("new level needed");
+           // System.out.println("new level needed");
             myPlayer.increaseLevel();
-            levelSetter.createNextLevel(myPlayer.getLevel());
+            levelSetter.createNewLevel(myPlayer.getLevel());
         }
         else if (myPlayer.getLives() == 0 || (countRemainingBricks() == 0 && myPlayer.getLastLevel() == myPlayer.getLevel())) {
             endGame();
@@ -118,6 +118,7 @@ public class GamePlay {
                     levelSetter.placeItemsForStart();
                 }
             }
+            System.out.println(myPowerUps.size());
             for (PowerUp powerUp : myPowerUps) {
                 powerUp.move(SECOND_DELAY);
             }
@@ -161,6 +162,10 @@ public class GamePlay {
             if (code.getChar().equals("R")) {
                 levelSetter.placeItemsForStart();
          }
+            if (code.isDigitKey() && Integer.parseInt(code.getChar()) <= myPlayer.getLastLevel()){
+                myPlayer.setLevel(Integer.parseInt(code.getChar()));
+                levelSetter.createNewLevel(myPlayer.getLevel());
+            }
     }
 
     private void handleAllKeys(KeyCode code){

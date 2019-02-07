@@ -16,13 +16,19 @@ public class Brick extends Item{
 
 
     public Brick(int health, int value){
-        setImage(BRICK_IMAGE);
+        setBrickImage();
         myHealth = health;
         myValue = value;
         setCanSee(true);
         isDestroyed = false;
+        if (health < 1) {
+            destroyBrick();
+        }
     }
 
+    public void setBrickImage(){
+        setImage(BRICK_IMAGE);
+    }
 
     public int getValue(){
         return myValue;
@@ -65,8 +71,13 @@ public class Brick extends Item{
         hasPowerUp = containsPowerUp;
     }
 
+    public boolean hasPowerUp(){
+        return hasPowerUp;
+    }
+
     public void destroyBrick(){
         myHealth = 0;
+        isDestroyed = true;
         setCanSee(false);
     }
 
