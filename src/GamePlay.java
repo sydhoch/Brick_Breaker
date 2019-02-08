@@ -24,13 +24,13 @@ public class GamePlay {
     private GameInteractions interacter;
     private LevelConfiguration levelSetter;
     private ArrayList<PowerUp> myPowerUps;
-    private static final int NUM_STARTING_LIVES = 1;
+   // private static final int NUM_STARTING_LIVES = 1;
     private static final int SCREEN_SIZE = 500;
     private static final Color BACKGROUND = Color.WHITESMOKE;
     private static final int FRAMES_PER_SECOND = 60;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-    private static final int LAST_LEVEL_NUM = 2;
+   // private static final int LAST_LEVEL_NUM = 2;
 
     private Timeline animation;
     private boolean animationRunning;
@@ -45,7 +45,7 @@ public class GamePlay {
         myBall = new Ball(tester);
         myPaddle = new Paddle();
         myBricks = new ArrayList<>();
-        myPlayer = new Player(NUM_STARTING_LIVES, LAST_LEVEL_NUM);
+        myPlayer = new Player();
         myLevelText = new LevelText(SCREEN_SIZE, myPlayer);
         myGameOverText = new GameOverText(SCREEN_SIZE, myPlayer);
         myScene = new Scene(myRoot, SCREEN_SIZE, SCREEN_SIZE, BACKGROUND);
@@ -119,7 +119,7 @@ public class GamePlay {
                     levelSetter.placeItemsForStart();
                 }
             }
-            System.out.println(myPowerUps.size());
+
             for (PowerUp powerUp : myPowerUps) {
                 powerUp.move(SECOND_DELAY);
             }

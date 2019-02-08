@@ -4,12 +4,16 @@ public class Player {
     private int myLivesLeft;
     private int myScore;
     private int myLevelNum;
-    private int myLastLevel;
-    private int myStartingLives;
+//    private int myLastLevel;
+//    private int myStartingLives;
+    private int myScoreIncrement;
+    private static final int STARTING_SCORE_INCREMENT = 1;
+    private static final int STARTING_LIVES = 3;
+    private static final int MAX_LEVEL = 2;
 
-    public Player(int startingLives, int maxLevel){
-        myStartingLives = startingLives;
-        myLastLevel = maxLevel;
+    public Player(){
+        //myStartingLives = startingLives;
+        //myLastLevel = maxLevel;
         reset();
     }
 
@@ -26,7 +30,7 @@ public class Player {
     }
 
     public int getLastLevel(){
-        return myLastLevel;
+        return MAX_LEVEL;
     }
 
     public void loseLife(Tests tester, Timeline animation){
@@ -53,15 +57,24 @@ public class Player {
     }
 
     public void reset(){
-        myLivesLeft = myStartingLives;
+        myLivesLeft = STARTING_LIVES;
         myScore = 0;
         myLevelNum = 1;
+        myScoreIncrement = STARTING_SCORE_INCREMENT;
     }
 
     public void setLevel(int level){
-        if (level <= myLastLevel) {
+        if (level <= MAX_LEVEL) {
             myLevelNum = level;
         }
+    }
+
+    public void setScoreIncrement(int scoreIncrement){
+        myScoreIncrement = scoreIncrement;
+    }
+
+    public int getScoreIncrement(){
+        return myScoreIncrement;
     }
 
 

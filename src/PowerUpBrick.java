@@ -9,11 +9,13 @@ public class PowerUpBrick extends Brick{
 
     public PowerUpBrick(){
         super(STARTING_HEALTH);
+        setImage(POWERUP_BRICK_IMAGE);
+
         setHasPowerUp(true);
     }
 
     @Override
-    public void setBrickImage(){
+    protected void setBrickImage(){
         setImage(POWERUP_BRICK_IMAGE);
     }
 

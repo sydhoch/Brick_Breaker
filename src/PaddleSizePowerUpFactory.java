@@ -1,11 +1,14 @@
-import javafx.scene.Group;
+public class PaddleSizePowerUpFactory extends PowerUpFactory{
 
-import java.util.ArrayList;
+    Paddle myPaddle;
 
-public class PaddleSizePowerUpFactory {
+    public PaddleSizePowerUpFactory(Paddle paddle){
+        myPaddle = paddle;
+    }
 
-    public PowerUp create(Group root, Paddle paddle, Ball ball, ArrayList<ArrayList<Brick>> bricks){
-        return new PowerUp(root, paddle, ball, bricks);
+    @Override
+    public PowerUp create(){
+        return new PaddleSizePowerUp(myPaddle);
     }
 
 }

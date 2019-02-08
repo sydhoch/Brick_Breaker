@@ -1,46 +1,19 @@
 import javafx.scene.Group;
-import javafx.scene.image.Image;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class PowerUp extends Item{
+public abstract class PowerUp extends Item{
 
     private static final int FALLING_Y_VELOCITY = 100;
-    private powerUpType myType;
-    private static final String POWERUP_IMAGE_NAME_ENDING = ".gif";
-    private boolean isActive;
-    private int timeLeft;
     private static int TOTAL_TIME = 10000;
 
-    private Group myRoot;
-    private Ball myBall;
-    private ArrayList<ArrayList<Brick>> myBricks;
-    private Paddle myPaddle;
-
-    public PowerUp(Group root, Paddle paddle, Ball ball, ArrayList<ArrayList<Brick>> bricks){
-        chooseType();
-        setImage(pickImageName());
+    public PowerUp(){
+        setPowerUpImage();
         setCanSee(false);
-        myRoot = root;
-        myBall = ball;
-        myBricks = bricks;
-        myPaddle = paddle;
     }
 
-    enum powerUpType {
-        POINTS_POWER, PADDLE_SIZE_POWER;
-    }
-
-    private String pickImageName(){
-        return (myType.toString().toLowerCase() + POWERUP_IMAGE_NAME_ENDING);
-    }
-
-    private void chooseType(){
-        Random rand = new Random();
-        myType = powerUpType.values()[rand.nextInt(powerUpType.values().length)];
-    }
+    protected abstract void setPowerUpImage();
 
     /**
      * Causes powerup to fall down toward bottom of screen and become visible
@@ -71,33 +44,7 @@ public class PowerUp extends Item{
         timer.schedule(task, TOTAL_TIME);
     }
 
-    private void doPower(){
-        switch (myType){
-//            case POINTS_POWER:
-//                for (ArrayList<Brick> brickRow : myBricks){
-//                    for (Brick myBrick : brickRow){
-//                        myBrick.beDoubleValue();
-//                    }
-//                }
-//                break;
-            case PADDLE_SIZE_POWER:
-                myPaddle.lengthen();
-                break;
-        }
-    }
+    protected abstract void doPower();
 
-    private void deactivate(){
-        switch (myType){
-//            case POINTS_POWER:
-//                for (ArrayList<Brick> brickRow : myBricks){
-//                    for (Brick brick : brickRow){
-//                        brick.undoDoubleValue();
-//                    }
-//                }
-//                break;
-            case PADDLE_SIZE_POWER:
-                myPaddle.undoLengthen();
-                break;
-        }
-    }
+    protected abstract void deactivate();
 }
