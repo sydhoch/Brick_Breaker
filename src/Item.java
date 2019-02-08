@@ -7,6 +7,7 @@ abstract public class Item {
     private double myXVelocity;
     private boolean canSee;
     private ImageView myImage;
+    private String myImageName;
 
     public Item(){
         myImage = new ImageView();

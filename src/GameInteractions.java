@@ -12,7 +12,7 @@ public class GameInteractions {
     private Paddle myPaddle;
     private Player myPlayer;
     private ArrayList<PowerUp> myPowerUps;
-//    ArrayList<PaddleSizePowerUpFactory> myPowerUpFactories;
+    ArrayList<PowerUpFactory> myPowerUpFactories;
     private ArrayList<Integer> powerUpCollisions;
     private int numDestructions;
     //RandomPowerUpFactory myPowerFactory;
@@ -25,7 +25,8 @@ public class GameInteractions {
         myPaddle = paddle;
         myPlayer = player;
         myPowerUps = powerUps;
-//        myPowerUpFactories = new ArrayList<>(Arrays.asList(new PaddleSizePowerUpFactory());
+        myPowerUpFactories = new ArrayList<>(Arrays.asList(new PaddleSizePowerUpFactory(myPaddle), new PointsPowerUpFactory(myPlayer),
+                new BallSpeedPowerUpFactory(myBall)));
         //myPowerFactory = new RandomPowerUpFactory();
 
 
@@ -48,7 +49,7 @@ public class GameInteractions {
         for (ArrayList<Brick> brickRow : myBricks) {
             for (Brick brick : brickRow) {
                 if (brick.collidesWith(myBall)) {
-                    myPlayer.increaseScore(1);
+                    myPlayer.increaseScore(myPlayer.getScoreIncrement());
                     brick.decreaseHealth(tester, animation);
                     myBall.bounceOff();
                     if (brick.isDestroyed()) {
@@ -78,14 +79,12 @@ public class GameInteractions {
     }
 
     private void releasePowerUp(Brick brick){
-        System.out.println("in release");
-        PowerUp myPowerUp = new PowerUp(myRoot, myPaddle, myBall, myBricks);
-        //PowerUp myPowerUp = myPowerFactory.createRandomPowerUp();
+        PowerUp myPowerUp = createRandomPowerUp();
         myPowerUps.add(myPowerUp);
         myRoot.getChildren().add(myPowerUp.getImage());
         myPowerUp.placeItem(brick.getXCoordinate(), brick.getYCoordinate());
         myPowerUp.startFalling();
-        System.out.println("past falling");
+
     }
 
 
@@ -110,12 +109,12 @@ public class GameInteractions {
 //        private RandomPowerUpFactory(){
 //            myPowerUpFactories = new ArrayList<>(Arrays.asList(new PaddleSizePowerUpFactory()));
 //        }
-//
-//        private PowerUp createRandomPowerUp(){
-//            Collections.shuffle(myPowerUpFactories);
-//            return myPowerUpFactories.get(0).create(myRoot, myPaddle, myBall, myBricks);
-//
-//        }
+
+        private PowerUp createRandomPowerUp(){
+            Collections.shuffle(myPowerUpFactories);
+            return myPowerUpFactories.get(0).create();
+
+        }
 //    }
 
 

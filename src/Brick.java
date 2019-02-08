@@ -24,7 +24,7 @@ public class Brick extends Item{
         }
     }
 
-    public void setBrickImage(){
+    protected void setBrickImage(){
         setImage(BRICK_IMAGE);
     }
 

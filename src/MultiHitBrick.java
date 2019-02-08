@@ -20,7 +20,7 @@ public class MultiHitBrick extends Brick{
     }
 
     @Override
-    public void setBrickImage(){
+    protected void setBrickImage(){
         if (getHealth() > MAX_MULTIBRICK_HEALTH){
             setHealth(MAX_MULTIBRICK_HEALTH);
         }

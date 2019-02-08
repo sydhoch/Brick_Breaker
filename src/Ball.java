@@ -21,6 +21,8 @@ public class Ball extends Item {
      * @param screenHeight height of screen
     */
     public void bounce(double screenWidth, double screenHeight, Tests tester, Timeline animation){
+        System.out.println(getXVelocity());
+        System.out.println(getYVelocity());
         if(getXCoordinate() < 0 || getXCoordinate()>(screenWidth - getWidth())){
             setXVelocity(getXVelocity() * -1);
             if (tester!=null) {
