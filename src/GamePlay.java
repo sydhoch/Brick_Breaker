@@ -5,6 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class GamePlay {
         myBall = new Ball(tester);
         myPaddle = new Paddle();
         myBricks = new ArrayList<>();
-        myPlayer = new Player();
+        myPlayer = new Player(tester);
         myLevelText = new LevelText(SCREEN_SIZE, myPlayer);
         myGameOverText = new GameOverText(SCREEN_SIZE, myPlayer);
         myScene = new Scene(myRoot, SCREEN_SIZE, SCREEN_SIZE, BACKGROUND);
@@ -76,7 +77,7 @@ public class GamePlay {
     }
 
     private void resetForNewGame(){
-        myPlayer.reset();
+        myPlayer.reset(tester);
         levelSetter.createNewLevel(myPlayer.getLevel());
         myStatus.updateText();
         myGameOverText.disappear();
@@ -198,7 +199,7 @@ public class GamePlay {
 
     private void handleRestartKey(KeyCode code){
         if (code.getChar().equals("N") && gameOver){
-            myPlayer.reset();
+            myPlayer.reset(tester);
             gameOver = false;
             resetForNewGame();
         }

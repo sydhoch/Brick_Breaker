@@ -3,6 +3,7 @@ import javafx.animation.Timeline;
 import java.util.Scanner;
 
 public class Tests {
+    private int myLevelNum;
     private int ballInitX;
     private int ballInitY;
     private int startingXVelocity;
@@ -14,6 +15,7 @@ public class Tests {
     }
 
     private void readFile(String fileName){
+        myLevelNum = findLevelNum(fileName);
         Scanner scanner = new Scanner(GamePlay.class.getClassLoader().getResourceAsStream(fileName));
         ballInitX = scanner.nextInt();
         ballInitY = scanner.nextInt();
@@ -21,6 +23,10 @@ public class Tests {
         startingYVelocity = scanner.nextInt();
         scanner.nextLine();
         fileEvent = scanner.nextLine();
+    }
+
+    private int findLevelNum(String fileName){
+        return Integer.parseInt(fileName.substring(fileName.indexOf("level")+5,fileName.indexOf("level")+6));
     }
 
     public int getPosX(){
@@ -46,6 +52,10 @@ public class Tests {
         if(myFirstEvent.equals(fileEvent)){
             System.out.println(fileEvent+ " Success");
         }
+    }
+
+    public int getLevel(){
+        return myLevelNum;
     }
 
 

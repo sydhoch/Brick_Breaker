@@ -2,10 +2,14 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.Node;
 import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
@@ -29,9 +33,34 @@ public class StartScreen {
         Text body2 = getBody2(screenSize, body1, "Press , . or / to run tests. Press any other key to start a game.");
         root.getChildren().addAll(title, body1, body2);
         var scene = new Scene(root, screenSize, screenSize, Color.WHITE);
-
         return scene;
     }
+    /*
+    public Scene setUpScreen(double screenSize){
+
+        //Text title = getTitle(screenSize);
+        //Text body1 = getBody(screenSize, title, "Objective: Destroy as many bricks as possible.");
+        //Text body2 = getBody2(screenSize, body1, "Press , . or / to run tests. Press any other key to start a game.");
+        //box.getChildren().addAll(title, body1, body2);
+
+
+        //Label label1 = new Label("Enter Your Name:");
+        //TextField text= new TextField();
+        //HBox box = new HBox();
+        //box.getChildren().add();
+        //box.setSpacing(10);
+        //root.getChildren().add(box);
+
+
+        TextField myTextField = new TextField();
+        HBox hbox = new HBox();
+        hbox.getChildren().add(myTextField);
+        HBox.setHgrow(myTextField, Priority.ALWAYS);
+
+        Scene scene = new Scene(hbox, screenSize, screenSize, Color.WHITE);
+        return scene;
+    }
+    */
 
     public Scene getMyScene(){
         return myScene;
@@ -64,6 +93,15 @@ public class StartScreen {
         title.setX((screenSize - title.getBoundsInLocal().getWidth()) / 2);
         title.setY(0+ title.getBoundsInLocal().getHeight() + 50);
         return title;
+    }
+
+    private void blah(Group root){
+        Label label = new Label("Enter Your Name:");
+        TextField textField = new TextField();
+        HBox box = new HBox();
+        box.getChildren().addAll(label,textField);
+        box.setSpacing(10);
+        root.getChildren().add(box);
     }
 
 }
