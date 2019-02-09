@@ -4,7 +4,7 @@ import javafx.animation.Timeline;
 public class Ball extends Item {
 
     private static final String BOUNCER_IMAGE = "ball.gif";
-    private static final int STARTING_X_VELOCITY = 180;
+    private static final int STARTING_X_VELOCITY = -180;
     private static final int STARTING_Y_VELOCITY = 60;
 
     Ball(Tests tester){
@@ -42,8 +42,19 @@ public class Ball extends Item {
     /**
      * reverse direction of ball
      */
-    public void bounceOffPad(String area){
-        setYVelocity(getYVelocity() * -1);
+    /*public void bounceOffPad(String area){
+        if(area.equals("right")){
+            if (getXVelocity() < 0) {
+                setXVelocity(getXVelocity()*-1);
+            }
+        }
+        if(area.equals("left")&& getXVelocity()>0){
+            setXVelocity(getXVelocity()*-1);
+        }
+        setYVelocity(getYVelocity()*-1);
+    }*/
+    public void bounceOffPad(){
+        setYVelocity(getYVelocity()*-1);
     }
 
 

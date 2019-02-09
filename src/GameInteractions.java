@@ -36,7 +36,19 @@ public class GameInteractions {
      */
     public void checkBallHitsPaddle(){
         if(myBall.collidesWith(myPaddle)){
-            myBall.bounceOffPad();
+            myBall.bounceOffPad();;
+            /*
+            double ballPos = myBall.getXCoordinate();
+            double paddleX = myPaddle.getXCoordinate();
+            double center = paddleX + myPaddle.getWidth()/2;
+            System.out.println(center);
+            if(ballPos<center){
+                myBall.bounceOffPad("left");
+            }
+            if(ballPos>center) {
+                myBall.bounceOffPad("right");
+            }
+            */
         }
     }
 
