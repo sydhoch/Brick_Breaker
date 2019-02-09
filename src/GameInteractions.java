@@ -37,7 +37,6 @@ public class GameInteractions {
      */
     public void checkBallHitsPaddle(){
         if(myBall.collidesWith(myPaddle)){
-            myBall.
             myBall.bounceOffPad();
         }
     }

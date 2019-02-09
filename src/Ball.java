@@ -44,7 +44,7 @@ public class Ball extends Item {
     /**
      * reverse direction of ball
      */
-    public void bounceOffPad(String area){
+    public void bounceOffPad(){
         setYVelocity(getYVelocity() * -1);
     }
 
