@@ -42,7 +42,7 @@ public class Ball extends Item {
     /**
      * reverse direction of ball
      */
-    /*public void bounceOffPad(String area){
+    public void bounceOffPad(String area){
         if(area.equals("right")){
             if (getXVelocity() < 0) {
                 setXVelocity(getXVelocity()*-1);
@@ -51,9 +51,6 @@ public class Ball extends Item {
         if(area.equals("left")&& getXVelocity()>0){
             setXVelocity(getXVelocity()*-1);
         }
-        setYVelocity(getYVelocity()*-1);
-    }*/
-    public void bounceOffPad(){
         setYVelocity(getYVelocity()*-1);
     }
 
