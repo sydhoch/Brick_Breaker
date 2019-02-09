@@ -11,7 +11,7 @@ public class GameDriver extends Application{
     //static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     //public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private String test = null;
-    private int testLevel = 1;
+    private int testLevel = 2;
 
 
     public void start (Stage stage) {
