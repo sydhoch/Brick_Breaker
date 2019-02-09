@@ -17,16 +17,12 @@ public class BallSpeedPowerUp extends PowerUp{
 
     @Override
     protected void doPower() {
-//        System.out.println(myBall.getXVelocity());
-//        System.out.println(myBall.getYVelocity());
         myBall.setXVelocity(myBall.getXVelocity() / 2);
         myBall.setYVelocity(myBall.getYVelocity() / 2);
-//        System.out.println(myBall.getXVelocity());
-//        System.out.println(myBall.getYVelocity());
     }
 
     @Override
-    protected void deactivate() {
+    protected void undoPower() {
         myBall.setXVelocity(myBall.getXVelocity() * 2);
         myBall.setYVelocity(myBall.getYVelocity() * 2);
     }

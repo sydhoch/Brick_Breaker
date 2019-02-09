@@ -23,7 +23,7 @@ public class PaddleSizePowerUp extends PowerUp {
     }
 
     @Override
-    protected void deactivate() {
+    protected void undoPower() {
         myPaddle.undoLengthen();
     }
 }

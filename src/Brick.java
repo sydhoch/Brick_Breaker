@@ -7,9 +7,8 @@ import javafx.animation.Timeline;
  *
  * @author leahschwartz
  */
-public class Brick extends Item{
+public abstract class Brick extends Item{
 
-    private static final String BRICK_IMAGE = "brick1.gif";
     private int myHealth;
     private boolean isDestroyed;
     private boolean hasPowerUp;
@@ -24,9 +23,7 @@ public class Brick extends Item{
         }
     }
 
-    protected void setBrickImage(){
-        setImage(BRICK_IMAGE);
-    }
+    protected abstract void setBrickImage();
 
     public void setHealth(int newHealth){
         myHealth = newHealth;
@@ -57,14 +54,6 @@ public class Brick extends Item{
         }
     }
 
-//    public void beDoubleValue(){
-//        myValue *= 2;
-//    }
-//
-//    public void undoDoubleValue(){
-//        myValue /= 2;
-//    }
-
     public void setHasPowerUp(boolean containsPowerUp){
         hasPowerUp = containsPowerUp;
     }
@@ -78,9 +67,6 @@ public class Brick extends Item{
         isDestroyed = true;
         setCanSee(false);
     }
-
-
-
 }
 
 

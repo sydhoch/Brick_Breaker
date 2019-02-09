@@ -22,7 +22,7 @@ public class PointsPowerUp extends PowerUp{
     }
 
     @Override
-    protected void deactivate() {
+    public void undoPower() {
         myPlayer.setScoreIncrement(myPlayer.getScoreIncrement() / 2);
     }
 }
