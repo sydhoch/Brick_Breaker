@@ -5,6 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class GamePlay {
         myBall = new Ball(tester);
         myPaddle = new Paddle();
         myBricks = new ArrayList<>();
-        myPlayer = new Player(NUM_STARTING_LIVES, LAST_LEVEL_NUM);
+        myPlayer = new Player(NUM_STARTING_LIVES, LAST_LEVEL_NUM, tester);
         myLevelText = new LevelText(SCREEN_SIZE, myPlayer);
         myGameOverText = new GameOverText(SCREEN_SIZE, myPlayer);
         myScene = new Scene(myRoot, SCREEN_SIZE, SCREEN_SIZE, BACKGROUND);
@@ -78,7 +79,7 @@ public class GamePlay {
     }
 
     private void resetForNewGame(){
-        myPlayer.reset();
+        myPlayer.reset(tester);
         levelSetter.createNewLevel(myPlayer.getLevel());
         myStatus.updateText();
         myGameOverText.disappear();
@@ -97,14 +98,7 @@ public class GamePlay {
     private void step (){
        // System.out.println(countRemainingBricks()  );
 
-        if (myPlayer.getLives() > 0 && countRemainingBricks() == 0 && myPlayer.getLastLevel() != myPlayer.getLevel()){
-           // System.out.println("new level needed");
-            myPlayer.increaseLevel();
-            levelSetter.createNewLevel(myPlayer.getLevel());
-        }
-        else if (myPlayer.getLives() == 0 || (countRemainingBricks() == 0 && myPlayer.getLastLevel() == myPlayer.getLevel())) {
-            endGame();
-        }
+        checkGameOver();
 
         myStatus.updateText();
         if (!gameOver) {
@@ -125,6 +119,17 @@ public class GamePlay {
             }
         }
 
+    }
+
+    private void checkGameOver(){
+        if (myPlayer.getLives() > 0 && countRemainingBricks() == 0 && myPlayer.getLastLevel() != myPlayer.getLevel()){
+            // System.out.println("new level needed");
+            myPlayer.increaseLevel();
+            levelSetter.createNewLevel(myPlayer.getLevel());
+        }
+        else if (myPlayer.getLives() == 0 || (countRemainingBricks() == 0 && myPlayer.getLastLevel() == myPlayer.getLevel())) {
+            endGame();
+        }
     }
 
     /**
@@ -192,7 +197,7 @@ public class GamePlay {
 
     private void handleRestartKey(KeyCode code){
         if (code.getChar().equals("N") && gameOver){
-            myPlayer.reset();
+            myPlayer.reset(tester);
             gameOver = false;
             resetForNewGame();
         }
