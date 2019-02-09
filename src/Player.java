@@ -11,10 +11,10 @@ public class Player {
     private static final int STARTING_LIVES = 3;
     private static final int MAX_LEVEL = 2;
 
-    public Player(Tests tester){
+    public Player(){
         //myStartingLives = startingLives;
         //myLastLevel = maxLevel;
-        reset(tester);
+        reset();
     }
 
     public int getLives(){
@@ -56,16 +56,11 @@ public class Player {
         myLevelNum++;
     }
 
-    public void reset(Tests tester){
+    public void reset(){
         myLivesLeft = STARTING_LIVES;
         myScore = 0;
         myScoreIncrement = STARTING_SCORE_INCREMENT;
-            if(tester!=null){
-                myLevelNum = tester.getLevel();
-            }
-            else {
-                myLevelNum = 1;
-            }
+        myLevelNum = 1;
     }
 
     public void setLevel(int level){

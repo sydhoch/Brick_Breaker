@@ -11,6 +11,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.Node;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
@@ -18,8 +19,10 @@ public class StartScreen {
 
     private Scene myScene;
     private Group root;
+
     public static final int FRAMES_PER_SECOND = 60;
     public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+
 
     public StartScreen(double screenSize){
         myScene = setUpScreen(screenSize);
@@ -103,5 +106,38 @@ public class StartScreen {
         box.setSpacing(10);
         root.getChildren().add(box);
     }
+
+/*
+    public void handleStartScreenKeys(KeyCode code, Stage stage){
+        String testbeginning = "test";
+        String testnum="";
+        String level ="_level";
+        String levelnum= Integer.toString(testLevel);
+        boolean testExists=false;
+        if(code.equals(code.COMMA)){
+            testnum = Integer.toString(1);
+            testExists=true;
+            //test = "test1_level1.txt";
+        }
+        if(code.equals(code.PERIOD)){
+            testnum = Integer.toString(2);
+            testExists=true;
+            //test = "test2_level1.txt";
+
+        }
+        if(code.equals(code.SLASH)){
+            testnum = Integer.toString(3);
+            testExists=true;
+            //test = "test3_level1.txt";
+        }
+        if(testExists){
+            test = testbeginning + testnum + level + levelnum + ".txt";
+            System.out.println(test);
+        }
+        GamePlay gamePlayer = new GamePlay(test);
+        Scene myScene = gamePlayer.getScene();
+        stage.setScene(myScene);
+    }
+    */
 
 }

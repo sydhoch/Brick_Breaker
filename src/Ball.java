@@ -6,9 +6,9 @@ public class Ball extends Item {
     private static final int STARTING_X_VELOCITY = -180;
     private static final int STARTING_Y_VELOCITY = 60;
 
-    Ball(Tests tester){
+    Ball(){
         setImage(BOUNCER_IMAGE);
-        setStartingVelocity(tester);
+        setStartingVelocity();
         setCanSee(true);
 
     }
@@ -79,15 +79,9 @@ public class Ball extends Item {
         return getYCoordinate() > (screenHeight) && canSee();
     }
 
-    public void setStartingVelocity(Tests tester){
-        if(tester!=null){
-            setXVelocity(tester.getXVel());
-            setYVelocity(tester.getYVel());
-        }
-        else{
-            setXVelocity(getStartingXVelocity());
-            setYVelocity(getStartingYVelocity());
-        }
+    private void setStartingVelocity(){
+        setXVelocity(getStartingXVelocity());
+        setYVelocity(getStartingYVelocity());
     }
 
 

@@ -21,6 +21,7 @@ public class GamePlay {
     private GameOverText myGameOverText;
     private Scene myScene;
     private boolean gameOver;
+    boolean testKeyHit = false;
     private Group myRoot;
     private GameInteractions interacter;
     private LevelConfiguration levelSetter;
@@ -34,17 +35,16 @@ public class GamePlay {
     private Timeline animation;
     private boolean animationRunning;
 
-    private Tests tester; //true if test file is not null
+    private String test;
+    private Tests tester;
+    private int testNum=0;
 
-    public GamePlay(String test){
-        if(test!=null){
-            tester = new Tests(test);
-        }
+    public GamePlay(){
         myRoot = new Group();
-        myBall = new Ball(tester);
+        myBall = new Ball();
         myPaddle = new Paddle();
         myBricks = new ArrayList<>();
-        myPlayer = new Player(tester);
+        myPlayer = new Player();
         myLevelText = new LevelText(SCREEN_SIZE, myPlayer);
         myGameOverText = new GameOverText(SCREEN_SIZE, myPlayer);
         myScene = new Scene(myRoot, SCREEN_SIZE, SCREEN_SIZE, BACKGROUND);
@@ -77,13 +77,10 @@ public class GamePlay {
     }
 
     private void resetForNewGame(){
-        myPlayer.reset(tester);
+        myPlayer.reset();
         levelSetter.createNewLevel(myPlayer.getLevel());
         myStatus.updateText();
         myGameOverText.disappear();
-        if(tester!=null){
-            testPlaceItemsForStart(tester);
-        }
         // read high score file
 
     }
@@ -107,6 +104,10 @@ public class GamePlay {
 
         myStatus.updateText();
         if (!gameOver) {
+            if(testKeyHit){
+                updateBallSettings();
+                testKeyHit= false;
+            }
             myBall.move(SECOND_DELAY);
             myBall.bounce(myScene.getWidth(), myScene.getHeight(), tester, animation);
             interacter.checkBallHitsPaddle();
@@ -124,6 +125,27 @@ public class GamePlay {
             }
         }
 
+    }
+
+    private void checkForTest(KeyCode code){
+        String levelnum= Integer.toString(myPlayer.getLevel());
+        if(code.equals(code.COMMA)){
+            testNum = 1;
+            testKeyHit=true;
+        }
+        if(code.equals(code.PERIOD)){
+            testNum = 2;
+            testKeyHit=true;
+
+        }
+        if(code.equals(code.SLASH)){
+            testNum = 3;
+            testKeyHit=true;
+        }
+        if(testKeyHit){
+            test = "test" + Integer.toString(testNum) + "_level" + levelnum + ".txt";
+            //System.out.println(test);
+        }
     }
 
     private boolean isLevelOver(){
@@ -158,9 +180,13 @@ public class GamePlay {
     }
 
 
-    private void testPlaceItemsForStart(Tests tester){
+    private void updateBallSettings(){
         myBall.placeItem(tester.getPosX(),tester.getPosY());
-        myPaddle.placeItem(myScene.getWidth() / 2 - myPaddle.getWidth() / 2, myScene.getHeight() - myPaddle.getHeight());
+        myBall.setXVelocity(tester.getXVel());
+        System.out.println("x vel");
+        System.out.println(tester.getXVel());
+        myBall.setYVelocity(tester.getYVel());
+        //myPaddle.placeItem(myScene.getWidth() / 2 - myPaddle.getWidth() / 2, myScene.getHeight() - myPaddle.getHeight());
     }
 
 
@@ -179,6 +205,12 @@ public class GamePlay {
 
     private void handleAllKeys(KeyCode code){
         handleRestartKey(code);
+        checkForTest(code);
+        if(testKeyHit){
+            System.out.print("test");
+            tester = new Tests(test);
+            //testKeyHit=false;
+        }
         if (!gameOver) {
             handleRunKeys(code, animation);
             handleCheatKeys(code);
@@ -199,7 +231,7 @@ public class GamePlay {
 
     private void handleRestartKey(KeyCode code){
         if (code.getChar().equals("N") && gameOver){
-            myPlayer.reset(tester);
+            myPlayer.reset();
             gameOver = false;
             resetForNewGame();
         }
