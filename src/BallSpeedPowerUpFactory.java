@@ -1,13 +1,11 @@
 public class BallSpeedPowerUpFactory extends PowerUpFactory{
 
-    private Ball myBall;
 
-    public BallSpeedPowerUpFactory(Ball ball){
-        myBall = ball;
+    public BallSpeedPowerUpFactory(){
     }
 
     @Override
-    public PowerUp create() {
-        return new BallSpeedPowerUp(myBall);
+    public PowerUp create(Ball ball, Paddle paddle, Player player) {
+        return new BallSpeedPowerUp(ball);
     }
 }

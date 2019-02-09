@@ -1,14 +1,11 @@
 public class PaddleSizePowerUpFactory extends PowerUpFactory{
 
-    Paddle myPaddle;
-
-    public PaddleSizePowerUpFactory(Paddle paddle){
-        myPaddle = paddle;
+    public PaddleSizePowerUpFactory(){
     }
 
     @Override
-    public PowerUp create(){
-        return new PaddleSizePowerUp(myPaddle);
+    public PowerUp create(Ball ball, Paddle paddle, Player player){
+        return new PaddleSizePowerUp(paddle);
     }
 
 }
