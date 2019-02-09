@@ -7,10 +7,12 @@ public abstract class PowerUp extends Item{
 
     private static final int FALLING_Y_VELOCITY = 100;
     private static int TOTAL_TIME = 10000;
+    private boolean isActive;
 
     public PowerUp(){
         setPowerUpImage();
         setCanSee(false);
+        setIsActive(false);
     }
 
     protected abstract void setPowerUpImage();
@@ -29,6 +31,7 @@ public abstract class PowerUp extends Item{
      */
     public void activate(){
         setCanSee(false);
+        setIsActive(true);
         doPower();
         startTimer();
     }
@@ -46,5 +49,20 @@ public abstract class PowerUp extends Item{
 
     protected abstract void doPower();
 
-    protected abstract void deactivate();
+    protected abstract void undoPower();
+
+    public void deactivate(){
+        if (isActive) {
+            undoPower();
+        }
+        setIsActive(false);
+    }
+
+    protected void setIsActive(boolean active){
+        isActive = active;
+    }
+
+    public boolean isActive(){
+        return isActive;
+    }
 }

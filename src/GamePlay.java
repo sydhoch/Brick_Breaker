@@ -24,13 +24,11 @@ public class GamePlay {
     private GameInteractions interacter;
     private LevelConfiguration levelSetter;
     private ArrayList<PowerUp> myPowerUps;
-   // private static final int NUM_STARTING_LIVES = 1;
     private static final int SCREEN_SIZE = 500;
     private static final Color BACKGROUND = Color.WHITESMOKE;
     private static final int FRAMES_PER_SECOND = 60;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-   // private static final int LAST_LEVEL_NUM = 2;
 
     private Timeline animation;
     private boolean animationRunning;
@@ -97,12 +95,12 @@ public class GamePlay {
     private void step (){
        // System.out.println(countRemainingBricks()  );
 
-        if (myPlayer.getLives() > 0 && countRemainingBricks() == 0 && myPlayer.getLastLevel() != myPlayer.getLevel()){
+        if (isLevelOver()){
            // System.out.println("new level needed");
             myPlayer.increaseLevel();
             levelSetter.createNewLevel(myPlayer.getLevel());
         }
-        else if (myPlayer.getLives() == 0 || (countRemainingBricks() == 0 && myPlayer.getLastLevel() == myPlayer.getLevel())) {
+        else if (isGameOver()) {
             endGame();
         }
 
@@ -125,6 +123,14 @@ public class GamePlay {
             }
         }
 
+    }
+
+    private boolean isLevelOver(){
+        return myPlayer.getLives() > 0 && countRemainingBricks() == 0 && myPlayer.getLastLevel() != myPlayer.getLevel();
+    }
+
+    private boolean isGameOver(){
+        return myPlayer.getLives() == 0 || (countRemainingBricks() == 0 && myPlayer.getLastLevel() == myPlayer.getLevel());
     }
 
     /**

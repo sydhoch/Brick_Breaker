@@ -2,8 +2,6 @@ import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
-
-import java.lang.reflect.Array;
 import java.util.*;
 
 
@@ -25,6 +23,7 @@ public class LevelConfiguration {
     private static final ArrayList<Color> possibleLevelColors = new ArrayList<>(Arrays.asList(
         Color.WHITE, Color.LAVENDER, Color.LIGHTPINK, Color.LIGHTBLUE));
     private static final double FRACTION_OF_SCREEN_WIDTH_FOR_BRICKS = 1.0/2.0;
+    private static final double BALL_SPEED_INCREASE_PERCENT = 1.0/5.0;
 
     public LevelConfiguration(Ball ball, Paddle paddle, ArrayList<ArrayList<Brick>> bricks, Group root,
                               ArrayList<PowerUp> powerUps, LevelText levelText, int SIZE, Timeline animation, Scene scene){
@@ -39,9 +38,10 @@ public class LevelConfiguration {
         myScene = scene;
     }
 
-    public void createNewLevel(int myLevelNum){
+    public void createNewLevel(int levelNum){
         resetScreenForNewLevel();
-        fillBrickList(readBrickFile(brickFileNameStart + myLevelNum + brickFileNameEnd));
+        increaseBallSpeed(levelNum);
+        fillBrickList(readBrickFile(brickFileNameStart + levelNum + brickFileNameEnd));
         myScene.setFill(pickRandomBackground());
         myLevelText.updateText();
         myAnimation.pause();
@@ -75,7 +75,15 @@ public class LevelConfiguration {
     private void destroyAllPowerUps(){
         for (PowerUp powerUp : myPowerUps){
             powerUp.setCanSee(false);
+            powerUp.deactivate();
         }
+    }
+
+
+    private void increaseBallSpeed(int levelNum){
+        levelNum -= 1; // accounts for levels starting at 1 not 0 so that level 1 gets no added speed
+        myBall.setXVelocity(Ball.getStartingXVelocity() + (Ball.getStartingXVelocity() * levelNum * BALL_SPEED_INCREASE_PERCENT));
+        myBall.setYVelocity(Ball.getStartingYVelocity() + (Ball.getStartingYVelocity() * levelNum * BALL_SPEED_INCREASE_PERCENT));
     }
 
     /**
@@ -105,21 +113,7 @@ public class LevelConfiguration {
         for (int i = 0; i < numBrickRows; i++) {
             ArrayList<Brick> brickRow = new ArrayList<>();
             for (int j = 0; j < numBrickCols; j++) {
-                Brick brick = new Brick(0);
-                if (brickConfigs[i][j].matches("\\d+")){
-                    int health = Integer.parseInt(brickConfigs[i][j]);
-                    if (health == 1) {
-                        brick = new Brick(health);
-                    }
-                    if (health > 1){
-//                        System.out.println("in multibrick making");
-//                        System.out.println(health);
-                        brick = new MultiHitBrick(health);
-                    }
-                }
-                if (brickConfigs[i][j].equals("*")) {
-                    brick = new PowerUpBrick();
-                }
+                Brick brick = makeBrick(brickConfigs[i][j]);
                 brick.setSize(calcBrickWidth(), calcBrickHeight());
                 brick.placeItem(j * brick.getWidth(), i * brick.getHeight());
                 brickRow.add(brick);
@@ -135,6 +129,28 @@ public class LevelConfiguration {
 
     private double calcBrickWidth(){
         return SCREEN_SIZE / numBrickCols;
+    }
+
+
+    private Brick makeBrick(String brickSymbol){
+        if (brickSymbol.matches("\\d+")){
+            int health = Integer.parseInt(brickSymbol);
+            if (health == 1) {
+                return new NormalBrick();
+            }
+        if (health > 1){
+            return new MultiHitBrick(health);
+        }
+        }
+        if (brickSymbol.equals("*")) {
+        return new PowerUpBrick();
+        }
+        if (brickSymbol.equals("-")){
+            return new BallTransportingBrick(myBall, SCREEN_SIZE);
+        }
+        Brick placeHoldingBrick = new NormalBrick();
+        placeHoldingBrick.destroyBrick();
+        return placeHoldingBrick;
     }
 
 }

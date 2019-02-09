@@ -1,4 +1,3 @@
-import javafx.scene.image.Image;
 import javafx.animation.Timeline;
 
 public class Ball extends Item {
@@ -14,6 +13,14 @@ public class Ball extends Item {
 
     }
 
+    public static int getStartingXVelocity() {
+        return STARTING_X_VELOCITY;
+    }
+
+    public static int getStartingYVelocity() {
+        return STARTING_Y_VELOCITY;
+    }
+
 
     /**
      * makes the ball bounce off of the left right and top walls by switching the direction of X & Y velocities
@@ -22,7 +29,7 @@ public class Ball extends Item {
     */
     public void bounce(double screenWidth, double screenHeight, Tests tester, Timeline animation){
         System.out.println(getXVelocity());
-        System.out.println(getYVelocity());
+        System.out.println(getYVelocity() );
         if(getXCoordinate() < 0 || getXCoordinate()>(screenWidth - getWidth())){
             setXVelocity(getXVelocity() * -1);
             if (tester!=null) {
@@ -70,9 +77,10 @@ public class Ball extends Item {
             setYVelocity(tester.getYVel());
         }
         else{
-            setXVelocity(STARTING_X_VELOCITY);
-            setYVelocity(STARTING_Y_VELOCITY);
+            setXVelocity(getStartingXVelocity());
+            setYVelocity(getStartingYVelocity());
         }
     }
+
 
 }

@@ -84,22 +84,21 @@ public class GameInteractions {
         myRoot.getChildren().add(myPowerUp.getImage());
         myPowerUp.placeItem(brick.getXCoordinate(), brick.getYCoordinate());
         myPowerUp.startFalling();
-
     }
 
 
 
-    /**
-     * Counts the total number of bricks the level started with
-     * @return total number of bricks
-     */
-    private int countTotalBricks(){
-        int totalBricks = 0;
-        for (ArrayList<Brick> brickRow : myBricks){
-            totalBricks += brickRow.size();
-        }
-        return totalBricks;
-    }
+//    /**
+//     * Counts the total number of bricks the level started with
+//     * @return total number of bricks
+//     */
+//    private int countTotalBricks(){
+//        int totalBricks = 0;
+//        for (ArrayList<Brick> brickRow : myBricks){
+//            totalBricks += brickRow.size();
+//        }
+//        return totalBricks;
+//    }
 
 
 
