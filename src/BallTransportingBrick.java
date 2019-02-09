@@ -1,10 +1,8 @@
-import javafx.animation.Timeline;
-
 import java.util.Random;
 
 public class BallTransportingBrick extends Brick{
 
-    private static final String BALL_TRANSPORTING_BRICK_IMAGE = "transportBrick.gif";
+    private static final String BALL_TRANSPORTING_BRICK_IMAGE = "ballTransportBrick.gif";
     private static final int STARTING_HEALTH = 1;
     private int myScreenSize;
     Ball myBall;
