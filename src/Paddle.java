@@ -48,4 +48,7 @@ public class Paddle extends Item{
         return isExtraWide;
     }
 
+    public double getCenter(){
+        return getXCoordinate() + getWidth()/2;
+    }
 }
