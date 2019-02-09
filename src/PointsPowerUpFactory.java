@@ -1,13 +1,11 @@
 public class PointsPowerUpFactory extends PowerUpFactory{
 
-    private Player myPlayer;
 
-    public PointsPowerUpFactory(Player player){
-        myPlayer = player;
+    public PointsPowerUpFactory(){
     }
 
     @Override
-    public PowerUp create() {
-        return new PointsPowerUp(myPlayer);
+    public PowerUp create(Ball ball, Paddle paddle, Player player) {
+        return new PointsPowerUp(player);
     }
 }

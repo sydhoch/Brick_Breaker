@@ -25,8 +25,8 @@ public class GameInteractions {
         myPaddle = paddle;
         myPlayer = player;
         myPowerUps = powerUps;
-        myPowerUpFactories = new ArrayList<>(Arrays.asList(new PaddleSizePowerUpFactory(myPaddle), new PointsPowerUpFactory(myPlayer),
-                new BallSpeedPowerUpFactory(myBall)));
+        myPowerUpFactories = new ArrayList<>(Arrays.asList(new PaddleSizePowerUpFactory(), new PointsPowerUpFactory(),
+                new BallSpeedPowerUpFactory()));
         //myPowerFactory = new RandomPowerUpFactory();
 
 
@@ -116,7 +116,7 @@ public class GameInteractions {
 
         private PowerUp createRandomPowerUp(){
             Collections.shuffle(myPowerUpFactories);
-            return myPowerUpFactories.get(0).create();
+            return myPowerUpFactories.get(0).create(myBall, myPaddle, myPlayer);
 
         }
 //    }
