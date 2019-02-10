@@ -52,7 +52,9 @@ public class GameInteractions {
         for (ArrayList<Brick> brickRow : myBricks) {
             for (Brick brick : brickRow) {
                 if (brick.collidesWith(myBall)) {
-                    myPlayer.increaseScore(myPlayer.getScoreIncrement());
+                    if (brick.givesPoints()) {
+                        myPlayer.increaseScore(myPlayer.getScoreIncrement());
+                    }
                     brick.decreaseHealth(tester, animation); //myBall, myPaddle, myRoot, myPowerUps, screenSize, myPlayer);
                     myBall.bounceOff();
                     if (brick.isDestroyed()) {

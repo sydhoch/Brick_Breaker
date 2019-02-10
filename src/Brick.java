@@ -13,12 +13,14 @@ public abstract class Brick extends Item{
 
     private int myHealth;
     private boolean isDestroyed;
+    private boolean givesPoints;
 
     public Brick(int health){
         myHealth = health;
         setBrickImage();
         setCanSee(true);
         isDestroyed = false;
+        givesPoints = true;
         if (health < 1) {
             destroy();
         }
@@ -59,6 +61,14 @@ public abstract class Brick extends Item{
         myHealth = 0;
         isDestroyed = true;
         setCanSee(false);
+    }
+
+    protected void setGivesPoints(boolean pointGiving){
+        givesPoints = pointGiving;
+    }
+
+    public boolean givesPoints(){
+        return givesPoints;
     }
 
     public abstract void activateBrickAbility(Ball ball, Group root, ArrayList<PowerUp> powerUps, int screenSize);

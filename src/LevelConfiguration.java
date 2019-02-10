@@ -149,6 +149,9 @@ public class LevelConfiguration {
         if (brickSymbol.equals("-")){
             return new BallTransportingBrick();
         }
+        if (brickSymbol.equals("#")){
+            return new PermanentBrick();
+        }
        // Brick placeHoldingBrick = new MultiHitBrick(0);
 //        placeHoldingBrick.destroyBrick();
         return new MultiHitBrick(0);
