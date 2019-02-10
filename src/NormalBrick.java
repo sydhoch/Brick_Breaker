@@ -1,6 +1,6 @@
 public class NormalBrick extends Brick{
 
-        private static final String BRICK_IMAGE = "brick1.gif";
+        private static final String BRICK_IMAGE = "ballTransportBrick.gif";
         private static final int STARTING_HEALTH = 1;
 
 

@@ -1,8 +1,6 @@
-import java.util.Random;
-
 public class BallTransportingBrick extends Brick{
 
-    private static final String BALL_TRANSPORTING_BRICK_IMAGE = "ballTransportBrick.gif";
+    private static final String BALL_TRANSPORTING_BRICK_IMAGE = "bombBrick.gif";
     private static final int STARTING_HEALTH = 1;
     private int myScreenSize;
     Ball myBall;
@@ -21,7 +19,6 @@ public class BallTransportingBrick extends Brick{
     @Override
     public void destroyBrick() {
         super.destroyBrick();
-        Random rand = new Random();
-        myBall.placeItem(rand.nextInt(myScreenSize), rand.nextInt(myScreenSize));
+        myBall.teleport(myScreenSize);
     }
 }

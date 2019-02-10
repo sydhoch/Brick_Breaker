@@ -13,9 +13,7 @@ public class GameInteractions {
     private Player myPlayer;
     private ArrayList<PowerUp> myPowerUps;
     ArrayList<PowerUpFactory> myPowerUpFactories;
-    private ArrayList<Integer> powerUpCollisions;
-    private int numDestructions;
-    //RandomPowerUpFactory myPowerFactory;
+
 
     public GameInteractions(Group root, Ball ball, ArrayList<ArrayList<Brick>> bricks, Paddle paddle,
                             Player player, ArrayList<PowerUp> powerUps){
@@ -27,8 +25,6 @@ public class GameInteractions {
         myPowerUps = powerUps;
         myPowerUpFactories = new ArrayList<>(Arrays.asList(new PaddleSizePowerUpFactory(), new PointsPowerUpFactory(),
                 new BallSpeedPowerUpFactory()));
-        //myPowerFactory = new RandomPowerUpFactory();
-
 
     }
 

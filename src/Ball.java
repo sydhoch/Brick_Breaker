@@ -1,5 +1,7 @@
 import javafx.animation.Timeline;
 
+import java.util.Random;
+
 public class Ball extends Item {
 
     private static final String BOUNCER_IMAGE = "ball.gif";
@@ -82,6 +84,11 @@ public class Ball extends Item {
     private void setStartingVelocity(){
         setXVelocity(getStartingXVelocity());
         setYVelocity(getStartingYVelocity());
+    }
+
+    public void teleport(int screenSize){
+        Random rand = new Random();
+        placeItem(rand.nextInt(screenSize), rand.nextInt(screenSize));
     }
 
 

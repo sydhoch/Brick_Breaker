@@ -135,10 +135,10 @@ public class LevelConfiguration {
     private Brick makeBrick(String brickSymbol){
         if (brickSymbol.matches("\\d+")){
             int health = Integer.parseInt(brickSymbol);
-            if (health == 1) {
-                return new NormalBrick();
-            }
-        if (health > 1){
+//            if (health == 1) {
+//                return new NormalBrick();
+//            }
+        if (health >= 1){
             return new MultiHitBrick(health);
         }
         }
@@ -148,9 +148,9 @@ public class LevelConfiguration {
         if (brickSymbol.equals("-")){
             return new BallTransportingBrick(myBall, SCREEN_SIZE);
         }
-        Brick placeHoldingBrick = new NormalBrick();
-        placeHoldingBrick.destroyBrick();
-        return placeHoldingBrick;
+       // Brick placeHoldingBrick = new MultiHitBrick(0);
+//        placeHoldingBrick.destroyBrick();
+        return new MultiHitBrick(0);
     }
 
 }

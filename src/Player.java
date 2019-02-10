@@ -9,7 +9,7 @@ public class Player {
     private int myScoreIncrement;
     private static final int STARTING_SCORE_INCREMENT = 1;
     private static final int STARTING_LIVES = 3;
-    private static final int MAX_LEVEL = 2;
+    private static final int MAX_LEVEL = 3;
 
     public Player(){
         //myStartingLives = startingLives;
