@@ -22,10 +22,11 @@ public class StatusText extends GameText {
 
     @Override
     public void updateText(){
+        String highScore = "High Score:" + "\n";
         String livesLeft = "Lives Left: "+ getPlayer().getLives() +"\n";
         String score = "Score: " + getPlayer().getScore() + "\n";
         String level = "Level: " + getPlayer().getLevel();
-        getText().setText(livesLeft+score+level);
+        getText().setText(highScore+livesLeft+score+level);
     }
 
 

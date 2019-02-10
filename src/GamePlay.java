@@ -8,7 +8,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class GamePlay {
 
@@ -38,6 +42,8 @@ public class GamePlay {
     private String test;
     private Tests tester;
     private int testNum=0;
+
+    private int highScore=0;
 
     public GamePlay(){
         myRoot = new Group();
@@ -81,6 +87,10 @@ public class GamePlay {
         levelSetter.createNewLevel(myPlayer.getLevel());
         myStatus.updateText();
         myGameOverText.disappear();
+        Scanner scanner = new Scanner(GamePlay.class.getClassLoader().getResourceAsStream("scores.txt"));
+        if(scanner.hasNextInt()){
+            highScore = scanner.nextInt();
+        }
         // read high score file
 
     }
@@ -102,12 +112,13 @@ public class GamePlay {
             endGame();
         }
 
+        if(testKeyHit){
+            updateBallSettings();
+            testKeyHit= false;
+        }
+
         myStatus.updateText();
         if (!gameOver) {
-            if(testKeyHit){
-                updateBallSettings();
-                testKeyHit= false;
-            }
             myBall.move(SECOND_DELAY);
             myBall.bounce(myScene.getWidth(), myScene.getHeight(), tester, animation);
             interacter.checkBallHitsPaddle();
@@ -115,7 +126,7 @@ public class GamePlay {
             interacter.checkPowerUpPaddleCollision();
             if (myBall.ballFell(myScene.getHeight())) {
                 myPlayer.loseLife(tester,animation);
-                if (myPlayer.getLives() > 0) {
+                if (myPlayer.getLives() > 0 && tester==null) {
                     levelSetter.placeItemsForStart();
                 }
             }
@@ -177,14 +188,28 @@ public class GamePlay {
         gameOver = true;
         myGameOverText.updateText();
         // for saving high score
+        if(myPlayer.getScore()>highScore){
+            System.out.println("hi");
+            replaceHighScore(myPlayer.getScore());
+        }
+    }
+
+    private void replaceHighScore (int score){
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter("scores.txt"));
+            writer.write(score);
+            writer.close();
+            System.out.println("hey");
+        }
+        catch (IOException e){
+            System.out.println("couldn't write");
+        }
     }
 
 
     private void updateBallSettings(){
         myBall.placeItem(tester.getPosX(),tester.getPosY());
         myBall.setXVelocity(tester.getXVel());
-        System.out.println("x vel");
-        System.out.println(tester.getXVel());
         myBall.setYVelocity(tester.getYVel());
         //myPaddle.placeItem(myScene.getWidth() / 2 - myPaddle.getWidth() / 2, myScene.getHeight() - myPaddle.getHeight());
     }
@@ -207,7 +232,7 @@ public class GamePlay {
         handleRestartKey(code);
         checkForTest(code);
         if(testKeyHit){
-            System.out.print("test");
+            System.out.print(test);
             tester = new Tests(test);
             //testKeyHit=false;
         }
