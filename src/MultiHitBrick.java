@@ -20,12 +20,12 @@ public class MultiHitBrick extends Brick{
 
     @Override
     protected void setBrickImage(){
+        System.out.println(getHealth());
+        System.out.println(BRICK_FILE_START + getHealth() + BRICK_FILE_END);
         if (getHealth() > MAX_MULTIBRICK_HEALTH){
             setHealth(MAX_MULTIBRICK_HEALTH);
         }
         if (getHealth() > 0) {
-            //System.out.println(getHealth());
-            //System.out.println(BRICK_FILE_START + getHealth() + BRICK_FILE_END);
             setImage(BRICK_FILE_START + getHealth() + BRICK_FILE_END);
         }
     }
