@@ -29,34 +29,28 @@ public abstract class PowerUp extends Item{
      * Activates powerup by initiating some kind of special effect based on powerup type and sets timer after which
      * powerup will be deactivated and the special effect will be reversed back to normal
      */
-    public void activate(){
+    public void activate(Paddle paddle, Ball ball, Player player){
         setCanSee(false);
         setIsActive(true);
-        doPower();
-        startTimer();
+        startTimer(paddle, ball, player);
     }
 
-    private void startTimer(){
+    private void startTimer(Paddle paddle, Ball ball, Player player){
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                deactivate();
+                deactivate(paddle, ball, player);
             }
         };
         Timer timer = new Timer();
         timer.schedule(task, TOTAL_TIME);
     }
 
-    protected abstract void doPower();
+    //protected abstract void doPower();
 
-    protected abstract void undoPower();
+    //protected abstract void undoPower();
 
-    public void deactivate(){
-        if (isActive) {
-            undoPower();
-        }
-        setIsActive(false);
-    }
+    public abstract void deactivate(Paddle paddle, Ball ball, Player player);
 
     protected void setIsActive(boolean active){
         isActive = active;
@@ -64,5 +58,10 @@ public abstract class PowerUp extends Item{
 
     public boolean isActive(){
         return isActive;
+    }
+
+    public void destroy(Paddle paddle, Ball ball, Player player) {
+        setCanSee(false);
+        deactivate(paddle, ball, player);
     }
 }

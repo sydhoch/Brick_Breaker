@@ -36,6 +36,11 @@ public class MultiHitBrick extends Brick{
         setBrickImage();
     }
 
+    @Override
+    public void activateBrickAbility(Ball ball, Group root, ArrayList<PowerUp> powerUps,
+                                     int screenSize) {
+
+    }
 
 
 

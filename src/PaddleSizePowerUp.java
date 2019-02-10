@@ -3,13 +3,11 @@ import java.util.ArrayList;
 
 public class PaddleSizePowerUp extends PowerUp {
 
-    private Paddle myPaddle;
     private static final String PADDLE_SIZE_POWERUP = "paddleSizePower.gif";
 
 
-    public PaddleSizePowerUp(Paddle paddle) {
+    public PaddleSizePowerUp() {
         super();
-        myPaddle = paddle;
     }
 
     @Override
@@ -18,12 +16,16 @@ public class PaddleSizePowerUp extends PowerUp {
     }
 
     @Override
-    protected void doPower() {
-        myPaddle.lengthen();
+    public void activate(Paddle paddle, Ball ball, Player player) {
+        super.activate(paddle, ball, player);
+        paddle.lengthen();
     }
 
     @Override
-    protected void undoPower() {
-        myPaddle.undoLengthen();
+    public void deactivate(Paddle paddle, Ball ball, Player player) {
+        if (isActive()) {
+            paddle.undoLengthen();
+        }
+        setIsActive(false);
     }
 }

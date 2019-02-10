@@ -1,12 +1,10 @@
 public class BallSpeedPowerUp extends PowerUp{
 
-    private Ball myBall;
     private static final String BALL_SPEED_POWERUP = "ballSpeedPower.gif";
 
 
-    public BallSpeedPowerUp(Ball ball){
+    public BallSpeedPowerUp(){
         super();
-        myBall = ball;
     }
 
     @Override
@@ -16,14 +14,18 @@ public class BallSpeedPowerUp extends PowerUp{
     }
 
     @Override
-    protected void doPower() {
-        myBall.setXVelocity(myBall.getXVelocity() / 2);
-        myBall.setYVelocity(myBall.getYVelocity() / 2);
+    public void activate(Paddle paddle, Ball ball, Player player) {
+        super.activate(paddle, ball, player);
+        ball.setXVelocity(ball.getXVelocity() / 2);
+        ball.setYVelocity(ball.getYVelocity() / 2);
     }
 
     @Override
-    protected void undoPower() {
-        myBall.setXVelocity(myBall.getXVelocity() * 2);
-        myBall.setYVelocity(myBall.getYVelocity() * 2);
+    public void deactivate(Paddle paddle, Ball ball, Player player) {
+        if (isActive()) {
+            ball.setXVelocity(ball.getXVelocity() * 2);
+            ball.setYVelocity(ball.getYVelocity() * 2);
+        }
+        setIsActive(false);
     }
 }

@@ -2,12 +2,10 @@
 
 public class PointsPowerUp extends PowerUp{
 
-    Player myPlayer;
     private static final String POINTS_POWERUP = "pointsPower.gif";
 
-    public PointsPowerUp(Player player){
+    public PointsPowerUp(){
         super();
-        myPlayer = player;
     }
 
     @Override
@@ -17,12 +15,16 @@ public class PointsPowerUp extends PowerUp{
     }
 
     @Override
-    protected void doPower() {
-        myPlayer.setScoreIncrement(myPlayer.getScoreIncrement() * 2);
+    public void activate(Paddle paddle, Ball ball, Player player) {
+        super.activate(paddle, ball, player);
+        player.setScoreIncrement(player.getScoreIncrement() * 2);
     }
 
     @Override
-    public void undoPower() {
-        myPlayer.setScoreIncrement(myPlayer.getScoreIncrement() / 2);
+    public void deactivate(Paddle paddle, Ball ball, Player player) {
+        if (isActive()) {
+            player.setScoreIncrement(player.getScoreIncrement() / 2);
+        }
+        setIsActive(false);
     }
 }

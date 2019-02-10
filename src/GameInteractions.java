@@ -12,19 +12,21 @@ public class GameInteractions {
     private Paddle myPaddle;
     private Player myPlayer;
     private ArrayList<PowerUp> myPowerUps;
-    ArrayList<PowerUpFactory> myPowerUpFactories;
+//    ArrayList<PowerUpFactory> myPowerUpFactories;
+    private int myScreenSize;
 
 
     public GameInteractions(Group root, Ball ball, ArrayList<ArrayList<Brick>> bricks, Paddle paddle,
-                            Player player, ArrayList<PowerUp> powerUps){
+                            Player player, ArrayList<PowerUp> powerUps, int screenSize){
         myRoot = root;
         myBall = ball;
         myBricks = bricks;
         myPaddle = paddle;
         myPlayer = player;
         myPowerUps = powerUps;
-        myPowerUpFactories = new ArrayList<>(Arrays.asList(new PaddleSizePowerUpFactory(), new PointsPowerUpFactory(),
-                new BallSpeedPowerUpFactory()));
+//        myPowerUpFactories = new ArrayList<>(Arrays.asList(new PaddleSizePowerUpFactory(), new PointsPowerUpFactory(),
+//                new BallSpeedPowerUpFactory()));
+        myScreenSize = screenSize;
 
     }
 
@@ -33,10 +35,10 @@ public class GameInteractions {
      */
     public void checkBallHitsPaddle(){
         if(myBall.collidesWith(myPaddle)){
-            if(myBall.getXCoordinate()<myPaddle.getCenter()){
+            if(myBall.getXCoordinate() < myPaddle.getCenter()){
                 myBall.bounceOffPad("left");
             }
-            if(myBall.getXCoordinate()>myPaddle.getCenter()) {
+            if(myBall.getXCoordinate() > myPaddle.getCenter()) {
                 myBall.bounceOffPad("right");
             }
         }
@@ -51,7 +53,7 @@ public class GameInteractions {
             for (Brick brick : brickRow) {
                 if (brick.collidesWith(myBall)) {
                     myPlayer.increaseScore(myPlayer.getScoreIncrement());
-                    brick.decreaseHealth(tester, animation);
+                    brick.decreaseHealth(tester, animation); //myBall, myPaddle, myRoot, myPowerUps, screenSize, myPlayer);
                     myBall.bounceOff();
                     if (brick.isDestroyed()) {
                         updateGameOnBrickDestruction(brick);
@@ -67,25 +69,26 @@ public class GameInteractions {
     public void checkPowerUpPaddleCollision() {
         for (PowerUp powerUp : myPowerUps) {
             if (powerUp.collidesWith(myPaddle)) {
-                powerUp.activate();
+                powerUp.activate(myPaddle, myBall, myPlayer);
             }
         }
     }
 
     private void updateGameOnBrickDestruction(Brick brick){
-      //  myPlayer.increaseScore(brick.getValue());
-        if (brick.hasPowerUp()){
-            releasePowerUp(brick);
-        }
+        brick.activateBrickAbility(myBall, myRoot, myPowerUps, myScreenSize);
+
+//        if (brick.hasPowerUp()){
+//            releasePowerUp(brick);
+//        }
     }
 
-    private void releasePowerUp(Brick brick){
-        PowerUp myPowerUp = createRandomPowerUp();
-        myPowerUps.add(myPowerUp);
-        myRoot.getChildren().add(myPowerUp.getImage());
-        myPowerUp.placeItem(brick.getXCoordinate(), brick.getYCoordinate());
-        myPowerUp.startFalling();
-    }
+//    private void releasePowerUp(Brick brick){
+//        PowerUp myPowerUp = createRandomPowerUp();
+//        myPowerUps.add(myPowerUp);
+//        myRoot.getChildren().add(myPowerUp.getImage());
+//        myPowerUp.placeItem(brick.getXCoordinate(), brick.getYCoordinate());
+//        myPowerUp.startFalling();
+//    }
 
 
 
@@ -110,11 +113,11 @@ public class GameInteractions {
 //            myPowerUpFactories = new ArrayList<>(Arrays.asList(new PaddleSizePowerUpFactory()));
 //        }
 
-        private PowerUp createRandomPowerUp(){
-            Collections.shuffle(myPowerUpFactories);
-            return myPowerUpFactories.get(0).create(myBall, myPaddle, myPlayer);
-
-        }
+//        private PowerUp createRandomPowerUp(){
+//            Collections.shuffle(myPowerUpFactories);
+//            return myPowerUpFactories.get(0).create();
+//
+//        }
 //    }
 
 

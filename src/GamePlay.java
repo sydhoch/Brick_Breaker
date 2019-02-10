@@ -55,11 +55,11 @@ public class GamePlay {
         animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
-        levelSetter = new LevelConfiguration(myBall, myPaddle, myBricks,myRoot, myPowerUps, myLevelText, SCREEN_SIZE, animation, myScene);
+        levelSetter = new LevelConfiguration(myBall, myPaddle, myBricks,myRoot, myPlayer, myPowerUps, myLevelText, SCREEN_SIZE, animation, myScene);
         //interacter = new GameInteractions(myRoot, myBall, myBricks, myPaddle, myPlayer, myPowerUps);
         setUpNewScene();
         resetForNewGame();
-        interacter = new GameInteractions(myRoot, myBall, myBricks, myPaddle, myPlayer, myPowerUps);
+        interacter = new GameInteractions(myRoot, myBall, myBricks, myPaddle, myPlayer, myPowerUps, SCREEN_SIZE);
     }
 
     public Scene getScene() {

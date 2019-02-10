@@ -1,14 +1,14 @@
+import javafx.scene.Group;
+
+import java.util.ArrayList;
+
 public class BallTransportingBrick extends Brick{
 
-    private static final String BALL_TRANSPORTING_BRICK_IMAGE = "bombBrick.gif";
+    private static final String BALL_TRANSPORTING_BRICK_IMAGE = "ballTransportBrick.gif";
     private static final int STARTING_HEALTH = 1;
-    private int myScreenSize;
-    Ball myBall;
 
-    public BallTransportingBrick(Ball ball, int screenSize){
+    public BallTransportingBrick(){
         super(STARTING_HEALTH);
-        myScreenSize = screenSize;
-        myBall = ball;
     }
 
     @Override
@@ -17,8 +17,8 @@ public class BallTransportingBrick extends Brick{
     }
 
     @Override
-    public void destroyBrick() {
-        super.destroyBrick();
-        myBall.teleport(myScreenSize);
+    public void activateBrickAbility(Ball ball, Group root, ArrayList<PowerUp> powerUps,
+                                     int screenSize) {
+        ball.teleport(screenSize);
     }
 }
