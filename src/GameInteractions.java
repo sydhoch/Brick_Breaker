@@ -56,7 +56,7 @@ public class GameInteractions {
                     brick.decreaseHealth(tester, animation); //myBall, myPaddle, myRoot, myPowerUps, screenSize, myPlayer);
                     myBall.bounceOff();
                     if (brick.isDestroyed()) {
-                        updateGameOnBrickDestruction(brick);
+                        brick.activateBrickAbility(myBall, myRoot, myPowerUps, myScreenSize);
                     }
                 }
             }
@@ -74,13 +74,12 @@ public class GameInteractions {
         }
     }
 
-    private void updateGameOnBrickDestruction(Brick brick){
-        brick.activateBrickAbility(myBall, myRoot, myPowerUps, myScreenSize);
+//    private void updateGameOnBrickDestruction(Brick brick){
+//        brick.activateBrickAbility(myBall, myRoot, myPowerUps, myScreenSize);
 
 //        if (brick.hasPowerUp()){
 //            releasePowerUp(brick);
 //        }
-    }
 
 //    private void releasePowerUp(Brick brick){
 //        PowerUp myPowerUp = createRandomPowerUp();
