@@ -9,8 +9,8 @@ public class LevelConfiguration {
 
     private Ball myBall;
     private Paddle myPaddle;
-    private ArrayList<ArrayList<Brick>> myBricks;
-    private ArrayList<PowerUp> myPowerUps;
+    private List<List<Brick>> myBricks;
+    private List<PowerUp> myPowerUps;
     private LevelText myLevelText;
     private int SCREEN_SIZE;
     private Group myRoot;
@@ -21,13 +21,13 @@ public class LevelConfiguration {
     private int numBrickRows;
     private static final String brickFileNameStart = "level";
     private static final String brickFileNameEnd = ".txt";
-    private static final ArrayList<Color> possibleLevelColors = new ArrayList<>(Arrays.asList(
+    private static final List<Color> possibleLevelColors = new ArrayList<>(Arrays.asList(
         Color.WHITE, Color.LAVENDER, Color.LIGHTPINK, Color.LIGHTBLUE));
     private static final double FRACTION_OF_SCREEN_WIDTH_FOR_BRICKS = 1.0/2.0;
     private static final double BALL_SPEED_INCREASE_PERCENT = 1.0/5.0;
 
-    public LevelConfiguration(Ball ball, Paddle paddle, ArrayList<ArrayList<Brick>> bricks, Group root, Player player,
-                              ArrayList<PowerUp> powerUps, LevelText levelText, int SIZE, Timeline animation, Scene scene){
+    public LevelConfiguration(Ball ball, Paddle paddle, List<List<Brick>> bricks, Group root, Player player,
+                             List<PowerUp> powerUps, LevelText levelText, int SIZE, Timeline animation, Scene scene){
         myBall = ball;
         myPaddle = paddle;
         myBricks = bricks;
@@ -67,7 +67,7 @@ public class LevelConfiguration {
     }
 
     private void destroyAllBricks() {
-        for (ArrayList<Brick> brickRow : myBricks) {
+        for (List<Brick> brickRow : myBricks) {
             for (Brick brick : brickRow) {
                 brick.destroy();
             }
@@ -112,7 +112,7 @@ public class LevelConfiguration {
      */
     private void fillBrickList(String[][] brickConfigs) {
         for (int i = 0; i < numBrickRows; i++) {
-            ArrayList<Brick> brickRow = new ArrayList<>();
+            List<Brick> brickRow = new ArrayList<>();
             for (int j = 0; j < numBrickCols; j++) {
                 Brick brick = makeBrick(brickConfigs[i][j]);
                 brick.setSize(calcBrickWidth(), calcBrickHeight());

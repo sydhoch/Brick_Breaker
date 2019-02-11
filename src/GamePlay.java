@@ -26,7 +26,7 @@ public class GamePlay {
     private GameOverText myGameOverText;
     private Scene myScene;
     private boolean gameOver;
-    boolean testKeyHit = false;
+    private boolean testKeyHit = false;
     private Group myRoot;
     private GameInteractions interacter;
     private LevelConfiguration levelSetter;
@@ -88,14 +88,15 @@ public class GamePlay {
         levelSetter.createNewLevel(myPlayer.getLevel());
         myStatus.updateText();
         myGameOverText.disappear();
-        /*
         Scanner scanner = new Scanner(GamePlay.class.getClassLoader().getResourceAsStream("scores.txt"));
         if(scanner.hasNextInt()){
             highScore = scanner.nextInt();
         }
-        */
         // read high score file
 
+    }
+    public int getHighScore(){
+        return highScore;
     }
 
 
@@ -201,7 +202,7 @@ public class GamePlay {
         try{
             //File file = new File("scores.txt");
             //String path = file.getAbsolutePath();
-            BufferedWriter writer = new BufferedWriter(new FileWriter("scores.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("resources/scores.txt"));
             writer.write(Integer.toString(score));
             writer.close();
             System.out.println("hey");

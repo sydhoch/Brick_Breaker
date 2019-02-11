@@ -8,6 +8,11 @@ public class Ball extends Item {
     private static final int STARTING_X_VELOCITY = -180;
     private static final int STARTING_Y_VELOCITY = 60;
 
+    private final String FAR_LEFT = "far left";
+    private final String MIDDLE_LEFT = "middle left";
+    private final String FAR_RIGHT = "far right";
+    private final String MIDDLE_RIGHT = "middle right";
+
     Ball(){
         setImage(BOUNCER_IMAGE);
         setStartingVelocity();
@@ -54,15 +59,22 @@ public class Ball extends Item {
      * reverse direction of ball
      */
     public void bounceOffPad(String area){
-        if(area.equals("right")){
-            if (getXVelocity() < 0) {
-                setXVelocity(getXVelocity()*-1);
-            }
+        if (getXVelocity() < 0) {
+            xDirectionChooser(FAR_RIGHT,MIDDLE_RIGHT,area);
         }
-        if(area.equals("left")&& getXVelocity()>0){
-            setXVelocity(getXVelocity()*-1);
+        if(getXVelocity()>0){
+            xDirectionChooser(FAR_LEFT,MIDDLE_LEFT,area);
         }
         setYVelocity(getYVelocity()*-1);
+    }
+
+    private void xDirectionChooser(String far, String middle, String area){
+        if(area.equals(far)){
+            setXVelocity(getXVelocity()*-1);
+        }
+        if(area.equals(middle)){
+            setXVelocity(getXVelocity()*-.75);//change later
+        }
     }
 
 

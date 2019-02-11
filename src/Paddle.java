@@ -51,4 +51,10 @@ public class Paddle extends Item{
     public double getCenter(){
         return getXCoordinate() + getWidth()/2;
     }
+    public double getCenterOfLeftSide(){
+        return getXCoordinate() + getWidth()/4;
+    }
+    public double getCenterOfRightSide(){
+        return getCenter()+getCenterOfLeftSide();
+    }
 }
