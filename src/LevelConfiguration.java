@@ -27,7 +27,7 @@ public class LevelConfiguration {
     private static final double BALL_SPEED_INCREASE_PERCENT = 1.0/5.0;
 
     public LevelConfiguration(Ball ball, Paddle paddle, List<List<Brick>> bricks, Group root, Player player,
-                             List<PowerUp> powerUps, LevelText levelText, int SIZE, Timeline animation, Scene scene){
+                              List<PowerUp> powerUps, LevelText levelText, int SIZE, Timeline animation, Scene scene){
         myBall = ball;
         myPaddle = paddle;
         myBricks = bricks;
@@ -79,7 +79,6 @@ public class LevelConfiguration {
             powerUp.destroy(myPaddle, myBall, myPlayer);
         }
     }
-
 
     private void increaseBallSpeed(int levelNum){
         levelNum -= 1; // accounts for levels starting at 1 not 0 so that level 1 gets no added speed
@@ -152,9 +151,25 @@ public class LevelConfiguration {
         if (brickSymbol.equals("#")){
             return new PermanentBrick();
         }
-       // Brick placeHoldingBrick = new MultiHitBrick(0);
-//        placeHoldingBrick.destroyBrick();
         return new MultiHitBrick(0);
     }
+
+
+//    public void setMonsterTimer() {
+//        Monster m = new Monster();
+//        TimerTask task = new TimerTask() {
+//            @Override
+//            public void run() {		        // task to run goes here
+//                m.attackScreen();
+//                System.out.println("attack");
+//            }
+//        };
+//        Timer timer = new Timer();
+//        long delay = 0;
+//        long intevalPeriod = 1000;
+//        timer.scheduleAtFixedRate(task, delay, intevalPeriod);
+//    }
+//
+
 
 }

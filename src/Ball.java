@@ -7,13 +7,13 @@ public class Ball extends Item {
     private static final String BOUNCER_IMAGE = "ball.gif";
     private static final int STARTING_X_VELOCITY = -180;
     private static final int STARTING_Y_VELOCITY = 60;
-
     private final String FAR_LEFT = "far left";
     private final String MIDDLE_LEFT = "middle left";
     private final String FAR_RIGHT = "far right";
     private final String MIDDLE_RIGHT = "middle right";
 
     Ball(){
+    public Ball(){
         setImage(BOUNCER_IMAGE);
         setStartingVelocity();
         setCanSee(true);

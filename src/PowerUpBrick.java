@@ -3,12 +3,13 @@ import javafx.scene.Group;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public class PowerUpBrick extends Brick{
 
     private static final String POWERUP_BRICK_IMAGE = "powerBrick.gif";
     private static final int STARTING_HEALTH = 1;
-    private ArrayList<PowerUpFactory> myPowerUpFactories;
+    private List<PowerUpFactory> myPowerUpFactories;
 
 
     public PowerUpBrick(){
@@ -23,7 +24,7 @@ public class PowerUpBrick extends Brick{
     }
 
     @Override
-    public void activateBrickAbility(Ball ball, Group root, ArrayList<PowerUp> powerUps,
+    public void activateBrickAbility(Ball ball, Group root, List<PowerUp> powerUps,
                                      int screenSize) {
         PowerUp myPowerUp = createRandomPowerUp();
         powerUps.add(myPowerUp);
