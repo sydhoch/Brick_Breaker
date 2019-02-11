@@ -1,6 +1,5 @@
 import javafx.scene.Group;
-
-import java.util.ArrayList;
+import java.util.List;
 
 public class BallTransportingBrick extends Brick{
 
@@ -17,7 +16,7 @@ public class BallTransportingBrick extends Brick{
     }
 
     @Override
-    public void activateBrickAbility(Ball ball, Group root, ArrayList<PowerUp> powerUps,
+    public void activateBrickAbility(Ball ball, Group root, List<PowerUp> powerUps,
                                      int screenSize) {
         ball.teleport(screenSize);
     }

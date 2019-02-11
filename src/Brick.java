@@ -1,8 +1,7 @@
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.animation.Timeline;
-
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Creates a simulated brick for ball to hit, deteriorate, and eventually destroy
@@ -71,7 +70,7 @@ public abstract class Brick extends Item{
         return givesPoints;
     }
 
-    public abstract void activateBrickAbility(Ball ball, Group root, ArrayList<PowerUp> powerUps, int screenSize);
+    public abstract void activateBrickAbility(Ball ball, Group root, List<PowerUp> powerUps, int screenSize);
 }
 
 

@@ -1,9 +1,8 @@
 import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
-
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MultiHitBrick extends Brick{
 
@@ -37,7 +36,7 @@ public class MultiHitBrick extends Brick{
     }
 
     @Override
-    public void activateBrickAbility(Ball ball, Group root, ArrayList<PowerUp> powerUps,
+    public void activateBrickAbility(Ball ball, Group root, List<PowerUp> powerUps,
                                      int screenSize) {
 
     }

@@ -9,12 +9,13 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GamePlay {
 
     private Ball myBall;
     private Paddle myPaddle;
-    private ArrayList<ArrayList<Brick>> myBricks;
+    private List<List<Brick>> myBricks;
     private Player myPlayer;
     private StatusText myStatus;
     private LevelText myLevelText;
@@ -25,7 +26,7 @@ public class GamePlay {
     private Group myRoot;
     private GameInteractions interacter;
     private LevelConfiguration levelSetter;
-    private ArrayList<PowerUp> myPowerUps;
+    private List<PowerUp> myPowerUps;
     private static final int SCREEN_SIZE = 500;
     private static final Color BACKGROUND = Color.WHITESMOKE;
     private static final int FRAMES_PER_SECOND = 60;
@@ -56,7 +57,6 @@ public class GamePlay {
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
         levelSetter = new LevelConfiguration(myBall, myPaddle, myBricks,myRoot, myPlayer, myPowerUps, myLevelText, SCREEN_SIZE, animation, myScene);
-        //interacter = new GameInteractions(myRoot, myBall, myBricks, myPaddle, myPlayer, myPowerUps);
         setUpNewScene();
         resetForNewGame();
         interacter = new GameInteractions(myRoot, myBall, myBricks, myPaddle, myPlayer, myPowerUps, SCREEN_SIZE);
@@ -65,6 +65,7 @@ public class GamePlay {
     public Scene getScene() {
         return myScene;
     }
+
 
     private void setUpNewScene () {
         myRoot.getChildren().add(myLevelText.getText());
@@ -110,6 +111,7 @@ public class GamePlay {
             }
             myBall.move(SECOND_DELAY);
             myBall.bounce(myScene.getWidth(), myScene.getHeight(), tester, animation);
+
             interacter.checkBallHitsPaddle();
             interacter.checkBallBricksCollision(tester, animation);
             interacter.checkPowerUpPaddleCollision();
@@ -162,7 +164,7 @@ public class GamePlay {
      */
     private int countRemainingBricks(){
         int remainingBricks = 0;
-        for (ArrayList<Brick> brickRow : myBricks) {
+        for (List<Brick> brickRow : myBricks) {
             for (Brick brick : brickRow) {
                 if (brick.getHealth() != 0) {
                     remainingBricks += 1;
@@ -245,5 +247,6 @@ public class GamePlay {
             animation.play();
         }
     }
+
 
 }

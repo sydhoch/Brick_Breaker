@@ -8,24 +8,21 @@ public class GameInteractions {
 
     private Group myRoot;
     private Ball myBall;
-    private ArrayList<ArrayList<Brick>> myBricks;
+    private List<List<Brick>> myBricks;
     private Paddle myPaddle;
     private Player myPlayer;
-    private ArrayList<PowerUp> myPowerUps;
-//    ArrayList<PowerUpFactory> myPowerUpFactories;
+    private List<PowerUp> myPowerUps;
     private int myScreenSize;
 
 
-    public GameInteractions(Group root, Ball ball, ArrayList<ArrayList<Brick>> bricks, Paddle paddle,
-                            Player player, ArrayList<PowerUp> powerUps, int screenSize){
+    public GameInteractions(Group root, Ball ball, List<List<Brick>> bricks, Paddle paddle,
+                            Player player, List<PowerUp> powerUps, int screenSize){
         myRoot = root;
         myBall = ball;
         myBricks = bricks;
         myPaddle = paddle;
         myPlayer = player;
         myPowerUps = powerUps;
-//        myPowerUpFactories = new ArrayList<>(Arrays.asList(new PaddleSizePowerUpFactory(), new PointsPowerUpFactory(),
-//                new BallSpeedPowerUpFactory()));
         myScreenSize = screenSize;
 
     }
@@ -49,19 +46,23 @@ public class GameInteractions {
      * brick's health, bouncing the ball off, and possibly releasing powerups
      */
     public void checkBallBricksCollision(Tests tester, Timeline animation) {
-        for (ArrayList<Brick> brickRow : myBricks) {
+        for (List<Brick> brickRow : myBricks) {
             for (Brick brick : brickRow) {
                 if (brick.collidesWith(myBall)) {
-                    if (brick.givesPoints()) {
-                        myPlayer.increaseScore(myPlayer.getScoreIncrement());
-                    }
-                    brick.decreaseHealth(tester, animation); //myBall, myPaddle, myRoot, myPowerUps, screenSize, myPlayer);
-                    myBall.bounceOff();
-                    if (brick.isDestroyed()) {
-                        brick.activateBrickAbility(myBall, myRoot, myPowerUps, myScreenSize);
-                    }
+                   updateGameOnBrickCollision(tester, animation, brick);
                 }
             }
+        }
+    }
+
+    private void updateGameOnBrickCollision(Tests tester, Timeline animation, Brick brick){
+        if (brick.givesPoints()) {
+            myPlayer.increaseScore(myPlayer.getScoreIncrement());
+        }
+        brick.decreaseHealth(tester, animation);
+        myBall.bounceOff();
+        if (brick.isDestroyed()) {
+            brick.activateBrickAbility(myBall, myRoot, myPowerUps, myScreenSize);
         }
     }
 
@@ -75,53 +76,6 @@ public class GameInteractions {
             }
         }
     }
-
-//    private void updateGameOnBrickDestruction(Brick brick){
-//        brick.activateBrickAbility(myBall, myRoot, myPowerUps, myScreenSize);
-
-//        if (brick.hasPowerUp()){
-//            releasePowerUp(brick);
-//        }
-
-//    private void releasePowerUp(Brick brick){
-//        PowerUp myPowerUp = createRandomPowerUp();
-//        myPowerUps.add(myPowerUp);
-//        myRoot.getChildren().add(myPowerUp.getImage());
-//        myPowerUp.placeItem(brick.getXCoordinate(), brick.getYCoordinate());
-//        myPowerUp.startFalling();
-//    }
-
-
-
-//    /**
-//     * Counts the total number of bricks the level started with
-//     * @return total number of bricks
-//     */
-//    private int countTotalBricks(){
-//        int totalBricks = 0;
-//        for (ArrayList<Brick> brickRow : myBricks){
-//            totalBricks += brickRow.size();
-//        }
-//        return totalBricks;
-//    }
-
-
-
-//       private class RandomPowerUpFactory {
-//
-//        private ArrayList<PaddleSizePowerUpFactory> myPowerUpFactories;
-//        private RandomPowerUpFactory(){
-//            myPowerUpFactories = new ArrayList<>(Arrays.asList(new PaddleSizePowerUpFactory()));
-//        }
-
-//        private PowerUp createRandomPowerUp(){
-//            Collections.shuffle(myPowerUpFactories);
-//            return myPowerUpFactories.get(0).create();
-//
-//        }
-//    }
-
-
 }
 
 

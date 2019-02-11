@@ -1,5 +1,3 @@
-import javafx.scene.Group;
-import java.util.ArrayList;
 
 public class PaddleSizePowerUp extends PowerUp {
 

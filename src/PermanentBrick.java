@@ -1,6 +1,7 @@
 import javafx.animation.Timeline;
 import javafx.scene.Group;
-import java.util.ArrayList;
+
+import java.util.List;
 
 public class PermanentBrick extends Brick{
 
@@ -23,7 +24,7 @@ public class PermanentBrick extends Brick{
     }
 
     @Override
-    public void activateBrickAbility(Ball ball, Group root, ArrayList<PowerUp> powerUps, int screenSize) {
+    public void activateBrickAbility(Ball ball, Group root, List<PowerUp> powerUps, int screenSize) {
 
     }
 }
