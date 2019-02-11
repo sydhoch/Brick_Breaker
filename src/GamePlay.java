@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -87,10 +88,12 @@ public class GamePlay {
         levelSetter.createNewLevel(myPlayer.getLevel());
         myStatus.updateText();
         myGameOverText.disappear();
+        /*
         Scanner scanner = new Scanner(GamePlay.class.getClassLoader().getResourceAsStream("scores.txt"));
         if(scanner.hasNextInt()){
             highScore = scanner.nextInt();
         }
+        */
         // read high score file
 
     }
@@ -196,8 +199,10 @@ public class GamePlay {
 
     private void replaceHighScore (int score){
         try{
+            //File file = new File("scores.txt");
+            //String path = file.getAbsolutePath();
             BufferedWriter writer = new BufferedWriter(new FileWriter("scores.txt"));
-            writer.write(score);
+            writer.write(Integer.toString(score));
             writer.close();
             System.out.println("hey");
         }
