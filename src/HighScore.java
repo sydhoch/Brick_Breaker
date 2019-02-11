@@ -21,7 +21,7 @@ public class HighScore {
         }
     }
 
-    public int updateHighScore(int score){
+    public void updateHighScore(int score){
         if(score>myHighScoreNum){
             System.out.println("hi");
             writeHighScoreToFile(score);
