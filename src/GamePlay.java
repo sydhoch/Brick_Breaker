@@ -22,6 +22,7 @@ public class GamePlay {
     private Paddle myPaddle;
     private List<List<Brick>> myBricks;
     private Player myPlayer;
+    private HighScore myHighScore;
     private StatusText myStatus;
     private LevelText myLevelText;
     private GameOverText myGameOverText;
@@ -57,6 +58,7 @@ public class GamePlay {
         myGameOverText = new GameOverText(SCREEN_SIZE, myPlayer);
         myScene = new Scene(myRoot, SCREEN_SIZE, SCREEN_SIZE, BACKGROUND);
         myStatus = new StatusText(SCREEN_SIZE, myPlayer);
+        myHighScore = new HighScore();
         gameOver = false;
         myPowerUps = new ArrayList<>();
         var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
@@ -89,18 +91,8 @@ public class GamePlay {
         levelSetter.createNewLevel(myPlayer.getLevel());
         myStatus.updateText();
         myGameOverText.disappear();
-        Scanner scanner = new Scanner(GamePlay.class.getClassLoader().getResourceAsStream("scores.txt"));
-        if(scanner.hasNextInt()){
-            highScore = scanner.nextInt();
-        }
-        // read high score file
-
+        myHighScore = new HighScore();
     }
-    public int getHighScore(){
-        return highScore;
-    }
-
-
 
     /**
      * Changes properties of objects on screen to make them seem animated
@@ -193,25 +185,7 @@ public class GamePlay {
     private void endGame(){
         gameOver = true;
         myGameOverText.updateText();
-        // for saving high score
-        if(myPlayer.getScore()>highScore){
-            System.out.println("hi");
-            replaceHighScore(myPlayer.getScore());
-        }
-    }
-
-    private void replaceHighScore (int score){
-        try{
-            //File file = new File("scores.txt");
-            //String path = file.getAbsolutePath();
-            BufferedWriter writer = new BufferedWriter(new FileWriter("resources/scores.txt"));
-            writer.write(Integer.toString(score));
-            writer.close();
-            System.out.println("hey");
-        }
-        catch (IOException e){
-            System.out.println("couldn't write");
-        }
+        myHighScore.updateHighScore(myPlayer.getScore());
     }
 
 
