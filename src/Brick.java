@@ -2,6 +2,8 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.animation.Timeline;
 
+import java.util.ArrayList;
+
 /**
  * Creates a simulated brick for ball to hit, deteriorate, and eventually destroy
  *
@@ -11,21 +13,22 @@ public abstract class Brick extends Item{
 
     private int myHealth;
     private boolean isDestroyed;
-    private boolean hasPowerUp;
+    private boolean givesPoints;
 
     public Brick(int health){
         myHealth = health;
         setBrickImage();
         setCanSee(true);
         isDestroyed = false;
+        givesPoints = true;
         if (health < 1) {
-            destroyBrick();
+            destroy();
         }
     }
 
     protected abstract void setBrickImage();
 
-    public void setHealth(int newHealth){
+    protected void setHealth(int newHealth){
         myHealth = newHealth;
     }
 
@@ -45,7 +48,7 @@ public abstract class Brick extends Item{
             myHealth--;
         } else {
             myHealth = 0;
-            destroyBrick();
+            destroy();
             if (tester != null){
                 tester.setFirstEvent("Destroy Block");
                 animation.stop();
@@ -54,19 +57,21 @@ public abstract class Brick extends Item{
         }
     }
 
-    public void setHasPowerUp(boolean containsPowerUp){
-        hasPowerUp = containsPowerUp;
-    }
-
-    public boolean hasPowerUp(){
-        return hasPowerUp;
-    }
-
-    public void destroyBrick(){
+    public void destroy(){
         myHealth = 0;
         isDestroyed = true;
         setCanSee(false);
     }
+
+    protected void setGivesPoints(boolean pointGiving){
+        givesPoints = pointGiving;
+    }
+
+    public boolean givesPoints(){
+        return givesPoints;
+    }
+
+    public abstract void activateBrickAbility(Ball ball, Group root, ArrayList<PowerUp> powerUps, int screenSize);
 }
 
 

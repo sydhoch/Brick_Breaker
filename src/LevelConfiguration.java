@@ -14,6 +14,7 @@ public class LevelConfiguration {
     private LevelText myLevelText;
     private int SCREEN_SIZE;
     private Group myRoot;
+    private Player myPlayer;
     private Scene myScene;
     private Timeline myAnimation;
     private int numBrickCols;
@@ -25,7 +26,7 @@ public class LevelConfiguration {
     private static final double FRACTION_OF_SCREEN_WIDTH_FOR_BRICKS = 1.0/2.0;
     private static final double BALL_SPEED_INCREASE_PERCENT = 1.0/5.0;
 
-    public LevelConfiguration(Ball ball, Paddle paddle, ArrayList<ArrayList<Brick>> bricks, Group root,
+    public LevelConfiguration(Ball ball, Paddle paddle, ArrayList<ArrayList<Brick>> bricks, Group root, Player player,
                               ArrayList<PowerUp> powerUps, LevelText levelText, int SIZE, Timeline animation, Scene scene){
         myBall = ball;
         myPaddle = paddle;
@@ -36,6 +37,7 @@ public class LevelConfiguration {
         myRoot = root;
         myAnimation = animation;
         myScene = scene;
+        myPlayer = player;
     }
 
     public void createNewLevel(int levelNum){
@@ -67,15 +69,14 @@ public class LevelConfiguration {
     private void destroyAllBricks() {
         for (ArrayList<Brick> brickRow : myBricks) {
             for (Brick brick : brickRow) {
-                brick.destroyBrick();
+                brick.destroy();
             }
         }
     }
 
     private void destroyAllPowerUps(){
         for (PowerUp powerUp : myPowerUps){
-            powerUp.setCanSee(false);
-            powerUp.deactivate();
+            powerUp.destroy(myPaddle, myBall, myPlayer);
         }
     }
 
@@ -135,10 +136,10 @@ public class LevelConfiguration {
     private Brick makeBrick(String brickSymbol){
         if (brickSymbol.matches("\\d+")){
             int health = Integer.parseInt(brickSymbol);
-            if (health == 1) {
-                return new NormalBrick();
-            }
-        if (health > 1){
+//            if (health == 1) {
+//                return new NormalBrick();
+//            }
+        if (health >= 1){
             return new MultiHitBrick(health);
         }
         }
@@ -146,11 +147,14 @@ public class LevelConfiguration {
         return new PowerUpBrick();
         }
         if (brickSymbol.equals("-")){
-            return new BallTransportingBrick(myBall, SCREEN_SIZE);
+            return new BallTransportingBrick();
         }
-        Brick placeHoldingBrick = new NormalBrick();
-        placeHoldingBrick.destroyBrick();
-        return placeHoldingBrick;
+        if (brickSymbol.equals("#")){
+            return new PermanentBrick();
+        }
+       // Brick placeHoldingBrick = new MultiHitBrick(0);
+//        placeHoldingBrick.destroyBrick();
+        return new MultiHitBrick(0);
     }
 
 }

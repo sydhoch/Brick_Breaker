@@ -7,10 +7,9 @@ import java.util.Arrays;
 
 public class MultiHitBrick extends Brick{
 
-    private Group myRoot;
     private final static String BRICK_FILE_START = "brick";
     private final static String BRICK_FILE_END = ".gif";
-    private static final int MAX_MULTIBRICK_HEALTH = 5;
+    private static final int MAX_MULTIBRICK_HEALTH = 4;
 
     public MultiHitBrick(int health) {
         super(health);
@@ -21,12 +20,12 @@ public class MultiHitBrick extends Brick{
 
     @Override
     protected void setBrickImage(){
+        System.out.println(getHealth());
+        System.out.println(BRICK_FILE_START + getHealth() + BRICK_FILE_END);
         if (getHealth() > MAX_MULTIBRICK_HEALTH){
             setHealth(MAX_MULTIBRICK_HEALTH);
         }
         if (getHealth() > 0) {
-            //System.out.println(getHealth());
-            //System.out.println(BRICK_FILE_START + getHealth() + BRICK_FILE_END);
             setImage(BRICK_FILE_START + getHealth() + BRICK_FILE_END);
         }
     }
@@ -37,6 +36,11 @@ public class MultiHitBrick extends Brick{
         setBrickImage();
     }
 
+    @Override
+    public void activateBrickAbility(Ball ball, Group root, ArrayList<PowerUp> powerUps,
+                                     int screenSize) {
+
+    }
 
 
 
