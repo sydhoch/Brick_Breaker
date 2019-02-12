@@ -20,7 +20,12 @@ public class Tests {
     private final String BALL_TRANSPORT = "Ball Transport Brick";
 
     public Tests(String fileName) {
+    private boolean testFinished;
+
+
+    public Tests(String fileName){
         readFile(fileName);
+        testFinished = false;
     }
 
 
@@ -66,13 +71,16 @@ public class Tests {
             System.out.println(fileEvent + " FAILED");
             System.out.println(myFirstEvent);
         }
+        testFinished = true;
     }
 
-    public void setOriginalBallLocation(double x, double y) {
-        originalBallLocationX = x;
-        originalBallLocationY = y;
-    }
-
+    public void setOriginalBallLocation(double x, double y){
+            originalBallLocationX = x;
+            originalBallLocationY = y;
+        }
+    public boolean isTestFinished() {
+            return testFinished;
+        }
     public void setNewBallLocation(double x, double y) {
         newBallLocationX = x;
         newBallLocationY = y;

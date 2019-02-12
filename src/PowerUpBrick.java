@@ -1,6 +1,5 @@
 import javafx.animation.Timeline;
 import javafx.scene.Group;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;

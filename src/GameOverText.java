@@ -9,6 +9,7 @@ public class GameOverText extends GameText {
     private static final String winMessage = "You Win! " + gameOverInstruction;
     private static final Color loseColor = Color.RED;
     private static final Color winColor = Color.GREEN;
+    private static final Color neutralColor = Color.BLUE;
 
     public GameOverText(double screenSize, Player player){
         super(screenSize, player);
@@ -31,6 +32,9 @@ public class GameOverText extends GameText {
         }
         else if (getPlayer().getLevel() == getPlayer().getLastLevel()){
             changeMessage(winColor, winMessage);
+        }
+        else {
+            changeMessage(neutralColor, gameOverInstruction);
         }
         placeText();
     }

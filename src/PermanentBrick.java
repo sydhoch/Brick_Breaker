@@ -1,6 +1,5 @@
 import javafx.animation.Timeline;
 import javafx.scene.Group;
-
 import java.util.List;
 
 public class PermanentBrick extends Brick{
