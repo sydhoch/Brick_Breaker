@@ -8,7 +8,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.List;
 
 public class GamePlay {
@@ -17,6 +22,7 @@ public class GamePlay {
     private Paddle myPaddle;
     private List<List<Brick>> myBricks;
     private Player myPlayer;
+    //private HighScore myHighScore;
     private StatusText myStatus;
     private LevelText myLevelText;
     private GameOverText myGameOverText;
@@ -44,8 +50,8 @@ public class GamePlay {
         myRoot = new Group();
         myBall = new Ball();
         myPaddle = new Paddle();
-        myBricks = new ArrayList<>();
         myPlayer = new Player();
+        myBricks = new ArrayList<>();
         myLevelText = new LevelText(SCREEN_SIZE, myPlayer);
         myGameOverText = new GameOverText(SCREEN_SIZE, myPlayer);
         myScene = new Scene(myRoot, SCREEN_SIZE, SCREEN_SIZE, BACKGROUND);
@@ -82,11 +88,7 @@ public class GamePlay {
         levelSetter.createNewLevel(myPlayer.getLevel());
         myStatus.updateText();
         myGameOverText.disappear();
-        // read high score file
-
     }
-
-
 
     /**
      * Changes properties of objects on screen to make them seem animated
@@ -103,12 +105,13 @@ public class GamePlay {
             endGame();
         }
 
+        if(testKeyHit){
+            updateBallSettings();
+            testKeyHit= false;
+        }
+
         myStatus.updateText();
         if (!gameOver) {
-            if(testKeyHit){
-                updateBallSettings();
-                testKeyHit= false;
-            }
             myBall.move(SECOND_DELAY);
             myBall.bounce(myScene.getWidth(), myScene.getHeight(), tester, animation);
 
@@ -117,7 +120,7 @@ public class GamePlay {
             interacter.checkPowerUpPaddleCollision();
             if (myBall.ballFell(myScene.getHeight())) {
                 myPlayer.loseLife(tester,animation);
-                if (myPlayer.getLives() > 0) {
+                if (myPlayer.getLives() > 0 && tester==null) {
                     levelSetter.placeItemsForStart();
                 }
             }
@@ -178,19 +181,18 @@ public class GamePlay {
     private void endGame(){
         gameOver = true;
         myGameOverText.updateText();
-        // for saving high score
+        myPlayer.getHighScoreObject().updateHighScore(myPlayer.getScore());
+        myPlayer.reset();
+        //myPlayer.resetHighScore();
     }
 
 
     private void updateBallSettings(){
         myBall.placeItem(tester.getPosX(),tester.getPosY());
         myBall.setXVelocity(tester.getXVel());
-        System.out.println("x vel");
-        System.out.println(tester.getXVel());
         myBall.setYVelocity(tester.getYVel());
         //myPaddle.placeItem(myScene.getWidth() / 2 - myPaddle.getWidth() / 2, myScene.getHeight() - myPaddle.getHeight());
     }
-
 
     private void handleCheatKeys(KeyCode code){
             if (code.getChar().equals("L")) {
@@ -209,7 +211,7 @@ public class GamePlay {
         handleRestartKey(code);
         checkForTest(code);
         if(testKeyHit){
-            System.out.print("test");
+            System.out.print(test);
             tester = new Tests(test);
             //testKeyHit=false;
         }
@@ -247,6 +249,4 @@ public class GamePlay {
             animation.play();
         }
     }
-
-
 }

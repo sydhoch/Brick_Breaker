@@ -13,6 +13,7 @@ public abstract class Brick extends Item{
     private int myHealth;
     private boolean isDestroyed;
     private boolean givesPoints;
+    private final String DESTROY_BLOCK_EVENT = "Destroy Block";
 
     public Brick(int health){
         myHealth = health;
@@ -49,7 +50,7 @@ public abstract class Brick extends Item{
             myHealth = 0;
             destroy();
             if (tester != null){
-                tester.setFirstEvent("Destroy Block");
+                tester.setFirstEvent(DESTROY_BLOCK_EVENT);
                 animation.stop();
                 tester.callTest();
             }

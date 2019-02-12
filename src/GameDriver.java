@@ -13,9 +13,6 @@ public class GameDriver extends Application{
 
 
     public void start (Stage stage) {
-        // myScene.setOnKeyPressed(key -> gamePlayer.handleCheatKeys(key.getCode(), SECOND_DELAY));
-       // myScene.setOnKeyPressed(key -> gamePlayer.handleAllKeys(key.getCode(), SECOND_DELAY));
-
         //make a start screen
         StartScreen startSetUp = new StartScreen(500);
         Scene start = startSetUp.getMyScene();
@@ -31,7 +28,7 @@ public class GameDriver extends Application{
         stage.show();
 
     }
-
+    ////
     public void handleStartScreenKeys(KeyCode code, Stage stage){
         GamePlay gamePlayer = new GamePlay();
         Scene myScene = gamePlayer.getScene();

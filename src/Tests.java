@@ -54,10 +54,6 @@ public class Tests {
         }
     }
 
-    public int getLevel(){
-        return myLevelNum;
-    }
-
 
     /*private void testLoseLifeAtBottom(){
 

@@ -13,6 +13,10 @@ public class GameInteractions {
     private Player myPlayer;
     private List<PowerUp> myPowerUps;
     private int myScreenSize;
+    private final String FAR_LEFT = "far left";
+    private final String MIDDLE_LEFT = "middle left";
+    private final String FAR_RIGHT = "far right";
+    private final String MIDDLE_RIGHT = "middle right";
 
 
     public GameInteractions(Group root, Ball ball, List<List<Brick>> bricks, Paddle paddle,
@@ -33,10 +37,20 @@ public class GameInteractions {
     public void checkBallHitsPaddle(){
         if(myBall.collidesWith(myPaddle)){
             if(myBall.getXCoordinate() < myPaddle.getCenter()){
-                myBall.bounceOffPad("left");
+                if(myBall.getXCoordinate()<myPaddle.getCenterOfLeftSide()){
+                    myBall.bounceOffPad(FAR_LEFT);
+                }
+                else {
+                    myBall.bounceOffPad(MIDDLE_LEFT);
+                }
             }
             if(myBall.getXCoordinate() > myPaddle.getCenter()) {
-                myBall.bounceOffPad("right");
+                if(myBall.getXCoordinate()>myPaddle.getCenterOfRightSide()){
+                    myBall.bounceOffPad(FAR_RIGHT);
+                }
+                else {
+                    myBall.bounceOffPad(MIDDLE_RIGHT);
+                }
             }
         }
     }
