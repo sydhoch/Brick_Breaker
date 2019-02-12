@@ -22,7 +22,7 @@ public class GamePlay {
     private Paddle myPaddle;
     private List<List<Brick>> myBricks;
     private Player myPlayer;
-    private HighScore myHighScore;
+    //private HighScore myHighScore;
     private StatusText myStatus;
     private LevelText myLevelText;
     private GameOverText myGameOverText;
@@ -46,19 +46,16 @@ public class GamePlay {
     private Tests tester;
     private int testNum=0;
 
-    private int highScore=0;
-
     public GamePlay(){
         myRoot = new Group();
         myBall = new Ball();
         myPaddle = new Paddle();
-        myBricks = new ArrayList<>();
         myPlayer = new Player();
+        myBricks = new ArrayList<>();
         myLevelText = new LevelText(SCREEN_SIZE, myPlayer);
         myGameOverText = new GameOverText(SCREEN_SIZE, myPlayer);
         myScene = new Scene(myRoot, SCREEN_SIZE, SCREEN_SIZE, BACKGROUND);
         myStatus = new StatusText(SCREEN_SIZE, myPlayer);
-        myHighScore = new HighScore();
         gameOver = false;
         myPowerUps = new ArrayList<>();
         var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
@@ -91,7 +88,6 @@ public class GamePlay {
         levelSetter.createNewLevel(myPlayer.getLevel());
         myStatus.updateText();
         myGameOverText.disappear();
-        myHighScore = new HighScore();
     }
 
     /**
@@ -185,7 +181,9 @@ public class GamePlay {
     private void endGame(){
         gameOver = true;
         myGameOverText.updateText();
-        myHighScore.updateHighScore(myPlayer.getScore());
+        myPlayer.getHighScoreObject().updateHighScore(myPlayer.getScore());
+        myPlayer.reset();
+        //myPlayer.resetHighScore();
     }
 
 
@@ -195,7 +193,6 @@ public class GamePlay {
         myBall.setYVelocity(tester.getYVel());
         //myPaddle.placeItem(myScene.getWidth() / 2 - myPaddle.getWidth() / 2, myScene.getHeight() - myPaddle.getHeight());
     }
-
 
     private void handleCheatKeys(KeyCode code){
             if (code.getChar().equals("L")) {
@@ -252,6 +249,4 @@ public class GamePlay {
             animation.play();
         }
     }
-
-
 }

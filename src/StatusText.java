@@ -5,6 +5,7 @@ import javafx.scene.text.Text;
 public class StatusText extends GameText {
 
     private static final int STATUS_FONT_SIZE = 20;
+    private int highScore;
 
     public StatusText(double screenSize, Player player){
         super(screenSize, player);
@@ -22,7 +23,8 @@ public class StatusText extends GameText {
 
     @Override
     public void updateText(){
-        String highScore = "High Score:" + "\n";
+        int currentHighScore = getPlayer().getCurrentHighScore();
+        String highScore = "High Score: " + currentHighScore + "\n";
         String livesLeft = "Lives Left: "+ getPlayer().getLives() +"\n";
         String score = "Score: " + getPlayer().getScore() + "\n";
         String level = "Level: " + getPlayer().getLevel();

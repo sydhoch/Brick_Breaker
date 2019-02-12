@@ -3,7 +3,9 @@ public class Player {
 
     private int myLivesLeft;
     private int myScore;
+    private int myHighScoreToBeat;
     private int myLevelNum;
+    private HighScore highScore;
 //    private int myLastLevel;
 //    private int myStartingLives;
     private int myScoreIncrement;
@@ -61,6 +63,15 @@ public class Player {
         myScore = 0;
         myScoreIncrement = STARTING_SCORE_INCREMENT;
         myLevelNum = 1;
+        //highScore = new HighScore();
+        resetHighScore();
+        highScore.updateHighScore(myScore);
+        myHighScoreToBeat = highScore.getHighScoreNum();
+    }
+
+    public void resetHighScore(){
+        highScore = new HighScore();
+        //highScore.updateHighScore(myScore);
     }
 
     public void setLevel(int level){
@@ -69,12 +80,28 @@ public class Player {
         }
     }
 
+    public HighScore getHighScoreObject(){
+        return highScore;
+    }
+
     public void setScoreIncrement(int scoreIncrement){
         myScoreIncrement = scoreIncrement;
     }
 
     public int getScoreIncrement(){
         return myScoreIncrement;
+    }
+
+    public void setHighScoreToBeat(int score){
+        myHighScoreToBeat = score;
+    }
+
+//    public int getHighScoreToBeat(){
+//        return myHighScoreToBeat;
+//    }
+
+    public int getCurrentHighScore(){
+        return Math.max(myHighScoreToBeat,myScore);
     }
 
 

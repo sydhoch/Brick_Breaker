@@ -35,20 +35,19 @@ public class Ball extends Item {
         public void bounce ( double screenWidth, double screenHeight, Tests tester, Timeline animation){
             System.out.println(getXVelocity());
             System.out.println(getYVelocity());
-            if (getXCoordinate() < 0 || getXCoordinate() > (screenWidth - getWidth())) {
-                setXVelocity(getXVelocity() * -1);
-                if (tester != null) {
+            if (tester != null) {
+                if(getXCoordinate()<0 && getYVelocity()<0){
                     tester.setFirstEvent("Corner Bounce Back");
                     animation.stop();
                     tester.callTest();
                 }
             }
+            if (getXCoordinate() < 0 || getXCoordinate() > (screenWidth - getWidth())) {
+                setXVelocity(getXVelocity() * -1);
+
+            }
             if (getYCoordinate() < 0) {
                 setYVelocity(getYVelocity() * -1);
-                if (tester != null) {
-                    tester.setFirstEvent("Corner Bounce Back");
-                    animation.stop();
-                }
             }
 
         }
