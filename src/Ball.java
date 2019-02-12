@@ -55,12 +55,16 @@ public class Ball extends Item {
         /**
          * reverse direction of ball
          */
-        public void bounceOffPad (String area){
+        public void bounceOffPad (String area, Tests tester){
             if(area.equals(RIGHT) && getXVelocity() < 0){
                 setXVelocity(getXVelocity() * -1);
             }
             if(area.equals(LEFT) && getXVelocity() > 0){
                 setXVelocity(getXVelocity() * -1);
+                if(tester!=null){
+                    tester.setFirstEvent("Bounce Left Off Left Side of Paddle");
+                    tester.callTest();
+                }
             }
             setYVelocity(getYVelocity() * -1);
         }

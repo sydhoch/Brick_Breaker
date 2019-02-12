@@ -34,13 +34,13 @@ public class GameInteractions {
     /**
      * Bounces the ball off the paddle if they collide
      */
-    public void checkBallHitsPaddle(){
+    public void checkBallHitsPaddle(Tests tester){
         if(myBall.collidesWith(myPaddle)){
             if(myBall.getXCoordinate() < myPaddle.getCenter()){
-                myBall.bounceOffPad(LEFT);
+                myBall.bounceOffPad(LEFT, tester);
             }
             if(myBall.getXCoordinate() > myPaddle.getCenter()) {
-                myBall.bounceOffPad(RIGHT);
+                myBall.bounceOffPad(RIGHT, tester);
             }
         }
     }

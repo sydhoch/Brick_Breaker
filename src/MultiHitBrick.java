@@ -14,13 +14,9 @@ public class MultiHitBrick extends Brick{
 
     public MultiHitBrick(int health) {
         super(health);
-<<<<<<< HEAD
         myStartHealth = health;
         System.out.println(health);
         System.out.println(getHealth());
-=======
-
->>>>>>> 1e0fb330023ce4d85f63ef519c4cf79030f71306
 
     }
 

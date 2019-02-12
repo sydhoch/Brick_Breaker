@@ -86,11 +86,6 @@ public class GamePlay {
      * Changes properties of objects on screen to make them seem animated
      */
     private void step (){
-        System.out.println(testMode);
-        System.out.println(isGameOver());
-        if (tester != null){
-            System.out.println("is test finished: " + tester.isTestFinished());
-        }
         if (isLevelOver()){
             myPlayer.increaseLevel();
             levelSetter.createNewLevel(myPlayer.getLevel());
@@ -112,10 +107,14 @@ public class GamePlay {
                 handleBallFall();
             }
         }
+        /*if(test!=null){
+            tester.testBallSpeedup(myBall.getStartingXVelocity(),myBall.getStartingYVelocity(),myBall.getXVelocity(),myBall.getYVelocity());
+        }
+        */
     }
 
     private void checkAllCollisions(){
-        interacter.checkBallHitsPaddle();
+        interacter.checkBallHitsPaddle(tester);
         interacter.checkBallBricksCollision(tester, animation);
         interacter.checkPowerUpPaddleCollision();
     }
@@ -128,19 +127,12 @@ public class GamePlay {
         }
     }
 
-<<<<<<< HEAD
-        if(test!=null){
-            tester.testBallSpeedup(myBall.getStartingXVelocity(),myBall.getStartingYVelocity(),myBall.getXVelocity(),myBall.getYVelocity());
-            animation.stop();
-        }
 
-=======
     private void handleBallFall(){
         myPlayer.loseLife(tester,animation);
         if (myPlayer.getLives() > 0 && tester==null) {
             levelSetter.placeItemsForStart();
         }
->>>>>>> 1e0fb330023ce4d85f63ef519c4cf79030f71306
     }
 
 
@@ -199,8 +191,10 @@ public class GamePlay {
 
     private void updateBallSettings(){
         myBall.placeItem(tester.getPosX(),tester.getPosY());
-        myBall.setXVelocity(tester.getXVel());
-        myBall.setYVelocity(tester.getYVel());
+        if(tester.getXVel()!=0||tester.getYVel()!=0){
+            myBall.setXVelocity(tester.getXVel());
+            myBall.setYVelocity(tester.getYVel());
+        }
     }
 
     private void handleCheatKeys(KeyCode code){
