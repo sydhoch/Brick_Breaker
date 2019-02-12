@@ -130,6 +130,11 @@ public class GamePlay {
             }
         }
 
+        if(test!=null){
+            tester.testBallSpeedup(myBall.getStartingXVelocity(),myBall.getStartingYVelocity(),myBall.getXVelocity(),myBall.getYVelocity());
+            animation.stop();
+        }
+
     }
 
     private void checkForTest(KeyCode code){

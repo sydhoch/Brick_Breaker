@@ -6,10 +6,12 @@ public class Ball extends Item {
     private static final String BOUNCER_IMAGE = "ball.gif";
     private static final int STARTING_X_VELOCITY = -180;
     private static final int STARTING_Y_VELOCITY = 60;
-    private final String FAR_LEFT = "far left";
-    private final String MIDDLE_LEFT = "middle left";
-    private final String FAR_RIGHT = "far right";
-    private final String MIDDLE_RIGHT = "middle right";
+    private final String LEFT = "left";
+    private final String RIGHT = "right";
+    private final int BOUNCE_TEST_NUMBER=5; //one more than the amount of hits it would take to destroy our strongest brick
+
+    private static final String PERMANENT_BRICK = "Permanent Brick";
+    private int bounceNumber = 0;
 
     public Ball() {
             setImage(BOUNCER_IMAGE);
@@ -56,29 +58,32 @@ public class Ball extends Item {
          * reverse direction of ball
          */
         public void bounceOffPad (String area){
-            if (getXVelocity() < 0) {
-                xDirectionChooser(FAR_RIGHT, MIDDLE_RIGHT, area);
-            }
-            if (getXVelocity() > 0) {
-                xDirectionChooser(FAR_LEFT, MIDDLE_LEFT, area);
-            }
-            setYVelocity(getYVelocity() * -1);
-        }
-
-        private void xDirectionChooser (String far, String middle, String area){
-            if (area.equals(far)) {
+            if(area.equals(RIGHT) && getXVelocity() < 0){
                 setXVelocity(getXVelocity() * -1);
             }
-            if (area.equals(middle)) {
-                setXVelocity(getXVelocity() * -.75);//change later
+            if(area.equals(LEFT) && getXVelocity() > 0){
+                setXVelocity(getXVelocity() * -1);
             }
+            setYVelocity(getYVelocity() * -1);
         }
 
-
-        public void bounceOff () {
-            setYVelocity(getYVelocity() * -1);
-            setXVelocity(getXVelocity() * -1);
-
+        public void bounceOff (Tests tester, Timeline animation) {
+            if(tester!=null){
+                if(bounceNumber<BOUNCE_TEST_NUMBER){
+                    setYVelocity(getYVelocity() * -1);
+                    setXVelocity(getXVelocity() * -1);
+                    bounceNumber++;
+                }
+                if(bounceNumber==BOUNCE_TEST_NUMBER){
+                    animation.stop();
+                    tester.setFirstEvent(PERMANENT_BRICK);
+                    tester.callTest();
+                }
+            }
+            else{
+                setYVelocity(getYVelocity() * -1);
+                setXVelocity(getXVelocity() * -1);
+            }
         }
 
         /**
