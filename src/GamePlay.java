@@ -22,7 +22,7 @@ public class GamePlay {
     private GameOverText myGameOverText;
     private Scene myScene;
     private boolean gameOver;
-    boolean testKeyHit = false;
+    private boolean testKeyHit = false;
     private Group myRoot;
     private GameInteractions interacter;
     private LevelConfiguration levelSetter;

@@ -72,12 +72,14 @@ public class LevelConfiguration {
                 brick.destroy();
             }
         }
+        myBricks.clear();
     }
 
     private void destroyAllPowerUps(){
         for (PowerUp powerUp : myPowerUps){
             powerUp.destroy(myPaddle, myBall, myPlayer);
         }
+        myPowerUps.clear();
     }
 
     private void increaseBallSpeed(int levelNum){
