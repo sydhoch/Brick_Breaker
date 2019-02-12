@@ -125,11 +125,19 @@ public class GamePlay {
         }
     }
 
+<<<<<<< HEAD
+        if(test!=null){
+            tester.testBallSpeedup(myBall.getStartingXVelocity(),myBall.getStartingYVelocity(),myBall.getXVelocity(),myBall.getYVelocity());
+            animation.stop();
+        }
+
+=======
     private void handleBallFall(){
         myPlayer.loseLife(tester,animation);
         if (myPlayer.getLives() > 0 && tester==null) {
             levelSetter.placeItemsForStart();
         }
+>>>>>>> 1e0fb330023ce4d85f63ef519c4cf79030f71306
     }
 
 
