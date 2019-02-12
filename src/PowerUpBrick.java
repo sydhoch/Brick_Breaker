@@ -1,3 +1,4 @@
+import javafx.animation.Timeline;
 import javafx.scene.Group;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,6 +10,7 @@ public class PowerUpBrick extends Brick{
     private static final String POWERUP_BRICK_IMAGE = "powerBrick.gif";
     private static final int STARTING_HEALTH = 1;
     private List<PowerUpFactory> myPowerUpFactories;
+    private final String POWERUP_RELEASED = "Powerup is Released";
 
 
     public PowerUpBrick(){
@@ -24,12 +26,17 @@ public class PowerUpBrick extends Brick{
 
     @Override
     public void activateBrickAbility(Ball ball, Group root, List<PowerUp> powerUps,
-                                     int screenSize) {
+                                     int screenSize, Tests tester, Timeline animation) {
         PowerUp myPowerUp = createRandomPowerUp();
         powerUps.add(myPowerUp);
         root.getChildren().add(myPowerUp.getImage());
         myPowerUp.placeItem(getXCoordinate(), getYCoordinate());
         myPowerUp.startFalling();
+        if(tester!=null){
+            animation.stop();
+            tester.setFirstEvent(POWERUP_RELEASED);
+            tester.callTest();
+        }
     }
 
     private PowerUp createRandomPowerUp(){

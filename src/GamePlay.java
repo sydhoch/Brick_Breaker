@@ -88,9 +88,6 @@ public class GamePlay {
     private void step (){
         System.out.println(testMode);
         System.out.println(isGameOver());
-        if (tester != null){
-            System.out.println("is test finished: " + tester.isTestFinished());
-        }
         if (isLevelOver()){
             myPlayer.increaseLevel();
             levelSetter.createNewLevel(myPlayer.getLevel());
@@ -127,6 +124,13 @@ public class GamePlay {
             powerUp.move(SECOND_DELAY);
         }
     }
+
+//
+//        if(test!=null){
+//            tester.testBallSpeedup(myBall.getStartingXVelocity(),myBall.getStartingYVelocity(),myBall.getXVelocity(),myBall.getYVelocity());
+//            animation.stop();
+//        }
+
 
     private void handleBallFall(){
         myPlayer.loseLife(tester,animation);
