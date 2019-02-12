@@ -12,6 +12,9 @@ public class Ball extends Item {
 
     private static final String PERMANENT_BRICK = "Permanent Brick";
     private int bounceNumber = 0;
+    private static final String BOUNCE_RIGHT= "Bounce Right Off Right Side of Paddle";
+    private static final String BOUNCE_LEFT =  "Bounce Left Off Left Side of Paddle";
+    private static final String CORNER_BOUNCE = "Corner Bounce Back";
 
     public Ball() {
             setImage(BOUNCER_IMAGE);
@@ -36,7 +39,7 @@ public class Ball extends Item {
         public void bounce (double screenWidth, Tests tester){
             if (tester != null) {
                 if(getXCoordinate()<0 && getYVelocity()<0){
-                    tester.setFirstEvent("Corner Bounce Back");
+                    tester.setFirstEvent(CORNER_BOUNCE);
                     tester.callTest();
                 }
             }
@@ -57,14 +60,14 @@ public class Ball extends Item {
             if(area.equals(RIGHT) && getXVelocity() < 0){
                 setXVelocity(getXVelocity() * -1);
                 if(tester!=null){
-                    tester.setFirstEvent("Bounce Right Off Right Side of Paddle");
+                    tester.setFirstEvent(BOUNCE_RIGHT);
                     tester.callTest();
                 }
             }
             if(area.equals(LEFT) && getXVelocity() > 0){
                 setXVelocity(getXVelocity() * -1);
                 if(tester!=null){
-                    tester.setFirstEvent("Bounce Left Off Left Side of Paddle");
+                    tester.setFirstEvent(BOUNCE_LEFT);
                     tester.callTest();
                 }
             }
