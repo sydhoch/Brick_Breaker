@@ -80,6 +80,7 @@ public class Ball extends Item {
                     animation.stop();
                     tester.setFirstEvent(PERMANENT_BRICK);
                     tester.callTest();
+                    bounceNumber=0;
                 }
             }
             else{
