@@ -32,7 +32,6 @@ public class HighScore {
 
     private void writeHighScoreToFile(int score){
         try{
-            //String path = file.getAbsolutePath();
             BufferedWriter writer = new BufferedWriter(new FileWriter(WRITE_FILE_PATH));
            // BufferedWriter writer = new BufferedWriter(new FileWriter(READ_FILE_NAME));
             writer.write(Integer.toString(score));

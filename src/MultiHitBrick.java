@@ -15,8 +15,6 @@ public class MultiHitBrick extends Brick{
     public MultiHitBrick(int health) {
         super(health);
         myStartHealth = health;
-        System.out.println(health);
-        System.out.println(getHealth());
 
     }
 
@@ -32,8 +30,8 @@ public class MultiHitBrick extends Brick{
     }
 
     @Override
-    public void decreaseHealth(Tests tester, Timeline animation){
-        super.decreaseHealth(tester, animation);
+    public void decreaseHealth(Tests tester){
+        super.decreaseHealth(tester);
         if (tester != null && isDestroyed()){
             if(myStartHealth==1){
                 tester.setFirstEvent(DESTROY_BLOCK_EVENT);
@@ -41,7 +39,6 @@ public class MultiHitBrick extends Brick{
             else if(myStartHealth>1){
                 tester.setFirstEvent(MULTI_DESTROY_BLOCK_EVENT);
             }
-            animation.stop();
             tester.callTest();
         }
         setBrickImage();
@@ -49,7 +46,7 @@ public class MultiHitBrick extends Brick{
 
     @Override
     public void activateBrickAbility(Ball ball, Group root, List<PowerUp> powerUps,
-                                     int screenSize, Tests tester, Timeline animation) {
+                                     int screenSize, Tests tester) {
 
     }
 

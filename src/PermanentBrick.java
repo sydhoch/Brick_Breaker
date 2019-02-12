@@ -14,7 +14,7 @@ public class PermanentBrick extends Brick{
     }
 
     @Override
-    public void decreaseHealth(Tests tester, Timeline animation) {
+    public void decreaseHealth(Tests tester) {
     }
 
     @Override
@@ -23,7 +23,7 @@ public class PermanentBrick extends Brick{
     }
 
     @Override
-    public void activateBrickAbility(Ball ball, Group root, List<PowerUp> powerUps, int screenSize, Tests tester, Timeline animation) {
+    public void activateBrickAbility(Ball ball, Group root, List<PowerUp> powerUps, int screenSize, Tests tester) {
 
     }
 }

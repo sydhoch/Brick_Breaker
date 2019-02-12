@@ -49,24 +49,24 @@ public class GameInteractions {
      * Checks if a brick has been collided with by the ball and calls for the game to be updated by decreasing the
      * brick's health, bouncing the ball off, and possibly releasing powerups
      */
-    public void checkBallBricksCollision(Tests tester, Timeline animation) {
+    public void checkBallBricksCollision(Tests tester) {
         for (List<Brick> brickRow : myBricks) {
             for (Brick brick : brickRow) {
                 if (brick.collidesWith(myBall)) {
-                   updateGameOnBrickCollision(tester, animation, brick);
+                   updateGameOnBrickCollision(tester, brick);
                 }
             }
         }
     }
 
-    private void updateGameOnBrickCollision(Tests tester, Timeline animation, Brick brick){
+    private void updateGameOnBrickCollision(Tests tester, Brick brick){
         if (brick.givesPoints()) {
             myPlayer.increaseScore(myPlayer.getScoreIncrement());
         }
-        brick.decreaseHealth(tester, animation);
-        myBall.bounceOff(tester, animation);
+        brick.decreaseHealth(tester);
+        myBall.bounceOff(tester);
         if (brick.isDestroyed()) {
-            brick.activateBrickAbility(myBall, myRoot, myPowerUps, myScreenSize, tester, animation);
+            brick.activateBrickAbility(myBall, myRoot, myPowerUps, myScreenSize, tester);
         }
     }
 

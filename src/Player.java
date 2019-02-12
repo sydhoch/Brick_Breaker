@@ -31,9 +31,8 @@ public class Player {
         return MAX_LEVEL;
     }
 
-    public void loseLife(Tests tester, Timeline animation){
+    public void loseLife(Tests tester){
         if (myLivesLeft == 1){
-            System.out.println("on last life");
             myHighScore.saveScore(myScore);
         }
         if (myLivesLeft > 0) {
@@ -41,7 +40,6 @@ public class Player {
         }
         if(tester!=null) {
             tester.setFirstEvent("Lose Life");
-            animation.stop();
             tester.callTest();
         }
     }

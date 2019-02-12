@@ -55,6 +55,8 @@ in its current direction
 - Every now and then the ball bounces down a wall and does not move away from the wall until colliding with the
 paddle 
 - Unknown error which has appeared several times but does not interfere with gameplay 
+- If you complete a test on the third level, the game displays the "you won" message instead of the neutral game
+over message
 
 Extra credit:
 - Created fourth block type (ball teleporting block) in addition to the required three
@@ -67,7 +69,6 @@ during the level, however destroying blocks prior to pressing a testing key coul
 test to fail.
 
 ### Impressions
-
 Both of us feel that we learned a huge amount throughout this project. Actually planning and designing something
 as expansive as a game was a really interesting experience. More than that, working so closely with another 
 person was something neither of us had done before and really valued. We still feel that we have some confusion
