@@ -24,10 +24,18 @@ public class StartScreen {
     public Scene setUpScreen(double screenSize){
         root = new Group();
         Text title = getTitle(screenSize);
-        Text body1 = getBody(screenSize, title, "Objective: Destroy as many bricks as possible.");
-        Text body2 = getBody2(screenSize, body1, "Press , . or / to run tests. Press any other key to start a game.");
-        root.getChildren().addAll(title, body1, body2);
-        var scene = new Scene(root, screenSize, screenSize, Color.WHITE);
+        Text body = getBody(screenSize, title, "Objective: Destroy as many bricks as possible." +
+                "\nUse arrow keys to move paddle to prevent ball from falling." +
+                "\n\nPress any key to start a new game." +
+                "\n\nPress R to reset the ball's position." +
+                "\nPress L to add lives." +
+                "\nPress number keys to skip to level numbers." +
+                "\n\nUse , . and / during a level to start a test. " +
+                "\nSee ReadMe for more info on testing.");
+        body.setX(body.getBoundsInLocal().getWidth() / 10);
+        body.setY(body.getBoundsInLocal().getHeight()/2);
+        root.getChildren().addAll(title, body);
+        var scene = new Scene(root, screenSize, screenSize, Color.THISTLE);
         return scene;
     }
     /*
@@ -80,16 +88,7 @@ public class StartScreen {
         title.setY(0+ title.getBoundsInLocal().getHeight() + before.getBoundsInLocal().getHeight());
         return title;
     }
-    private Text getBody2(double screenSize, Text before, String words) {
-        Text title = new Text();
-        title.setFill(Color.BLACK);
-        title.setFont(new Font(screenSize / 30));
-        title.setText(words);
-        title.setX((screenSize - title.getBoundsInLocal().getWidth()) / 2);
-        title.setY(0+ title.getBoundsInLocal().getHeight() + 50);
-        return title;
-    }
-
+    /*
     private void blah(Group root){
         Label label = new Label("Enter Your Name:");
         TextField textField = new TextField();
@@ -99,7 +98,6 @@ public class StartScreen {
         root.getChildren().add(box);
     }
 
-/*
     public void handleStartScreenKeys(KeyCode code, Stage stage){
         String testbeginning = "test";
         String testnum="";
