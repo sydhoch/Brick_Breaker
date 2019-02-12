@@ -18,8 +18,6 @@ public class Tests {
 
     private final String BALL_VELOCITY = "Ball Increased Velocity";
     private final String BALL_TRANSPORT = "Ball Transport Brick";
-
-    public Tests(String fileName) {
     private boolean testFinished;
 
 
@@ -29,7 +27,7 @@ public class Tests {
     }
 
 
-    private void readFile(String fileName) {
+    private void readFile(String fileName){
         myLevelNum = findLevelNum(fileName);
         Scanner scanner = new Scanner(GamePlay.class.getClassLoader().getResourceAsStream(fileName));
         ballInitX = scanner.nextInt();
