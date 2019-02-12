@@ -1,6 +1,11 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+/**
+ * @author leahschwartz and sydneyhochberg
+ *
+ * Main driver for running complete game
+ */
 
 public class GameDriver extends Application{
 

@@ -3,7 +3,13 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import java.util.*;
-
+/**
+ * @author leahschwartz
+ *
+ * Handles creation of each new level, clearing old bricks and powerups, reading and configuring bricks from a
+ * text file, placing objects, and setting background colors
+ *
+ */
 
 public class LevelConfiguration {
 

@@ -1,8 +1,11 @@
 import javafx.scene.Group;
-
 import java.util.*;
-
-import javafx.animation.Timeline;
+/**
+ * @author leahschwartz and sydneyhochberg
+ *
+ * Handles in-game interactions (such as collisions)
+ *
+ */
 
 public class GameInteractions {
 
