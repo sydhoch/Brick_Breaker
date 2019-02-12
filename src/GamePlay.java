@@ -88,9 +88,6 @@ public class GamePlay {
     private void step (){
         System.out.println(testMode);
         System.out.println(isGameOver());
-        if (tester != null){
-            System.out.println("is test finished: " + tester.isTestFinished());
-        }
         if (isLevelOver()){
             myPlayer.increaseLevel();
             levelSetter.createNewLevel(myPlayer.getLevel());
