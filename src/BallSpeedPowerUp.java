@@ -1,3 +1,8 @@
+/**
+ * @author leahschwartz
+ *
+ * Represents a powerup that causes the ball to speed up to twice its current speed
+ */
 public class BallSpeedPowerUp extends PowerUp{
 
     private static final String BALL_SPEED_POWERUP = "ballSpeedPower.gif";

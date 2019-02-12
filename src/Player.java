@@ -1,4 +1,9 @@
-import javafx.animation.Timeline;
+/**
+ * @author leahschwartz and sydneyhochberg
+ *
+ * Represents the player of the game, holding all the information the person who plays would be concerned with, such
+ * as lives, score, highscore, and level
+ */
 public class Player {
 
     private int myLivesLeft;

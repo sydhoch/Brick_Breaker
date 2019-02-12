@@ -1,5 +1,10 @@
 import javafx.scene.text.Text;
-
+/**
+ * @author leahschwartz
+ *
+ * Abstract class for any in game text
+ *
+ */
 abstract public class GameText {
 
     private Text myText;

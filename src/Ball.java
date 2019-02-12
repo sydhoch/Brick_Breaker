@@ -1,6 +1,10 @@
-
 import java.util.Random;
 
+/**
+ * @author leahschwartz and sydneyhochberg
+ *
+ * Simulates a ball to bounce off walls, objects, and fall off the bottom of the screen
+ */
 public class Ball extends Item {
 
     private static final String BOUNCER_IMAGE = "ball.gif";

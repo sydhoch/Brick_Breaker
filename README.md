@@ -3,7 +3,7 @@ game
 
 This project implements the game of Breakout.
 
-Name: Leah Schwartz and Sydney Hochburg
+Name: Leah Schwartz and Sydney Hochberg
 
 ### Timeline
 

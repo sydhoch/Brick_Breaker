@@ -1,6 +1,11 @@
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-
+/**
+ * @author leahschwartz
+ *
+ * Handles text display for end of a game
+ *
+ */
 public class GameOverText extends GameText {
 
     private static final int GAMEOVER_FONT_SIZE = 25;

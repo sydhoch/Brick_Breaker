@@ -1,4 +1,8 @@
-
+/**
+ * @author leahschwartz
+ *
+ * Represents a powerup that causes the paddle to double in size
+ */
 public class PaddleSizePowerUp extends PowerUp {
 
     private static final String PADDLE_SIZE_POWERUP = "paddleSizePower.gif";

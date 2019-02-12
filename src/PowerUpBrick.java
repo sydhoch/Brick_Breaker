@@ -1,9 +1,14 @@
-
 import javafx.scene.Group;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+/**
+ * @author leahschwartz
+ *
+ * Simulates a brick for ball to bounce off and destory
+ * Upon destruction, drops a powerup
+ */
 
 public class PowerUpBrick extends Brick{
 

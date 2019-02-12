@@ -8,6 +8,13 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * @author leahschwartz and sydneyhochberg
+ *
+ * Creates and handles flow of game by setting up original screen, stepping, handling key input, and starting new
+ * levels/games
+ *
+ */
 
 public class GamePlay {
 
