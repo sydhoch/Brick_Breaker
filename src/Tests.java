@@ -1,5 +1,3 @@
-import javafx.animation.Animation;
-import javafx.animation.Timeline;
 import java.util.Scanner;
 
 public class Tests {

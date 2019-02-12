@@ -1,4 +1,4 @@
-import javafx.animation.Timeline;
+
 import java.util.Random;
 
 public class Ball extends Item {
@@ -32,13 +32,11 @@ public class Ball extends Item {
         /**
          * makes the ball bounce off of the left right and top walls by switching the direction of X & Y velocities
          * @param screenWidth width of screen
-         * @param screenHeight height of screen
          */
-        public void bounce ( double screenWidth, double screenHeight, Tests tester, Timeline animation){
+        public void bounce (double screenWidth, Tests tester){
             if (tester != null) {
                 if(getXCoordinate()<0 && getYVelocity()<0){
                     tester.setFirstEvent("Corner Bounce Back");
-                    animation.stop();
                     tester.callTest();
                 }
             }
@@ -73,7 +71,7 @@ public class Ball extends Item {
             setYVelocity(getYVelocity() * -1);
         }
 
-        public void bounceOff (Tests tester, Timeline animation) {
+        public void bounceOff (Tests tester) {
             if(tester!=null){
                 if(bounceNumber<BOUNCE_TEST_NUMBER){
                     setYVelocity(getYVelocity() * -1);
@@ -81,7 +79,6 @@ public class Ball extends Item {
                     bounceNumber++;
                 }
                 if(bounceNumber==BOUNCE_TEST_NUMBER){
-                    animation.stop();
                     tester.setFirstEvent(PERMANENT_BRICK);
                     tester.callTest();
                     bounceNumber=0;

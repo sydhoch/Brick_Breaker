@@ -115,13 +115,13 @@ public class GamePlay {
 
     private void checkAllCollisions(){
         interacter.checkBallHitsPaddle(tester);
-        interacter.checkBallBricksCollision(tester, animation);
+        interacter.checkBallBricksCollision(tester);
         interacter.checkPowerUpPaddleCollision();
     }
 
     private void moveOnScreenItems(){
         myBall.move(SECOND_DELAY);
-        myBall.bounce(myScene.getWidth(), myScene.getHeight(), tester, animation);
+        myBall.bounce(myScene.getWidth(), tester);
         for (PowerUp powerUp : myPowerUps) {
             powerUp.move(SECOND_DELAY);
         }
@@ -129,7 +129,7 @@ public class GamePlay {
 
 
     private void handleBallFall(){
-        myPlayer.loseLife(tester,animation);
+        myPlayer.loseLife(tester);
         if (myPlayer.getLives() > 0 && tester==null) {
             levelSetter.placeItemsForStart();
         }

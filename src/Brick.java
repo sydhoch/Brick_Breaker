@@ -1,6 +1,4 @@
 import javafx.scene.Group;
-import javafx.scene.image.Image;
-import javafx.animation.Timeline;
 import java.util.List;
 
 /**
@@ -43,7 +41,7 @@ public abstract class Brick extends Item{
     /**
      * Decreases brick's health and "destroys" it once health is too low
      */
-    public void decreaseHealth(Tests tester, Timeline animation) {
+    public void decreaseHealth(Tests tester) {
         if (myHealth > 1) {
             myHealth--;
         } else {
@@ -66,7 +64,7 @@ public abstract class Brick extends Item{
         return givesPoints;
     }
 
-    public abstract void activateBrickAbility(Ball ball, Group root, List<PowerUp> powerUps, int screenSize, Tests tester, Timeline animation);
+    public abstract void activateBrickAbility(Ball ball, Group root, List<PowerUp> powerUps, int screenSize, Tests tester);
 }
 
 

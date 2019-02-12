@@ -1,4 +1,3 @@
-import javafx.animation.Timeline;
 import javafx.scene.Group;
 import java.util.List;
 
@@ -18,12 +17,11 @@ public class BallTransportingBrick extends Brick{
 
     @Override
     public void activateBrickAbility(Ball ball, Group root, List<PowerUp> powerUps,
-                                     int screenSize, Tests tester, Timeline animation) {
+                                     int screenSize, Tests tester) {
         if(tester!=null){
             tester.setOriginalBallLocation(ball.getXCoordinate(),ball.getYCoordinate());
             ball.teleport(screenSize);
             tester.setNewBallLocation(ball.getXCoordinate(),ball.getYCoordinate());
-            animation.stop();
             tester.testBallTransport();
         }
         else{
