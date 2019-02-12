@@ -1,3 +1,8 @@
+/**
+ * @author leahschwartz
+ *
+ * Represents a powerup that causes the each hit to give out double the points
+ */
 public class PointsPowerUp extends PowerUp{
 
     private static final String POINTS_POWERUP = "pointsPower.gif";

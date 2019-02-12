@@ -1,6 +1,11 @@
-import javafx.animation.Timeline;
 import javafx.scene.Group;
 import java.util.List;
+/**
+ * @author leahschwartz and sydneyhochberg
+ *
+ * Simulates a brick for ball to bounce off multiple times (1-4) and eventually destory
+ * Strength is represented by color and color changes on each hit to demonstrate decrease of health
+ */
 
 public class MultiHitBrick extends Brick{
 

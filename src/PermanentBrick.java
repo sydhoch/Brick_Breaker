@@ -1,7 +1,11 @@
-import javafx.animation.Timeline;
 import javafx.scene.Group;
 import java.util.List;
-
+/**
+ * @author leahschwartz
+ *
+ * Simulates a brick for ball to bounce off but does not get destroyed
+ *
+ */
 public class PermanentBrick extends Brick{
 
     private static final String PERMANENT_BRICK_IMAGE = "permanentBrick.gif";

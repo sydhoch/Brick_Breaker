@@ -1,6 +1,11 @@
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import java.lang.*;
+/**
+ * @author leahschwartz and sydneyhochberg
+ *
+ * Simulates a paddle for player to move and ball to bounce off
+ *
+ */
 
 public class Paddle extends Item{
 

@@ -1,5 +1,11 @@
 import javafx.scene.Group;
 import java.util.List;
+/**
+ * @author leahschwartz
+ *
+ * Simulates a brick for ball to bounce off and destory
+ * Upon destruction, teleports the ball to a random place on screen
+ */
 
 public class BallTransportingBrick extends Brick{
 

@@ -2,6 +2,11 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+/**
+ * @author leahschwartz and sydneyhochberg
+ *
+ * Represents a highscore which can be written to and read from the "scores.txt" text file
+ */
 
 public class HighScore {
     private final String READ_FILE_NAME = "scores.txt";
