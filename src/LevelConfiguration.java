@@ -25,6 +25,9 @@ public class LevelConfiguration {
         Color.WHITE, Color.LAVENDER, Color.LIGHTPINK, Color.LIGHTBLUE));
     private static final double FRACTION_OF_SCREEN_WIDTH_FOR_BRICKS = 1.0/2.0;
     private static final double BALL_SPEED_INCREASE_PERCENT = 1.0/5.0;
+    private static final String POWERUP_BRICK_SYMBOL = "*";
+    private static final String PERMANENT_BRICK_SYMBOL = "#";
+    private static final String BALL_TRANSPORT_BRICK_SYMBOL = "-";
 
     public LevelConfiguration(Ball ball, Paddle paddle, List<List<Brick>> bricks, Group root, Player player,
                               List<PowerUp> powerUps, LevelText levelText, int SIZE, Timeline animation, Scene scene){
@@ -137,41 +140,19 @@ public class LevelConfiguration {
     private Brick makeBrick(String brickSymbol){
         if (brickSymbol.matches("\\d+")){
             int health = Integer.parseInt(brickSymbol);
-//            if (health == 1) {
-//                return new NormalBrick();
-//            }
         if (health >= 1){
             return new MultiHitBrick(health);
         }
         }
-        if (brickSymbol.equals("*")) {
+        if (brickSymbol.equals(POWERUP_BRICK_SYMBOL)) {
         return new PowerUpBrick();
         }
-        if (brickSymbol.equals("-")){
+        if (brickSymbol.equals(BALL_TRANSPORT_BRICK_SYMBOL)){
             return new BallTransportingBrick();
         }
-        if (brickSymbol.equals("#")){
+        if (brickSymbol.equals(PERMANENT_BRICK_SYMBOL)){
             return new PermanentBrick();
         }
         return new MultiHitBrick(0);
     }
-
-
-//    public void setMonsterTimer() {
-//        Monster m = new Monster();
-//        TimerTask task = new TimerTask() {
-//            @Override
-//            public void run() {		        // task to run goes here
-//                m.attackScreen();
-//                System.out.println("attack");
-//            }
-//        };
-//        Timer timer = new Timer();
-//        long delay = 0;
-//        long intevalPeriod = 1000;
-//        timer.scheduleAtFixedRate(task, delay, intevalPeriod);
-//    }
-//
-
-
 }

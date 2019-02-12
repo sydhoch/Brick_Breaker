@@ -1,19 +1,11 @@
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.Node;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
-
-import java.util.ArrayList;
 
 public class StartScreen {
 

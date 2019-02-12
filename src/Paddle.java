@@ -6,27 +6,19 @@ public class Paddle extends Item{
 
     private static final String PADDLE_IMAGE = "paddle.gif";
     private static final int PADDLE_SPEED = 1000;
-    private boolean isExtraWide;
 
     public Paddle(){
         setImage(PADDLE_IMAGE);
         setXVelocity(PADDLE_SPEED);
         setCanSee(true);
-        isExtraWide = false;
     }
 
     public void lengthen(){
-       // if (!isExtraWide) {
-            setSize(getWidth() * 2, getHeight());
-           // isExtraWide = true;
-       // }
+        setSize(getWidth() * 2, getHeight());
     }
-//
+
     public void undoLengthen(){
-      //  if (isExtraWide) {
-            setSize(getWidth() / 2, getHeight());
-        //    isExtraWide = false;
-       // }
+        setSize(getWidth() / 2, getHeight());
     }
 
     /**
@@ -42,10 +34,6 @@ public class Paddle extends Item{
             setXVelocity(Math.abs(getXVelocity()) * -1);
             move(elapsedTime);
         }
-    }
-
-    public boolean isExtraWide() {
-        return isExtraWide;
     }
 
     public double getCenter(){

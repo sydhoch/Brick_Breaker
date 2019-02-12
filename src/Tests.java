@@ -10,8 +10,12 @@ public class Tests {
     private int startingYVelocity;
     private String myFirstEvent="";
     private String fileEvent;
+    private boolean testFinished;
+
+
     public Tests(String fileName){
         readFile(fileName);
+        testFinished = false;
     }
 
     private void readFile(String fileName){
@@ -52,8 +56,12 @@ public class Tests {
         if(myFirstEvent.equals(fileEvent)){
             System.out.println(fileEvent+ " Success");
         }
+        testFinished = true;
     }
 
+    public boolean isTestFinished() {
+        return testFinished;
+    }
 
     /*private void testLoseLifeAtBottom(){
 

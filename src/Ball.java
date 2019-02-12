@@ -33,8 +33,6 @@ public class Ball extends Item {
          * @param screenHeight height of screen
          */
         public void bounce ( double screenWidth, double screenHeight, Tests tester, Timeline animation){
-            System.out.println(getXVelocity());
-            System.out.println(getYVelocity());
             if (tester != null) {
                 if(getXCoordinate()<0 && getYVelocity()<0){
                     tester.setFirstEvent("Corner Bounce Back");

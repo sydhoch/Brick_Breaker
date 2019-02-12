@@ -1,7 +1,5 @@
-import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
-import java.util.Arrays;
 import java.util.List;
 
 public class MultiHitBrick extends Brick{
@@ -12,15 +10,13 @@ public class MultiHitBrick extends Brick{
 
     public MultiHitBrick(int health) {
         super(health);
-        System.out.println(health);
-        System.out.println(getHealth());
+
 
     }
 
     @Override
     protected void setBrickImage(){
-        System.out.println(getHealth());
-        System.out.println(BRICK_FILE_START + getHealth() + BRICK_FILE_END);
+
         if (getHealth() > MAX_MULTIBRICK_HEALTH){
             setHealth(MAX_MULTIBRICK_HEALTH);
         }

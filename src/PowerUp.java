@@ -45,10 +45,6 @@ public abstract class PowerUp extends Item{
         timer.schedule(task, TOTAL_TIME);
     }
 
-    //protected abstract void doPower();
-
-    //protected abstract void undoPower();
-
     public abstract void deactivate(Paddle paddle, Ball ball, Player player);
 
     protected void setIsActive(boolean active){

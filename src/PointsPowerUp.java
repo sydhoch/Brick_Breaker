@@ -1,5 +1,3 @@
-
-
 public class PointsPowerUp extends PowerUp{
 
     private static final String POINTS_POWERUP = "pointsPower.gif";

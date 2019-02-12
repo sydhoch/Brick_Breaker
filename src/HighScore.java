@@ -12,27 +12,29 @@ public class HighScore {
         myHighScoreNum = readHighScore();
     }
 
-    public int readHighScore(){
+    private int readHighScore() {
         Scanner scanner = new Scanner(GamePlay.class.getClassLoader().getResourceAsStream(READ_FILE_NAME));
-        if(scanner.hasNextInt()){
-            return scanner.nextInt();
+        if (scanner.hasNextInt()) {
+            int savedScore = scanner.nextInt();
+            if (savedScore > myHighScoreNum) {
+                return savedScore;
+            }
         }
-        else{
-            return 0;
-        }
+        return myHighScoreNum;
     }
 
-    public void updateHighScore(int score){
-        if(score>myHighScoreNum){
+    public void saveScore(int score){
+        if(score > myHighScoreNum){
             writeHighScoreToFile(score);
+            myHighScoreNum = score;
         }
     }
 
     private void writeHighScoreToFile(int score){
         try{
-            //File file = new File("scores.txt");
             //String path = file.getAbsolutePath();
             BufferedWriter writer = new BufferedWriter(new FileWriter(WRITE_FILE_PATH));
+           // BufferedWriter writer = new BufferedWriter(new FileWriter(READ_FILE_NAME));
             writer.write(Integer.toString(score));
             writer.close();
         }
@@ -45,7 +47,9 @@ public class HighScore {
         return myHighScoreNum;
     }
 
-    private void reset(){
 
+    public void reset(){
+        myHighScoreNum = 0;
+        writeHighScoreToFile(0);
     }
 }

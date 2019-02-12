@@ -78,7 +78,7 @@ abstract public class Item {
         return canSee;
     }
 
-    public Bounds getParentBounds(){
+    private Bounds getParentBounds(){
         return myImage.getBoundsInParent();
     }
 
