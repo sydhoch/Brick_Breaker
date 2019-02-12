@@ -39,6 +39,7 @@ Data files needed:
 - test1_level1.txt, test2_level1.txt, test3_level1.txt
 - test1_level2.txt, test2_level2.txt, test3_level2.txt
 - test1_level3.txt, test2_level3.txt, test3_level3.txt
+- scores.txt for high score
 
 Key/Mouse inputs:
 - Press any key to go from start screen into game
@@ -54,12 +55,30 @@ Known Bugs:
 in its current direction
 - Every now and then the ball bounces down a wall and does not move away from the wall until colliding with the
 paddle 
-- Unknown error which has appeared several times but does not interfere with gameplay 
+- Unknown error which has appeared several times sporadically(goes away with no changes made) but does not interfere with gameplay 
 - If you complete a test on the third level, the game displays the "you won" message instead of the neutral game
 over message
 
 Extra credit:
 - Created fourth block type (ball teleporting block) in addition to the required three
+- Ball goes off paddles in different directions based on where it came from/where it hits
+
+Testing:
+To test, press any key on splash screen. Then press desired level number. Then press desired test key.
+Then press space to launch the test. The test can also be launched by pressing key for test after pressing
+space, however I recommend following the way we suggested so that objects are not altered by regular game play.
+- Level 1:
+    , = test for if when the ball destroys a brick, a powerup is released
+    . = test for when ball his brick, it is destroyed
+    / = test for when ball goes into corner it bounces back in same direction(reverses x and y velocities)
+- Level 2:
+    , = test for destruction of multiple hit blocks
+    . = test for losing life when ball falls off bottom of screen
+    / = tests that a ball hitting the paddle on the left side will bounce back towards the left
+- Level 3:
+    , = checks that when ball destroys ball transport brick, ball moves location
+    . = checks that permanent brick when hit is not destroyed even after being hit 5 times (one more than most powerful brick besides permanent brick)
+    / = tests that a ball hitting the paddle on the right side will bounce back towards the right
 
 
 ### Notes

@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+/**
+ * @author sydneyhochberg
+ * Tests game functions specifically for each level such as Destroy Brick and Corner Bounce Back.
+ */
 public class Tests {
     private int myLevelNum;
     private int ballInitX;
@@ -40,26 +44,49 @@ public class Tests {
         return Integer.parseInt(fileName.substring(fileName.indexOf("level") + 5, fileName.indexOf("level") + 6));
     }
 
+    /**
+     *
+     * @returns the initial x position of the ball specified by the testing file
+     */
     public int getPosX() {
         return ballInitX;
     }
+
+    /**
+     *
+     * @returns the initial y position of the ball specified by the testing file
+     */
 
     public int getPosY() {
         return ballInitY;
     }
 
+    /**
+     *
+     * @returns the initial x velocity of the ball specified by the testing file
+     */
     public int getXVel() {
         return startingXVelocity;
     }
-
+    /**
+     *
+     * @returns the initial y velocity of the ball specified by the testing file
+     */
     public int getYVel() {
         return startingYVelocity;
     }
 
+    /**
+     * sets the string equal to the first event that occurs during testing
+     * @param firstEvent
+     */
     public void setFirstEvent(String firstEvent) {
         myFirstEvent = firstEvent;
     }
 
+    /**
+     * checks if the first event is equal to the expected event specified by the testing file
+     */
     public void callTest() {
         if (myFirstEvent.equals(fileEvent)) {
             System.out.println(fileEvent + " SUCCESS");
@@ -70,25 +97,45 @@ public class Tests {
         testFinished = true;
     }
 
+    /**
+     * helper for the testBallTransport() method and stores the x and y positions of the ball before transport
+     * in instance variables
+     * @param x x position of ball before transport
+     * @param y y position of ball before transport
+     */
     public void setOriginalBallLocation(double x, double y){
             originalBallLocationX = x;
             originalBallLocationY = y;
-        }
+    }
+
+    /**
+     *
+     * @returns boolean that tells you if the test is done running or not
+     */
     public boolean isTestFinished() {
-            return testFinished;
-        }
+        return testFinished;
+    }
+    /**
+     * helper for the testBallTransport() method and stores the x and y positions of the ball after transport
+     * in instance variables
+     * @param x x position of ball after transport
+     * @param y y position of ball after transport
+     */
     public void setNewBallLocation(double x, double y) {
         newBallLocationX = x;
         newBallLocationY = y;
     }
 
+    /**
+     * test for seeing if after the ball destroys a transport brick if it teleports the ball successfully
+     */
     public void testBallTransport() {
         if (originalBallLocationX != newBallLocationX || originalBallLocationY != newBallLocationY) {
             setFirstEvent(BALL_TRANSPORT);
         }
         callTest();
     }
-
+    /*
     public void testBallSpeedup(double startX, double startY, double x, double y) {
         if ((Math.pow(startX, 2) + Math.pow(startY, 2)) < (Math.pow(x, 2) + Math.pow(y, 2))) {
             setFirstEvent(BALL_VELOCITY);
@@ -97,4 +144,5 @@ public class Tests {
         System.out.println((Math.pow(x, 2) + Math.pow(y, 2)));
         callTest();
     }
+    */
 }
