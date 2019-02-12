@@ -58,6 +58,10 @@ public class Ball extends Item {
         public void bounceOffPad (String area, Tests tester){
             if(area.equals(RIGHT) && getXVelocity() < 0){
                 setXVelocity(getXVelocity() * -1);
+                if(tester!=null){
+                    tester.setFirstEvent("Bounce Right Off Right Side of Paddle");
+                    tester.callTest();
+                }
             }
             if(area.equals(LEFT) && getXVelocity() > 0){
                 setXVelocity(getXVelocity() * -1);

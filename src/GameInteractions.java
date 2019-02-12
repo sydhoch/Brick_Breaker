@@ -16,8 +16,6 @@ public class GameInteractions {
     private final String LEFT = "left";
     private final String RIGHT = "right";
 
-    private int bounceNumber = 0;
-
 
     public GameInteractions(Group root, Ball ball, List<List<Brick>> bricks, Paddle paddle,
                             Player player, List<PowerUp> powerUps, int screenSize){
