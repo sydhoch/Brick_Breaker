@@ -16,12 +16,12 @@ public class GameDriver extends Application{
         StartScreen startSetUp = new StartScreen(500);
         Scene start = startSetUp.getMyScene();
         stage.setScene(start);
-        start.setOnKeyPressed(key-> handleStartScreenKeys(stage));
+        start.setOnKeyPressed(key-> switchToGameScreen(stage));
         stage.setTitle(TITLE);
         stage.show();
     }
 
-    private void handleStartScreenKeys(Stage stage){
+    private void switchToGameScreen(Stage stage){
         GamePlay gamePlayer = new GamePlay();
         Scene myScene = gamePlayer.getScene();
         stage.setScene(myScene);
