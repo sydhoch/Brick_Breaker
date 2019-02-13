@@ -22,7 +22,12 @@ public class Tests {
     private final String BALL_TRANSPORT = "Ball Transport Brick";
     private boolean testFinished;
 
-
+    /**
+     * reads in the desired test file to set instance variables and sets testFinished to false for
+     * the cases where a test was ran and completed previously
+     * @param fileName contains the initial positions and velocities to set for the ball and the expected event first
+     *                 based on these specifications
+     */
     public Tests(String fileName){
         readFile(fileName);
         testFinished = false;
@@ -85,7 +90,7 @@ public class Tests {
     }
 
     /**
-     * checks if the first event is equal to the expected event specified by the testing file
+     * checks if the first event is equal to the expected first event specified by the testing file
      */
     public void callTest() {
         if (myFirstEvent.equals(fileEvent)) {
