@@ -11,7 +11,10 @@ public class GameDriver extends Application{
 
     private static final String TITLE = "BRICK BREAKER!";
 
-
+    /**
+     * Sets up and makes game run
+     * @param stage stage object to display game scenes on
+     */
     public void start (Stage stage) {
         StartScreen startSetUp = new StartScreen(500);
         Scene start = startSetUp.getMyScene();
@@ -26,6 +29,7 @@ public class GameDriver extends Application{
         Scene myScene = gamePlayer.getScene();
         stage.setScene(myScene);
     }
+
 
     public static void main(String[] args){
         launch(args);

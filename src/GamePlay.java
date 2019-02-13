@@ -13,6 +13,7 @@ import java.util.List;
  *
  * Creates and handles flow of game by setting up original screen, stepping, handling key input, and starting new
  * levels/games
+ * Dependent on Ball, Paddle, Brick, Status, LevelText, GameOverText, GameInteractions, LevelConfiguration, PowerUp
  *
  */
 
@@ -141,7 +142,6 @@ public class GamePlay {
             levelSetter.placeItemsForStart();
         }
     }
-
 
 
     private void checkForTest(KeyCode code){

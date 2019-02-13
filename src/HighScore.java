@@ -13,6 +13,9 @@ public class HighScore {
     private final String WRITE_FILE_PATH = "resources/"+READ_FILE_NAME;
     private int myHighScoreNum;
 
+    /**
+     * Creates a HighScore object
+     */
     public HighScore(){
         myHighScoreNum = readHighScore();
     }
@@ -28,6 +31,11 @@ public class HighScore {
         return myHighScoreNum;
     }
 
+    /**
+     * Saves the given score to the highscore file and sets highscore equal to it if it is higher than
+     * current highscore
+     * @param score new score to possibly be saved
+     */
     public void saveScore(int score){
         if(score > myHighScoreNum){
             writeHighScoreToFile(score);
@@ -51,7 +59,10 @@ public class HighScore {
         return myHighScoreNum;
     }
 
-
+    /**
+     * Resets highscore number back to 0
+     * Not currently used but useful in testing highscore functionality
+     */
     public void reset(){
         myHighScoreNum = 0;
         writeHighScoreToFile(0);

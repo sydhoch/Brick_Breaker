@@ -4,6 +4,7 @@ import javafx.scene.text.Font;
  * @author leahschwartz
  *
  * Handles text display for end of a game
+ * Inherits from GameText
  *
  */
 public class GameOverText extends GameText {
@@ -16,6 +17,12 @@ public class GameOverText extends GameText {
     private static final Color winColor = Color.GREEN;
     private static final Color neutralColor = Color.BLUE;
 
+    /**
+     * Creates GameOverText to display message when game ends
+     *
+     * @param screenSize size of screen
+     * @param player object representing and maintaining player-related information
+     */
     public GameOverText(double screenSize, Player player){
         super(screenSize, player);
         getText().setFont(new Font(GAMEOVER_FONT_SIZE));
@@ -30,6 +37,11 @@ public class GameOverText extends GameText {
     }
 
 
+    /**
+     * Updates display to give appropriate end of game message
+     * assumes player lost if they ran out of lives and that they won if they did not run out of lives and are on
+     * last level or displays a neutral message if neither holds true
+     */
     public void updateText() {
         getText().setVisible(true);
         if (getPlayer().getLives() == 0){

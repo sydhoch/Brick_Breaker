@@ -8,6 +8,10 @@ import java.util.*;
  *
  * Handles creation of each new level, clearing old bricks and powerups, reading and configuring bricks from a
  * text file, placing objects, and setting background colors
+ * Dependent on Ball, Paddle, Brick, PowerUp, Player, GameText classes
+ *
+ * Note: If trying to add a new level, create a new configuration file with the format "level" + number + ".txt"
+ * and change MAX_LEVEL in player class to reflect new maximum level
  *
  */
 
@@ -35,6 +39,21 @@ public class LevelConfiguration {
     private static final String PERMANENT_BRICK_SYMBOL = "#";
     private static final String BALL_TRANSPORT_BRICK_SYMBOL = "-";
 
+    /**
+     * Creates LevelConfiguration object which need items from game in order to reset and properly place them
+     * for a new level
+     *
+     * @param ball player's ball
+     * @param paddle in-game paddle for hitting ball
+     * @param bricks list of bricks
+     * @param root holds all onscreen images
+     * @param player object representing and maintaining player-related information
+     * @param powerUps list of powerups
+     * @param levelText in-game text appearing at start of each level informing player of level number and to press space
+     * @param SIZE size of screen
+     * @param animation game animation
+     * @param scene gameplay scene
+     */
     public LevelConfiguration(Ball ball, Paddle paddle, List<List<Brick>> bricks, Group root, Player player,
                               List<PowerUp> powerUps, LevelText levelText, int SIZE, Timeline animation, Scene scene){
         myBall = ball;
@@ -49,6 +68,12 @@ public class LevelConfiguration {
         myPlayer = player;
     }
 
+    /**
+     * Resets and places all items to prepare for a new level, as well as sets up text and pauses animation til
+     * space bar is pressed to begin
+     *
+     * @param levelNum number level to create, decides which brick configuration file is read
+     */
     public void createNewLevel(int levelNum){
         resetScreenForNewLevel();
         increaseBallSpeed(levelNum);
@@ -63,6 +88,9 @@ public class LevelConfiguration {
         return possibleLevelColors.get(0);
     }
 
+    /**
+     * Puts ball and paddle in correct starting places on screen
+     */
     public void placeItemsForStart(){
         myBall.placeItem(
                 SCREEN_SIZE / 2.0 - myBall.getWidth() / 2, SCREEN_SIZE / 2.0);
@@ -144,7 +172,7 @@ public class LevelConfiguration {
 
 
     private Brick makeBrick(String brickSymbol){
-        if (brickSymbol.matches("\\d+")){
+        if (brickSymbol.matches("\\d+")){ // regex for integer
             int health = Integer.parseInt(brickSymbol);
         if (health >= 1){
             return new MultiHitBrick(health);

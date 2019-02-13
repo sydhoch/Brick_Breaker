@@ -16,7 +16,11 @@ public class MultiHitBrick extends Brick{
     private final String MULTI_DESTROY_BLOCK_EVENT = "Destroy Multiple Hit Brick";
     private int myStartHealth;
 
-
+    /**
+     * Creates a brick which has more health than a normal brick with an image based on starting health,
+     * but which will change as health decreases
+     * @param health number of hits before destruction
+     */
     public MultiHitBrick(int health) {
         super(health);
         myStartHealth = health;
@@ -33,6 +37,12 @@ public class MultiHitBrick extends Brick{
         }
     }
 
+    /**
+     * Decreases brick's health and "destroys" it once health is too low
+     * Additional capability of changing image on based new health after a decrease
+     *
+     * @param tester object to run tests in testing mode
+     */
     @Override
     public void decreaseHealth(Tests tester){
         super.decreaseHealth(tester);
@@ -48,6 +58,15 @@ public class MultiHitBrick extends Brick{
         setBrickImage();
     }
 
+    /**
+     * Does not currently have any special ability besides longevity
+     *
+     * @param ball player's ball
+     * @param root holds all onscreen images
+     * @param powerUps list of powerups in game
+     * @param screenSize size of game screen
+     * @param tester object to run tests in testing mode
+     */
     @Override
     public void activateBrickAbility(Ball ball, Group root, List<PowerUp> powerUps,
                                      int screenSize, Tests tester) {

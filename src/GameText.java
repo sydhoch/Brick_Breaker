@@ -2,7 +2,8 @@ import javafx.scene.text.Text;
 /**
  * @author leahschwartz
  *
- * Abstract class for any in game text
+ * Abstract class for any in-game text
+ * Dependent on Player class
  *
  */
 abstract public class GameText {
@@ -11,17 +12,22 @@ abstract public class GameText {
     private Player myPlayer;
     private double size;
 
+    /**
+     * creates a text display that can be placed, updated, and altered
+     * @param screenSize size of screen
+     * @param player object representing and maintaining player-related information
+     */
     public GameText(double screenSize, Player player) {
         myPlayer = player;
         myText = new Text();
         size = screenSize;
     }
 
-    public Text getText() {
+    protected Text getText() {
         return myText;
     }
 
-    public Player getPlayer() {
+    protected Player getPlayer() {
         return myPlayer;
     }
 
@@ -29,12 +35,18 @@ abstract public class GameText {
         return size;
     }
 
+    /**
+     * makes text invisible
+     */
     public void disappear(){
         getText().setVisible(false);
     }
 
     abstract protected void placeText();
 
+    /**
+     * updates text to reflect current events in the game
+     */
     abstract public void updateText();
 
     }

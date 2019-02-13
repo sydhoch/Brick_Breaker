@@ -17,12 +17,24 @@ public class PointsPowerUp extends PowerUp{
 
     }
 
+    /**
+     *
+     * @param paddle
+     * @param ball
+     * @param player
+     */
     @Override
     public void activate(Paddle paddle, Ball ball, Player player) {
         super.activate(paddle, ball, player);
         player.setScoreIncrement(player.getScoreIncrement() * 2);
     }
 
+    /**
+     *
+     * @param paddle
+     * @param ball
+     * @param player
+     */
     @Override
     public void deactivate(Paddle paddle, Ball ball, Player player) {
         if (isActive()) {

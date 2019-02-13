@@ -15,7 +15,7 @@ public abstract class Brick extends Item{
     private boolean givesPoints;
 
     /**
-     * creates Brick object with some health that is visible, undestroyed, meant to give points when hit
+     * Creates Brick object with some health that is visible, undestroyed, meant to give points when hit
      * if Brick is created with health lower than 1, it is immediately "destroyed"
      * @param health number of hits needed to "destroy" brick
      */
@@ -31,7 +31,7 @@ public abstract class Brick extends Item{
     }
 
     /**
-     * sets Brick's ImageView to appropriate image
+     * Sets Brick's ImageView to appropriate image
      */
     protected abstract void setBrickImage();
 
@@ -48,7 +48,7 @@ public abstract class Brick extends Item{
     }
 
     /**
-     * decreases brick's health and "destroys" it once health is too low
+     * Decreases brick's health and "destroys" it once health is too low
      */
     public void decreaseHealth(Tests tester) {
         if (myHealth > 1) {
@@ -60,7 +60,7 @@ public abstract class Brick extends Item{
     }
 
     /**
-     * makes block "invisible" to the game by taking away health, setting to destroyed, and making image invisible
+     * Makes block "invisible" to the game by taking away health, setting to destroyed, and making image invisible
      */
     public void destroy(){
         myHealth = 0;
@@ -77,8 +77,8 @@ public abstract class Brick extends Item{
     }
 
     /**
-     * does any special effect brick may have on game
-     * should be used upon destruction of brick by ball
+     * Does any special effect brick may have on game
+     * currently used upon destruction of brick by ball, but could be activated more frequently
      *
      * @param ball player's ball
      * @param root holds all onscreen images
