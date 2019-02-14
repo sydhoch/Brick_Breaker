@@ -10,6 +10,7 @@ import javafx.scene.text.Text;
 /**
  * @author sydneyhochberg
  * Makes the splash screen that pops up before the game and explains the instructions.
+ *
  */
 public class StartScreen {
 
@@ -23,9 +24,9 @@ public class StartScreen {
     }
 
     /**
-     * sets up the splash screen scene and puts all of the text onto it & sets it
-     * @param screenSize
-     * @return
+     * Sets up the splash screen scene with all needed text
+     * @param screenSize size of screen
+     * @return scene representing start screen
      */
     public Scene setUpScreen(double screenSize){
         root = new Group();

@@ -4,7 +4,7 @@ import java.util.Random;
  *
  * Simulates a ball to bounce off walls, objects, and fall off the bottom of the screen
  * Inherits from abstract Item class
- *
+ * Dependent on Item and Tests class
  */
 public class Ball extends Item {
 

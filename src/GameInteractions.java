@@ -4,7 +4,7 @@ import java.util.*;
  * @author leahschwartz and sydneyhochberg
  *
  * Handles in-game interactions (such as collisions between )
- * Dependent on Ball, Brick, Paddle, Player, PowerUp classes
+ * Dependent on Ball, Brick, Item, Paddle, Player, PowerUp, and Tests classes
  *
  */
 

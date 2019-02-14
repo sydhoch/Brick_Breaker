@@ -8,7 +8,8 @@ import java.util.*;
  *
  * Handles creation of each new level, clearing old bricks and powerups, reading and configuring bricks from a
  * text file, placing objects, and setting background colors
- * Dependent on Ball, Paddle, Brick, PowerUp, Player, GameText classes
+ * Dependent on Ball, BallTransporting Brick, MultiHit Brick, PermanentBrick, PowerUp Brick, Brick Item, LevelText,
+ * Paddle, PowerUp, Player, and GameText classes
  *
  * Note: If trying to add a new level, create a new configuration file with the format "level" + number + ".txt"
  * and change MAX_LEVEL in player class to reflect new maximum level

@@ -3,7 +3,7 @@
  *
  * Represents a factory that only creates BallSpeedPowerUps in order to support random creation of powerups
  * Inherits from abstract PowerUpFactory class
- * Dependent on BallSpeedPowerUp class
+ * Dependent on BallSpeedPowerUp, PowerUp, and PowerUpFactory classes
  */
 
 public class BallSpeedPowerUpFactory extends PowerUpFactory{

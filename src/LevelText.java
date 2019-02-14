@@ -5,6 +5,7 @@ import javafx.scene.text.Font;
  *
  * Handles text display for each level within a game
  * Inherits from abstract GameText class
+ * Dependent of GameText and Player classes
  *
  */
 public class LevelText extends GameText {
@@ -16,7 +17,7 @@ public class LevelText extends GameText {
 
 
     /**
-     * Creates text diplay item which displays the level of the player and instructs them to start
+     * Creates text display item which displays the level of the player and instructs them to start
      * the level by pressing space bar
      *
      * @param screenSize size of screen

@@ -1,9 +1,10 @@
 import java.util.Timer;
 import java.util.TimerTask;
 /**
- * @author leahschwartz and sydneyhochberg
+ * @author leahschwartz
  * Abstract class to represent a powerup, which causes some special effect if caught by the paddle
  * Powerup stays in effect for TOTAL_TIME and then is reversed
+ * Dependent on Ball, Item, Paddle, and Player classes
  */
 public abstract class PowerUp extends Item{
 
@@ -37,6 +38,10 @@ public abstract class PowerUp extends Item{
     /**
      * Activates powerup by initiating some kind of special effect based on powerup type and sets timer after which
      * powerup will be deactivated and the special effect will be reversed back to normal
+     *
+     * @param ball player's ball
+     * @param paddle in-game paddle for hitting ball
+     * @param player object representing and maintaining player-related information
      */
     public void activate(Paddle paddle, Ball ball, Player player){
         setCanSee(false);
@@ -56,7 +61,11 @@ public abstract class PowerUp extends Item{
     }
 
     /**
-     * Dectivates powerup by doing reverse special effect based on powerup type
+     * Deactivates powerup by doing reverse special effect based on powerup type
+     *
+     * @param ball player's ball
+     * @param paddle in-game paddle for hitting ball
+     * @param player object representing and maintaining player-related information
      */
     public abstract void deactivate(Paddle paddle, Ball ball, Player player);
 
@@ -70,6 +79,9 @@ public abstract class PowerUp extends Item{
 
     /**
      * takes powerup out of game by deactivating it and making image invisible
+     * @param ball player's ball
+     * @param paddle in-game paddle for hitting ball
+     * @param player object representing and maintaining player-related information
      */
     public void destroy(Paddle paddle, Ball ball, Player player) {
         setCanSee(false);

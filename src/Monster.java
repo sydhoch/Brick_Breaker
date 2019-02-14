@@ -3,8 +3,8 @@
  *
  * Throughly experimental class that may be implemented in the future
  * Meant to simulate a little monster that floats across the screen and
- * steals your points if you hit it
- *
+ * steals your points if you hit it (unfinished due to time constraints)
+ * Dependent on Item class
  */
 public class Monster extends Item{
 

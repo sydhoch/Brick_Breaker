@@ -5,7 +5,7 @@ import java.lang.*;
  *
  * Simulates a paddle for player to move and ball to bounce off
  * Inherits from abstract Item class
- *
+ * Dependent on Item class
  */
 
 public class Paddle extends Item{

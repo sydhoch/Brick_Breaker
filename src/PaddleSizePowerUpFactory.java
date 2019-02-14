@@ -3,7 +3,7 @@
  *
  * Represents a factory that only creates PaddleSizePowerUp in order to support random creation of powerups
  * Inherits from abstract PowerUpFactory class
- * Dependent on PaddleSizePowerUp class
+ * Dependent on PaddleSizePowerUp, PowerUp, and PowerUpFactory classes
  */
 public class PaddleSizePowerUpFactory extends PowerUpFactory{
 
