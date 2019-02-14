@@ -5,6 +5,7 @@ import javafx.scene.text.Font;
  *
  * Handles status text display which gives constantly updating data to player about high score, lives, score, and level
  * Inherits from GameText
+ * Dependent on GameText and Player classes
  *
  */
 

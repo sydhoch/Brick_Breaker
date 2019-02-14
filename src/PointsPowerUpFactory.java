@@ -3,7 +3,7 @@
  *
  * Represents a factory that only creates PointsPowerUps in order to support random creation of powerups
  * Inherits from abstract PowerUpFactory
- * Dependent on PointsPowerUp class
+ * Dependent on PointsPowerUp, PowerUp, and PowerUpFactory classes
  */
 public class PointsPowerUpFactory extends PowerUpFactory{
 

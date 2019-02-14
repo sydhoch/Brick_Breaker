@@ -3,6 +3,7 @@
  *
  * Represents a powerup that causes the each hit to give out double the points
  * Inherits from abstract PowerUp class
+ * Dependent on Ball, Item, Paddle, Player, PowerUp classes
  */
 public class PointsPowerUp extends PowerUp{
 

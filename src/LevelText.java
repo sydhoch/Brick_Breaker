@@ -5,6 +5,7 @@ import javafx.scene.text.Font;
  *
  * Handles text display for each level within a game
  * Inherits from abstract GameText class
+ * Dependent of GameText and Player classes
  *
  */
 public class LevelText extends GameText {

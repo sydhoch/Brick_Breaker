@@ -4,7 +4,8 @@ import java.util.List;
  * @author leahschwartz
  *
  * Simulates a brick for ball to bounce off but does not get destroyed
- *
+ * Inherits from abstract Brick class
+ * Dependent on Ball, Brick, Item, PowerUp, and Tests classes
  */
 public class PermanentBrick extends Brick{
 

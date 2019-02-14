@@ -4,6 +4,7 @@ import java.util.TimerTask;
  * @author leahschwartz
  * Abstract class to represent a powerup, which causes some special effect if caught by the paddle
  * Powerup stays in effect for TOTAL_TIME and then is reversed
+ * Dependent on Ball, Item, Paddle, and Player classes
  */
 public abstract class PowerUp extends Item{
 

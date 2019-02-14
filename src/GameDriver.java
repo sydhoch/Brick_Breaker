@@ -5,6 +5,7 @@ import javafx.stage.Stage;
  * @author leahschwartz and sydneyhochberg
  *
  * Main driver for running complete game
+ * Dependent on GamePlay and StartScreen classes
  */
 
 public class GameDriver extends Application{

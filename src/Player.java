@@ -3,7 +3,7 @@
  *
  * Represents the player of the game, holding all the information the person who plays would be concerned with, such
  * as lives, score, highscore, and level
- * Dependent on HighScore class
+ * Dependent on HighScore and Tests classes
  */
 public class Player {
 

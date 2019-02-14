@@ -3,6 +3,7 @@
  *
  * Represents a powerup that causes the paddle to double in size
  * Inherits from abstract PowerUp class
+ * Dependent on Ball, Item, Paddle, Player, and PowerUp classes
  */
 public class PaddleSizePowerUp extends PowerUp {
 

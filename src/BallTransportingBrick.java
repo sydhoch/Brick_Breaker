@@ -6,6 +6,7 @@ import java.util.List;
  * Simulates a brick for ball to bounce off and destory
  * Upon destruction, teleports the ball to a random place on screen
  * Inherits from abstract Brick class
+ * Dependent on Ball, Brick, Item, PowerUp, and Tests classes
  */
 
 public class BallTransportingBrick extends Brick{

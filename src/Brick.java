@@ -5,7 +5,8 @@ import java.util.List;
  * @author leahschwartz
  *
  * Abstract class to simulate a brick for ball to bounce off and possibly destory
- *
+ * Inherits from Item
+ * Dependent on Ball, Item, PowerUp, and Tests classes
  */
 
 public abstract class Brick extends Item{

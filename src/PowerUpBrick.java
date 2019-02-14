@@ -9,6 +9,8 @@ import java.util.List;
  * Simulates a brick for ball to bounce off and destory
  * Upon destruction, creates and drops a random type of powerup
  * Inherits from abstract Brick class
+ * Dependent on Ball, BallSpeedPowerUpFactory, Brick, Item, PaddleSizePowerUpFactory, PowerUp, PowerUpFactory,
+ * and Tests classea
  */
 
 public class PowerUpBrick extends Brick{

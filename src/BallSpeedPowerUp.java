@@ -3,7 +3,7 @@
  *
  * Represents a powerup that causes the ball to speed up to twice its current speed
  * Inherits from abstract PowerUp class
- *
+ * Dependent on Ball, Item, Paddle, Player, and PowerUp classes
  */
 public class BallSpeedPowerUp extends PowerUp{
 

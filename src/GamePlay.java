@@ -13,7 +13,8 @@ import java.util.List;
  *
  * Creates and handles flow of game by setting up original screen, stepping, handling key input, and starting new
  * levels/games
- * Dependent on Ball, Paddle, Brick, Status, LevelText, GameOverText, GameInteractions, LevelConfiguration, PowerUp
+ * Dependent on Ball, Paddle, Brick, Status, LevelText, GameOverText, GameText, Item, GameInteractions,
+ * LevelConfiguration, PowerUp, Player, StatusText, and Tests classes
  *
  */
 

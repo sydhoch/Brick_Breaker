@@ -5,6 +5,7 @@ import javafx.scene.text.Font;
  *
  * Handles text display for end of a game
  * Inherits from GameText
+ * Dependent on GameText and Player classes
  *
  */
 public class GameOverText extends GameText {
