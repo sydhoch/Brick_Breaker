@@ -71,6 +71,10 @@ public class StartScreen {
     }
     */
 
+    /**
+     *
+     * @returns the scene for the splash screen
+     */
     public Scene getMyScene(){
         return myScene;
     }
