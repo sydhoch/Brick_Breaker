@@ -7,7 +7,8 @@ import java.util.List;
  * @author leahschwartz
  *
  * Simulates a brick for ball to bounce off and destory
- * Upon destruction, drops a powerup
+ * Upon destruction, creates and drops a random type of powerup
+ * Inherits from abstract Brick class
  */
 
 public class PowerUpBrick extends Brick{
@@ -18,6 +19,10 @@ public class PowerUpBrick extends Brick{
     private final String POWERUP_RELEASED = "Powerup is Released";
 
 
+    /**
+     * Creates a brick with a striped pink brick image which takes 1 hit to destroy and has the ability to make
+     * a random power-up
+     */
     public PowerUpBrick(){
         super(STARTING_HEALTH);
         myPowerUpFactories = new ArrayList<>(Arrays.asList(new PaddleSizePowerUpFactory(), new PointsPowerUpFactory(),
@@ -29,6 +34,15 @@ public class PowerUpBrick extends Brick{
         setImage(POWERUP_BRICK_IMAGE);
     }
 
+    /**
+     * Creates and adds to game a new random power-up
+     *
+     * @param ball player's ball
+     * @param root holds all onscreen images
+     * @param powerUps list of powerups in game
+     * @param screenSize size of game screen
+     * @param tester object to run tests in testing mode
+     */
     @Override
     public void activateBrickAbility(Ball ball, Group root, List<PowerUp> powerUps,
                                      int screenSize, Tests tester) {

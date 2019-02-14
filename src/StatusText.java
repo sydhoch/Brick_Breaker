@@ -4,6 +4,7 @@ import javafx.scene.text.Font;
  * @author leahschwartz
  *
  * Handles status text display which gives constantly updating data to player about high score, lives, score, and level
+ * Inherits from GameText
  *
  */
 
@@ -15,6 +16,11 @@ public class StatusText extends GameText {
     private static final String SCORE_LABEL = "Score: ";
     private static final String LEVEL_LABEL = "Level: ";
 
+    /**
+     * Creates text display item which informs player about all relevant player information
+     * @param screenSize size of screen
+     * @param player object representing and maintaining player-related information
+     */
     public StatusText(double screenSize, Player player){
         super(screenSize, player);
         getText().setFill(Color.BLUEVIOLET);
@@ -29,6 +35,10 @@ public class StatusText extends GameText {
         getText().setY(getSize() - getText().getBoundsInLocal().getHeight());
     }
 
+    /**
+     * Updates text by setting it to reflect current data of player
+     * Includes high score, lives, score, and level
+     */
     @Override
     public void updateText(){
         int currentHighScore = getPlayer().getCurrentHighScore();

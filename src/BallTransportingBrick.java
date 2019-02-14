@@ -14,7 +14,7 @@ public class BallTransportingBrick extends Brick{
     private static final int STARTING_HEALTH = 1;
 
     /**
-     * Creates a brick which takes 1 hit to destroy and has the ability to teleport the ball
+     * Creates a brick with a blue striped image which takes 1 hit to destroy and has the ability to teleport the ball
      */
     public BallTransportingBrick(){
         super(STARTING_HEALTH);

@@ -23,9 +23,9 @@ public class StartScreen {
     }
 
     /**
-     * sets up the splash screen scene and puts all of the text onto it & sets it
-     * @param screenSize
-     * @return
+     * Sets up the splash screen scene with all needed text
+     * @param screenSize size of screen
+     * @return scene representing start screen
      */
     public Scene setUpScreen(double screenSize){
         root = new Group();
