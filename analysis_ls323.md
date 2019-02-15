@@ -158,11 +158,11 @@ classes. We had 5 abstract classes in total: Brick, GameText, Item, PowerUp, and
 deciding whether to create some of these. For example, GameText is based on a Text object, so we were not sure
 if it was necessary to make or if we should just integrate Text objects throughout the game. I think the GameText hierarchy 
 wound up being quite useful though because it made our text much smarter than just a text object would be and reduced
-the work to make text functional within the main game classes. The further into the game we got, the smarter these
-smaller objects became. Originally, we did not want them to interact because we believed they should all be independent of
-one another. This resulted in very inactive, not useful items, so we changed our design to allow some objects to call 
-methods on others in order to directly affect their state. Despite this design, we tried to keep objects at least mostly
-independent so that they could be used in another game or context.
+the work to make text functional within the main game classes. The further into the game we got, the smarter we tried to 
+make our objects. Originally, we did not want objects such as PowerUps, Bricks, and Balls to interact because we believed 
+they should all be independent of one another. This resulted in very inactive, not useful items, so we changed our 
+design to allow some objects to call methods on others in order to directly affect their state. Despite 
+this design, we tried to keep objects at least mostly independent so that they could be used in another game or context.
 
 ## Your Design
 
