@@ -11,6 +11,7 @@ import javafx.scene.text.Text;
  * @author sydneyhochberg
  * Makes the splash screen that pops up before the game and explains the instructions.
  *
+ * Dependent on Group
  */
 public class StartScreen {
 

@@ -123,6 +123,7 @@ public class Tests {
     /**
      * helper for the testBallTransport() method and stores the x and y positions of the ball after transport
      * in instance variables
+     *
      * @param x x position of ball after transport
      * @param y y position of ball after transport
      */
