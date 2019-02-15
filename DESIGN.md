@@ -1,34 +1,4 @@
-###High Level Design Goals
-
-###Adding New Features
-*adding new levels
-*adding new bricks/powerups
-*adding new item object
-*adding new tests
-
-###Major Design Choices and Trade-offs
-*Testing
-Originally, we decided to make a test file that was a parameter to our GamePlay class, and if the test file string was 
-not null, then the constructor would read the file into a new Tests object. The object reads the file and sets its instance
-variables. These variables include the initial x and y positions and velocities of the ball at the beginning of the test.
-The file also contains the expected first event based on the initial specifications. The keys 
-*powerup implementation
-*game interactions
-*gamesetup & gameplay --> level config
-
-###Assumptions and Decisions
-* screen size is always 500
-* objects always same size
-=======
 ### High-Level Design Goals
-- small classes & readability and tangible objects
-- smarter, active objects
-- one stage, one timeline
-- make use of inheritance as much as possible 
-
-
-
-
 
 One of our main design goals was to make use of inheritance to simplify classes and allow for easy extension whenever
 possible. We aimed to use inheritance from the beginning, rather than having to refactor code to fit a mold later on.
@@ -39,12 +9,24 @@ into these classes as possible.
 Another major design goal was to have smart objects. We did not want all the code for objects interacting and 
 doing things to be coming from the GamePlay or LevelConfiguration classes, because this would make objects only useful
 for their image rather than what they actually could do. We wanted to make sure objects were responsible for 
-having their own abilities and did not become inactive.  
+having their own abilities and did not become inactive.
+
+These two design choices led to our program having many small classes(over 20). We wanted to keep our classes small
+for readability and to separate out all of the tangible objects. This helped us when we were adding new features because
+we were able to find what we were looking for very quickly and also enabled us to be less repetitive.
+
 
 ### Adding New Features 
-- new levels
 
-- tests
+##### Adding New Levels
+1. Create a level configuration text file in the resources folder labeled "levelx.txt" where x is any integer.
+    - The first line of the file contains the number of rows and the number of columns in the rest of the file.
+    - The rest of the lines have integers or symbols to indicate which type of brick to configure in which spots.
+    - Multi-hit bricks are represented by an integer that correlates to its health(the amount of times it needs to be hit to be destroyed).
+    - PowerUp bricks are denoted by an *, and have the ability to create a random powerup subclass instance by randomly selecting a powerup factory and calling its create method.
+    - Permanent bricks use the # symbol and cannot be destroyed. They act as an obstacle for the ball.
+    - Ball Transport bricks use the - symbol and when destroyed it teleports the ball to new location.
+2. Change the static variable for the MAX_LEVEL to be the new maximum level number.
 
 ##### Creating New "Types" (Bricks and Power-ups)
 Bricks and power-ups are a particularly easily extendable feature. In order to add a new Brick type:
@@ -70,8 +52,37 @@ method calls should be added to step(). To influence its functionality as a func
 to the LevelConfiguration class. If the object collides or interacts with other objects, code should be added to 
 GameInteractions to define these interaction rules.
 
+##### Creating New Tests
+1. Create a test file, labeled "test" + test number + "_level" + level number, in which:
+    - the first line has the x and y initial positions of the ball for the test separated by a space i.e. 50 100
+    - the second line has the x and y initial velocities of the ball for the test separated by a space i.e. -30 90
+    - the third line has the first expected event i.e. Brick Destroyed
+2. Find the method where the anticipated event happens in the code and add the tester object as a parameter to that method.
+3. Add an if statement to check if tester is not null.
+4. The code within the if statement varies based on the specifications of the test, however somewhere inside the if statement
+    the tester calls setFirstEvent(String event) and sets the first event to the event that occurs during that method.
+5. Also within the tester is not null if statement, after the first event is set, the tester should call callTest() which compares
+    if the first event that occurs is equal to the event that was expected by the tester. The tester will then print the expected event and 
+    success if the test was successful.
 
 ### Major Design Choices and Trade-offs
+
+##### Choices in Testing
+
+Originally, we decided to make a test file that was a parameter to our GamePlay class, and if the GameDriver instance 
+variable test file string was not null, then the constructor would read the file into a new Tests object. The object reads the file 
+and sets its instance variables. These variables include the initial x and y positions and velocities of the ball at the beginning 
+of the test. The file also contains the expected first event based on the initial specifications. If the player hit , . or / on the 
+splash screen and then pressed another key to start the game, the test would run. This was not possible anymore for the complete
+version of the project because those three keys needed to be used for every level to run different tests.
+
+We thought about sending the player back to the start screen in between every level to have the opportunity to run tests, but
+decided this would be disruptive to regular game play so we ultimately made it so the tests can be run either before the level starts
+on that level, or after the level starts during game play. To run the test before the level starts, the user presses the , . or / key
+and then presses space to start the test. if the user presses those keys after already starting the game and the game isn't paused, 
+the test will just start immediately. The trade-off of this decision is that the player can cause a test to fail by tampering with 
+the level's configuration i.e. destroying a brick that was meant to be destroyed during the test or moving the paddle so the ball 
+does not fall off the bottom of the screen.
 
 ##### Choices in Game Flow
 
@@ -114,8 +125,6 @@ The pros of this were that the code was very readable, flexible, and extremely s
 a new power-up type to the game and there are no self-imposed limits on how many power-ups can be on the screen. The
 biggest con of this design is probably the large number of classes it created, since these classes do nothing but make
 one power-up of a specific type.
-
-
 
 
 ### Assumptions and Decisions
