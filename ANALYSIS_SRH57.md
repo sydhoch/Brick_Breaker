@@ -1,8 +1,8 @@
-### Status
-Reflect on the entire project by reviewing all the code, especially the parts you did not write. 
-For each question, provide specific code examples (both positive and negative) to back up your answers.
+Design Review
+=====
 
-What makes the code well-written and readable (i.e., does it do what you expect, does it require comments to understand)?
+### Status
+####What makes the code well-written and readable?
 * We were very thoughtful when thinking of names for instance variables and methods so the reader can guess what to 
     expect from the code. 
 * Consistency to follow convention and keep coding practices the same across authors: 
@@ -10,6 +10,59 @@ What makes the code well-written and readable (i.e., does it do what you expect,
     - We for the most part made our instance variables start with "my."
     - We made all of our names in camel case format.
 * We separated our code out into over 20 classes to keep the code within each class short and easy to read.
+
+
+Example of good code:
+
+```
+private void handleAllKeys(KeyCode code){
+        handleRestartKey(code);
+        checkForTest(code);
+        if(testKeyHit){
+            tester = new Tests(test);
+        }
+        if (!gameOver) {
+            handleRunKeys(code, animation);
+            handleCheatKeys(code);
+        }
+    }
+```
+
+This is an example of well-written and readable code. All methods and variables are in camel case format and
+the names are specific enough that the reader can tell what this code does. This method handles when any
+key is hit. It calls other methods that handle when specific keys are hit which enables this code to be
+short enough to understand what is going on. Any time a key is hit, handleRestartKey checks to see
+if the key was one that restarts the game, checkForTest checks the key to see if it was a test key and 
+if a test key was hit, a new test object is made. If the game is not over yet, handleRunKeys checks
+to see if the player pauses or starts the game with the space key, and handleCheatKeys checks if 
+any of the cheat keys were hit and handles them. For better consistency, checkForTest should maybe have
+instead started with "handle" like the rest of the key handlers.
+
+Example of not as good code:
+```
+public void bounceOffPad (String area, Tests tester){
+            if(area.equals(RIGHT) && getXVelocity() < 0){
+                setXVelocity(getXVelocity() * -1);
+                if(tester!=null){
+                    tester.setFirstEvent(BOUNCE_RIGHT);
+                    tester.callTest();
+                }
+            }
+            if(area.equals(LEFT) && getXVelocity() > 0){
+                setXVelocity(getXVelocity() * -1);
+                if(tester!=null){
+                    tester.setFirstEvent(BOUNCE_LEFT);
+                    tester.callTest();
+                }
+            }
+            setYVelocity(getYVelocity() * -1);
+        }
+```
+This code could be improved because callTest is not a very clear name for what is happening. The code
+is also repetitive which could be solved by moving checking if the tester is null, setting the first event,
+and calling the test to the actual test class. We could have made a method in the test class that
+
+
 
 What makes this project's code flexible or not (i.e., what new features do you feel are easy or hard to add)?
 * Our classes our separated out in a way that makes it easy to find desired objects with ease. This simplifies
@@ -24,6 +77,43 @@ What makes this project's code flexible or not (i.e., what new features do you f
 
 What dependencies between the code are clear (e.g., public methods and parameters) and what are through "back channels" (e.g., static calls, order of method call, requirements for specific subclass types)? 
 Note, you can use IntelliJ to help you find the dependencies within your project.
+
+* Clear:
+    * When we instantiate a new object of another class.
+    * When we have the object as a parameter in that class.
+
+    It is clear that our GamePlay class has dependencies on almost all of the objects that are used in during the 
+game(Ball, Player, GameInteractions, etc.)
+
+* Less Clear:
+    * Abstract classes
+
+    It is less clear to see how GamePlay depends on for example the Item class because many of our GamePlay objects are
+subclasses of Item, but the word Item itself is not actually seen anywhere in the GamePlay class.
+
+
+
+Example of not as good code:
+```
+public void bounceOffPad (String area, Tests tester){
+            if(area.equals(RIGHT) && getXVelocity() < 0){
+                setXVelocity(getXVelocity() * -1);
+                if(tester!=null){
+                    tester.setFirstEvent(BOUNCE_RIGHT);
+                    tester.callTest();
+                }
+            }
+            if(area.equals(LEFT) && getXVelocity() > 0){
+                setXVelocity(getXVelocity() * -1);
+                if(tester!=null){
+                    tester.setFirstEvent(BOUNCE_LEFT);
+                    tester.callTest();
+                }
+            }
+            setYVelocity(getYVelocity() * -1);
+        }
+```
+This code could be improved because 
 
 
 
